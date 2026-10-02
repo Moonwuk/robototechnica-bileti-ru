@@ -1,0 +1,85 @@
+name: Build Android APK
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, feat/android-rustore-apk]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      HAS_SIGNING_KEY: ${{ github.event_name == 'workflow_dispatch' && secrets.ROBOTICS_SIGNING_KEY_BASE64 != '' && secrets.ROBOTICS_SIGNING_PASSWORD != '' }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Check trainer
+        run: |
+          node --check app.js
+          node --check android/android-adapter.js
+          node scripts/check-bank.mjs
+          node --test tests/core.test.mjs
+      - name: Install Android build tools
+        run: python3 android/install-sdk.py --sdk-dir "$RUNNER_TEMP/robotics-sdk"
+      - name: Build unsigned APK for review
+        if: env.HAS_SIGNING_KEY != 'true'
+        run: bash android/build.sh --unsigned
+      - name: Prepare private signing files
+        if: env.HAS_SIGNING_KEY == 'true'
+        env:
+          KEY_B64: ${{ secrets.ROBOTICS_SIGNING_KEY_BASE64 }}
+          KEY_PASSWORD: ${{ secrets.ROBOTICS_SIGNING_PASSWORD }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os,base64,tempfile
+          folder=Path(tempfile.mkdtemp(prefix="robotics-signing-",dir=os.environ["RUNNER_TEMP"]))
+          key=folder/"release.jks"
+          password=folder/"password.txt"
+          key.write_bytes(base64.b64decode(os.environ["KEY_B64"],validate=True))
+          password.write_text(os.environ["KEY_PASSWORD"]+"\n")
+          key.chmod(0o600)
+          password.chmod(0o600)
+          with open(os.environ["GITHUB_ENV"],"a") as env:
+              env.write("ROBOTICS_KEYSTORE="+str(key)+"\n")
+              env.write("ROBOTICS_PASSWORD_FILE="+str(password)+"\n")
+          PY
+      - name: Build signed release
+        if: env.HAS_SIGNING_KEY == 'true'
+        run: bash android/build.sh
+      - name: Upload unsigned review artifact
+        if: env.HAS_SIGNING_KEY != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: robotics-tickets-unsigned
+          path: android/build/outputs/*-unsigned.apk
+          if-no-files-found: error
+      - name: Upload release artifact
+        if: env.HAS_SIGNING_KEY == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: robotics-tickets-release
+          path: |
+            android/build/outputs/*.apk
+            !android/build/outputs/*-unsigned.apk
+            android/build/outputs/*.apk.sha256
+          if-no-files-found: error
+      - name: Remove temporary key
+        if: always() && env.HAS_SIGNING_KEY == 'true'
+        run: |
+          python3 - <<'PY'
+          import os,shutil
+          from pathlib import Path
+          path=os.environ.get("ROBOTICS_KEYSTORE")
+          if path:
+              shutil.rmtree(Path(path).parent,ignore_errors=True)
+          PY

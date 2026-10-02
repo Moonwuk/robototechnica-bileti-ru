@@ -1,5 +1,6 @@
 import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize } from './core.js';
 
+const isAndroid = window.ROBOTICS_ANDROID === true;
 const main = document.getElementById('main');
 const announce = document.getElementById('announcement');
 const dialog = document.getElementById('replace-session');
@@ -27,7 +28,7 @@ function persist() {
     storage.setItem(STORAGE_KEY, JSON.stringify(progress));
     document.getElementById('save-status').textContent = 'Прогресс сохранён';
   } catch {
-    storageWarning('Браузер не позволяет сохранить прогресс. Ответы останутся до закрытия страницы. Для сохранения откройте сайт в обычном режиме браузера.');
+    storageWarning(isAndroid ? 'Не удалось сохранить прогресс на устройстве. Ответы останутся до закрытия приложения. Проверьте свободное место.' : 'Браузер не позволяет сохранить прогресс. Ответы останутся до закрытия страницы. Для сохранения откройте сайт в обычном режиме браузера.');
   }
   updateNav();
 }
@@ -183,10 +184,10 @@ function mistakesPage() {
 function progressPage() {
   const s = stats();
   const completedPaths = paths.filter(p => progress.completed[p.id]).length;
-  main.innerHTML = heading('Ваш прогресс', 'Результаты сохраняются в этом браузере. После перезагрузки можно продолжить незавершённый подход.', 'Шаг за шагом') + resumeBanner() + `<div class="progress-stats"><div class="stat-card"><strong>${s.seen} / ${bank.questions.length}</strong><span>вопросов попробовано</span></div><div class="stat-card"><strong>${s.attempts ? `${s.accuracy}%` : '—'}</strong><span>верных ответов за всё время</span></div><div class="stat-card"><strong>${completedPaths} / ${paths.length}</strong><span>цепочек завершено</span></div><div class="stat-card"><strong>${s.mistakes.length}</strong><span>вопросов для повторения</span></div></div><section class="plain-panel"><h2>Прогресс по темам</h2><p class="note">Учитывается последний самостоятельный ответ на каждый вопрос.</p>${bank.topics.map(t => {
+  main.innerHTML = heading('Ваш прогресс', isAndroid ? 'Результаты сохраняются в приложении на этом устройстве. После закрытия можно продолжить незавершённый подход.' : 'Результаты сохраняются в этом браузере. После перезагрузки можно продолжить незавершённый подход.', 'Шаг за шагом') + resumeBanner() + `<div class="progress-stats"><div class="stat-card"><strong>${s.seen} / ${bank.questions.length}</strong><span>вопросов попробовано</span></div><div class="stat-card"><strong>${s.attempts ? `${s.accuracy}%` : '—'}</strong><span>верных ответов за всё время</span></div><div class="stat-card"><strong>${completedPaths} / ${paths.length}</strong><span>цепочек завершено</span></div><div class="stat-card"><strong>${s.mistakes.length}</strong><span>вопросов для повторения</span></div></div><section class="plain-panel"><h2>Прогресс по темам</h2><p class="note">Учитывается последний самостоятельный ответ на каждый вопрос.</p>${bank.topics.map(t => {
     const p = topicProgress(t.id);
     return `<div class="progress-row"><span>${E(t.name)}</span><div class="tiny-progress" aria-hidden="true"><span style="width:${p.percent}%"></span></div><span>${p.learned} / ${p.total}</span></div>`;
-  }).join('')}</section><section class="plain-panel"><h2>Последние подходы</h2>${progress.sessions.length ? `<ul class="history-list">${progress.sessions.slice(0, 12).map(s => `<li><div>${E(s.title)}<small>${E(date(s.finishedAt))} · ${s.mode === 'exam' ? 'самопроверка' : 'обучение'}</small></div><strong>${s.correct} / ${s.total}</strong></li>`).join('')}</ul>` : '<p class="note">После первого завершённого подхода здесь появится результат.</p>'}</section><p class="note">На другом устройстве будет отдельный прогресс. При очистке данных сайта браузер удалит сохранённые результаты.</p>`;
+  }).join('')}</section><section class="plain-panel"><h2>Последние подходы</h2>${progress.sessions.length ? `<ul class="history-list">${progress.sessions.slice(0, 12).map(s => `<li><div>${E(s.title)}<small>${E(date(s.finishedAt))} · ${s.mode === 'exam' ? 'самопроверка' : 'обучение'}</small></div><strong>${s.correct} / ${s.total}</strong></li>`).join('')}</ul>` : '<p class="note">После первого завершённого подхода здесь появится результат.</p>'}</section><p class="note">${isAndroid ? 'На другом устройстве будет отдельный прогресс. Удаление приложения или очистка его данных удалит сохранённые результаты.' : 'На другом устройстве будет отдельный прогресс. При очистке данных сайта браузер удалит сохранённые результаты.'}</p>`;
 }
 function missing() { main.innerHTML = heading('Этот раздел не найден') + '<a class="button primary" href="#first-steps">К первым шагам</a>'; }
 function emptySession() { main.innerHTML = heading('Выберите подход для тренировки') + '<a class="button primary" href="#first-steps">Начать с основ</a>'; }
@@ -302,6 +303,23 @@ document.getElementById('cancel-session').addEventListener('click', () => { dial
 dialog.addEventListener('cancel', () => { pendingStart = null; });
 window.addEventListener('hashchange', () => { if (bank) { render(); main.focus({ preventScroll: true }); window.scrollTo(0, 0); } });
 
+// Android Back pauses the approach without deleting any answers.
+window.roboticsNativeBack = () => {
+  if (!bank) return false;
+  if (dialog.open) {
+    dialog.dispatchEvent(new Event('cancel'));
+    dialog.close();
+    return true;
+  }
+  const route = (location.hash.slice(1) || 'first-steps').split('/')[0];
+  if (route === 'first-steps') return false;
+  if (route === 'session' || route === 'results') {
+    persist();
+    go(progress.active?.origin || 'first-steps');
+  } else go(route === 'topic' ? 'topics' : 'first-steps');
+  return true;
+};
+
 async function load() {
   try {
     const files = ['question_bank.json', 'interview_paths.json', 'beginner_tickets.json', 'tickets.json', 'study_plan.json'];
@@ -326,7 +344,7 @@ async function load() {
     registerWebTools();
   } catch (error) {
     console.error('Не удалось загрузить банк вопросов', error);
-    main.innerHTML = heading('Не удалось загрузить вопросы', 'Проверьте соединение и обновите страницу. Прогресс останется в браузере.') + '<button class="button primary" id="reload">Попробовать ещё раз</button>';
+    main.innerHTML = heading('Не удалось загрузить вопросы', isAndroid ? 'Перезапустите приложение. Прогресс останется на устройстве. Если ошибка повторяется, сообщите разработчику.' : 'Проверьте соединение и обновите страницу. Прогресс останется в браузере.') + '<button class="button primary" id="reload">Попробовать ещё раз</button>';
     document.getElementById('reload').addEventListener('click', () => location.reload());
   }
 }
