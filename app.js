@@ -1,9 +1,16 @@
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize } from './core.js';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js';
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
 const main = document.getElementById('main');
 const announce = document.getElementById('announcement');
 const dialog = document.getElementById('replace-session');
+const supportDialog = document.getElementById('support-dialog');
+const supportMessage = document.getElementById('support-message');
+const supportDraft = document.getElementById('support-draft');
+const supportStatus = document.getElementById('support-status');
+const supportDrafts = new Map();
+let supportContext = null;
+let supportInvoker = null;
 let bank, paths, beginnerTickets, mixedTickets, studyPlan, questionMap, topicMap, sourceMap;
 let progress = freshProgress();
 let storage;
@@ -16,6 +23,57 @@ const button = (label, action, id = '', type = 'primary') => `<button class="but
 const heading = (title, text = '', label = '') => `<div class="page-heading"><div>${label ? `<p class="eyebrow">${E(label)}</p>` : ''}<h1>${E(title)}</h1>${text ? `<p class="lead">${E(text)}</p>` : ''}</div></div>`;
 const topicName = id => topicMap.get(id)?.name || id;
 const trackName = id => bank.tracks.find(t => t.id === id)?.name || '';
+const reportButton = q => `<div class="question-tools"><span>${E(q.id)}</span><button class="text-button" data-feedback="error" data-question="${E(q.id)}">Сообщить об ошибке в вопросе</button></div>`;
+function updateSupportDraft() {
+  if (!supportContext) return;
+  supportDrafts.set(supportContext.key, supportMessage.value);
+  const draft = buildIssueDraft({ ...supportContext, message: supportMessage.value, bankVersion: bank?.metadata.bank_version, platform: isAndroid ? 'Android' : 'Сайт' });
+  supportDraft.value = draft.text;
+  const link = document.getElementById('support-open');
+  link.href = draft.url;
+  // A main-frame, user-initiated HTTPS link is handled by the offline Android wrapper.
+  link.target = isAndroid ? '_self' : '_blank';
+  document.getElementById('support-long').hidden = !draft.needsPaste;
+  if (draft.needsPaste) document.getElementById('support-preview').open = true;
+}
+function openSupport(kind, questionId, invoker) {
+  const q = kind === 'error' ? questionMap?.get(questionId) : null;
+  if (kind === 'error' && !q) return;
+  supportInvoker = invoker;
+  supportContext = { kind, question: q, topic: q ? topicName(q.topic_id) : '', key: q ? `error:${q.id}` : 'suggestion' };
+  document.getElementById('support-title').textContent = q ? 'Сообщить об ошибке в вопросе' : 'Предложить улучшение';
+  document.getElementById('support-label').textContent = q ? 'Что нужно исправить?' : 'Ваша идея';
+  const context = document.getElementById('support-context');
+  context.hidden = !q;
+  context.textContent = q ? `${q.id} · ${topicName(q.topic_id)}\n${q.question}` : '';
+  supportMessage.placeholder = q ? 'Что кажется неверным? Какой ответ или объяснение вы предлагаете?' : 'Новая тема, формат задания или удобная функция — расскажите, чего не хватает.';
+  supportMessage.value = supportDrafts.get(supportContext.key) || '';
+  supportStatus.textContent = '';
+  document.getElementById('support-preview').open = false;
+  updateSupportDraft();
+  supportDialog.showModal();
+  supportMessage.focus();
+}
+document.addEventListener('click', event => {
+  const trigger = event.target.closest('[data-feedback]');
+  if (trigger) openSupport(trigger.dataset.feedback, trigger.dataset.question, trigger);
+});
+supportMessage.addEventListener('input', () => { supportStatus.textContent = ''; updateSupportDraft(); });
+document.getElementById('support-close').addEventListener('click', () => supportDialog.close());
+supportDialog.addEventListener('close', () => { if (supportInvoker?.isConnected) supportInvoker.focus({ preventScroll: true }); });
+document.getElementById('support-copy').addEventListener('click', async () => {
+  const text = supportDraft.value;
+  try {
+    await navigator.clipboard.writeText(text);
+    supportStatus.textContent = 'Текст скопирован. Обращение ещё не отправлено.';
+  } catch {
+    document.getElementById('support-preview').open = true;
+    supportDraft.focus();
+    supportDraft.select();
+    supportDraft.setSelectionRange(0, text.length);
+    supportStatus.textContent = 'Текст выделен. Скопируйте его через меню устройства или Ctrl+C / ⌘C.';
+  }
+});
 function storageWarning(text) {
   const warning = document.getElementById('storage-warning');
   warning.textContent = text;
@@ -63,7 +121,7 @@ function firstSteps() {
   main.innerHTML = heading('Учитесь небольшими шагами', 'Пять вопросов за подход. Разберитесь в одном понятии и сразу проверьте себя.', 'С чего начать') + resumeBanner() +
     `<section class="start-card" aria-label="Следующая цепочка"><div><p class="eyebrow">${completed === ordered.length ? 'Можно повторить' : 'Ваш следующий шаг'}</p><h2>${E(next.title)}</h2><p>Короткий словарь · 5 вопросов · объяснение своими словами</p></div>${button(completed ? 'Продолжить обучение' : 'Начать с основ', 'open-path', next.id)}</section>
     <div class="stats-strip"><div class="stat-inline"><strong>${bank.questions.length}</strong><span>вопросов в банке</span></div><div class="stat-inline"><strong>${bank.topics.length}</strong><span>учебных тем</span></div><div class="stat-inline"><strong>${completed} / ${paths.length}</strong><span>цепочек пройдено</span></div></div>
-    <div class="section-title"><h2>От электрической цепи к роботу</h2><span>Рекомендуемый порядок</span></div><div class="card-grid">${bank.topics.map((t, i) => {
+    <section class="plain-panel engineering-intro"><p class="eyebrow">Дальше — инженерная практика</p><h2>От модели к работающему роботу</h2><p class="note">60 новых вопросов: расчёты, выбор решений и проверка ограничений. Начните с математики и координат, затем переходите к манипуляторам, датчикам и движению.</p><div class="engineering-links">${bank.topics.filter(t => t.track_id === 'engineering').map(t => `<a class="button secondary" href="#topic/${E(t.id)}">${E(t.name)}</a>`).join('')}</div></section><div class="section-title"><h2>От электрической цепи к роботу</h2><span>Рекомендуемый порядок</span></div><div class="card-grid">${bank.topics.filter(t => paths.some(p => p.topic_id === t.id)).map((t, i) => {
       const ps = paths.filter(p => p.topic_id === t.id);
       const s = topicProgress(t.id);
       return `<section class="card topic-card"><div class="card-top"><span class="topic-number">ТЕМА ${String(i + 1).padStart(2, '0')}</span><span class="tag">${E(trackName(t.track_id))}</span></div><h3>${E(t.name)}</h3>${ps.map((p, j) => `<button class="path-link" data-action="open-path" data-id="${E(p.id)}"><span class="path-step">${progress.completed[p.id] ? '✓' : j + 1}</span><span class="path-name">${E(p.title)}</span><span class="path-size">5 вопр.</span></button>`).join('')}<div class="topic-footer"><span>${s.learned} / ${s.total} отвечено верно</span><div class="tiny-progress" aria-hidden="true"><span style="width:${s.percent}%"></span></div></div></section>`;
@@ -79,17 +137,19 @@ function pathIntro(id) {
 function ticketCard(t, beginner = false, i = 0) {
   const history = progress.sessions.filter(s => s.resourceId === t.id);
   const best = history.length ? Math.max(...history.map(s => s.correct)) : null;
-  return `<section class="card ticket-card"><div class="card-top"><span class="ticket-number">${String(i + 1).padStart(2, '0')}</span><span class="tag${progress.completed[t.id] ? ' done' : ''}">${progress.completed[t.id] ? 'Пройден' : beginner ? 'Основы' : 'Все темы'}</span></div><h3>${E(beginner ? topicName(t.topic_id) : t.title)}</h3><p>${t.question_ids.length} вопросов · ${beginner || ticketMode === 'learn' ? 'разбор после каждого ответа' : 'разбор после завершения'}</p>${best !== null ? `<div class="ticket-score">Лучший результат: ${best} / ${t.question_ids.length}</div>` : ''}${button(beginner || ticketMode === 'learn' ? 'Учить билет' : 'Решить билет', beginner ? 'begin-beginner' : 'begin-ticket', t.id, 'secondary')}</section>`;
+  return `<section class="card ticket-card"><div class="card-top"><span class="ticket-number">${String(i + 1).padStart(2, '0')}</span><span class="tag${progress.completed[t.id] ? ' done' : ''}">${progress.completed[t.id] ? 'Пройден' : beginner ? 'Основы' : t.category === 'engineering' ? 'Инженерная практика' : 'Базовые темы'}</span></div><h3>${E(beginner ? topicName(t.topic_id) : t.title)}</h3><p>${t.question_ids.length} вопросов · ${beginner || ticketMode === 'learn' ? 'разбор после каждого ответа' : 'разбор после завершения'}</p>${best !== null ? `<div class="ticket-score">Лучший результат: ${best} / ${t.question_ids.length}</div>` : ''}${button(beginner || ticketMode === 'learn' ? 'Учить билет' : 'Решить билет', beginner ? 'begin-beginner' : 'begin-ticket', t.id, 'secondary')}</section>`;
 }
 function ticketsPage() {
+  const foundation = mixedTickets.filter(t => t.category !== 'engineering');
+  const engineering = mixedTickets.filter(t => t.category === 'engineering');
   main.innerHTML = heading('Билеты для практики', 'Начните с вводного билета по знакомой теме. Смешанные билеты пригодятся, когда освоите основы.', 'По одному подходу') + resumeBanner() +
-    `<div class="section-title"><h2>Вводные билеты</h2><span>12 билетов по 10 вопросов</span></div><div class="ticket-grid">${beginnerTickets.map((t, i) => ticketCard(t, true, i)).join('')}</div>
-    <div class="section-title"><h2>Смешанные билеты</h2><span>12 билетов по 20 вопросов</span></div><div class="filters"><label for="ticket-mode">Как решать</label><select class="field" id="ticket-mode"><option value="learn"${ticketMode === 'learn' ? ' selected' : ''}>Обучение — объяснения сразу</option><option value="exam"${ticketMode === 'exam' ? ' selected' : ''}>Самопроверка — ответы в конце</option></select></div><div class="ticket-grid">${mixedTickets.map((t, i) => ticketCard(t, false, i)).join('')}</div><p class="note">В самопроверке цель — 18 правильных ответов из 20. Это ориентир для учёбы. Время не ограничено.</p>`;
+    `<div class="section-title"><h2>Вводные билеты</h2><span>${beginnerTickets.length} билетов по 10 вопросов</span></div><div class="ticket-grid">${beginnerTickets.map((t, i) => ticketCard(t, true, i)).join('')}</div>
+    <div class="section-title"><h2>Смешанные билеты</h2><span>${foundation.length} билетов по 20 вопросов</span></div><div class="filters"><label for="ticket-mode">Как решать</label><select class="field" id="ticket-mode"><option value="learn"${ticketMode === 'learn' ? ' selected' : ''}>Обучение — объяснения сразу</option><option value="exam"${ticketMode === 'exam' ? ' selected' : ''}>Самопроверка — ответы в конце</option></select></div><div class="ticket-grid">${foundation.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Инженерная практика</h2><span>${engineering.length} билета по 20 вопросов</span></div><p class="note">Математика, координаты, манипуляторы, оценка состояния, зрение и планирование. Дополнительно — задачи по механике, управлению, ПО и испытаниям.</p><div class="ticket-grid">${engineering.map((t, i) => ticketCard(t, false, i)).join('')}</div><p class="note">В самопроверке цель — 18 правильных ответов из 20. Это ориентир для учёбы. Время не ограничено.</p>`;
 }
 function topicsPage() {
-  main.innerHTML = heading('Тренировка по темам', 'Краткая теория, полезные формулы и вопросы выбранного уровня.', 'Укрепить основы') + resumeBanner() + `<div class="card-grid">${bank.topics.map((t, i) => {
+  main.innerHTML = heading('Тренировка по темам', 'Краткая теория, полезные формулы и вопросы выбранного уровня.', 'От основ к инженерным задачам') + resumeBanner() + `<div class="card-grid">${bank.topics.map((t, i) => {
     const s = topicProgress(t.id);
-    return `<section class="card topic-card"><div class="card-top"><span class="topic-number">${String(i + 1).padStart(2, '0')} / ${bank.topics.length}</span><span class="tag">${E(trackName(t.track_id))}</span></div><h3>${E(t.name)}</h3><p class="note">${E(t.learning_goals[0])}</p><div class="topic-footer"><span>${s.learned} / ${s.total} отвечено верно</span><div class="tiny-progress" aria-hidden="true"><span style="width:${s.percent}%"></span></div></div><div style="margin-top:20px">${button('Открыть тему', 'open-topic', t.id, 'secondary')}</div></section>`;
+    return `<section class="card topic-card"><div class="card-top"><span class="topic-number">${String(i + 1).padStart(2, '0')} / ${bank.topics.length}</span><span class="tag">${E(trackName(t.track_id))}</span></div><h3>${E(t.name)}</h3><p class="note">${E(t.learning_goals[0])}</p>${t.engineering_question_count ? `<p class="engineering-count">${t.engineering_question_count} вопросов инженерной практики</p>` : ''}<div class="topic-footer"><span>${s.learned} / ${s.total} отвечено верно</span><div class="tiny-progress" aria-hidden="true"><span style="width:${s.percent}%"></span></div></div><div style="margin-top:20px">${button('Открыть тему', 'open-topic', t.id, 'secondary')}</div></section>`;
   }).join('')}</div>`;
 }
 function topicIntro(id) {
@@ -144,7 +204,7 @@ function sessionPage() {
       } else if (o.id === answer) label = 'Ваш выбор';
       return `<button class="answer${cls}" data-action="answer" data-id="${E(o.id)}" aria-pressed="${answer === o.id}"${showFeedback ? ' disabled' : ''}><span class="answer-key" aria-hidden="true">${i + 1}</span><span class="answer-text">${E(o.text)}${label ? `<span class="answer-state">${E(label)}</span>` : ''}</span></button>`;
     }).join('')}</div>${!answered && s.mode !== 'exam' && q.hint ? (s.hints[q.id] ? `<p class="hint"><strong>Подсказка:</strong> ${E(q.hint)}</p>` : '<button class="hint-button" data-action="hint">Нужна подсказка</button>') : ''}${showFeedback ? feedback(q, answer, Boolean(s.hints[q.id])) : s.mode === 'exam' ? '<p class="note">Можно изменить выбранный вариант. Разбор появится после завершения всего билета.</p>' : ''}
-    <div class="quiz-controls"><button class="button quiet" data-action="previous"${s.index === 0 ? ' disabled' : ''}>Назад</button><button id="next-question" class="button primary" data-action="next"${!answered ? ' disabled' : ''}>${allAnswered ? 'Завершить подход' : s.index === s.questionIds.length - 1 ? 'К неотвеченным' : 'Следующий вопрос'}</button></div></section>
+    <div class="quiz-controls"><button class="button quiet" data-action="previous"${s.index === 0 ? ' disabled' : ''}>Назад</button><button id="next-question" class="button primary" data-action="next"${!answered ? ' disabled' : ''}>${allAnswered ? 'Завершить подход' : s.index === s.questionIds.length - 1 ? 'К неотвеченным' : 'Следующий вопрос'}</button></div>${reportButton(q)}</section>
     <aside class="session-sidebar"><section class="card"><h3>${s.mode === 'exam' ? 'Ваш билет' : 'Ваш подход'}</h3><p>Ответов: ${answeredCount} / ${s.questionIds.length}</p><div class="question-grid" aria-label="Переход к вопросу">${s.questionIds.map((id, i) => {
       const a = Object.hasOwn(s.answers, id);
       const state = !a ? '' : s.mode === 'exam' ? ' answered' : s.answers[id] === questionMap.get(id).correct_option_id ? ' right' : ' wrong';
@@ -168,7 +228,7 @@ function resultsPage() {
       const q = questionMap.get(id);
       const answer = s.answers[id];
       const correct = answer === q.correct_option_id;
-      return `<article class="review-card"><span class="review-label${correct ? ' right' : ''}">Вопрос ${i + 1} · ${correct ? 'Верно' : 'Ошибка'}${s.hints[id] ? ' · с подсказкой' : ''}</span><h3 class="question-title">${E(q.question)}</h3><p><strong>Ваш ответ:</strong> ${E(q.options.find(o => o.id === answer)?.text)}</p>${!correct ? `<p><strong>Правильный ответ:</strong> ${E(q.options.find(o => o.id === q.correct_option_id)?.text)}</p>` : ''}<p class="explanation">${E(q.beginner_explanation || q.explanation)}</p><details><summary>Почему подходят или не подходят другие варианты</summary><ul class="option-reasons">${q.options.map(o => `<li><strong>${E(o.text)}.</strong> ${E(o.explanation)}</li>`).join('')}</ul><ul class="source-list">${sources(q.source_ids)}</ul></details></article>`;
+      return `<article class="review-card"><span class="review-label${correct ? ' right' : ''}">Вопрос ${i + 1} · ${correct ? 'Верно' : 'Ошибка'}${s.hints[id] ? ' · с подсказкой' : ''}</span><h3 class="question-title">${E(q.question)}</h3><p><strong>Ваш ответ:</strong> ${E(q.options.find(o => o.id === answer)?.text)}</p>${!correct ? `<p><strong>Правильный ответ:</strong> ${E(q.options.find(o => o.id === q.correct_option_id)?.text)}</p>` : ''}<p class="explanation">${E(q.beginner_explanation || q.explanation)}</p><details><summary>Почему подходят или не подходят другие варианты</summary><ul class="option-reasons">${q.options.map(o => `<li><strong>${E(o.text)}.</strong> ${E(o.explanation)}</li>`).join('')}</ul><ul class="source-list">${sources(q.source_ids)}</ul></details>${reportButton(q)}</article>`;
     }).join('')}</div>`;
 }
 function mistakesPage() {
@@ -301,10 +361,11 @@ document.getElementById('keep-session').addEventListener('click', () => { dialog
 document.getElementById('new-session').addEventListener('click', () => { dialog.close(); const config = pendingStart; pendingStart = null; if (config) begin(config, true); });
 document.getElementById('cancel-session').addEventListener('click', () => { dialog.close(); pendingStart = null; });
 dialog.addEventListener('cancel', () => { pendingStart = null; });
-window.addEventListener('hashchange', () => { if (bank) { render(); main.focus({ preventScroll: true }); window.scrollTo(0, 0); } });
+window.addEventListener('hashchange', () => { if (supportDialog.open) supportDialog.close(); if (bank) { render(); main.focus({ preventScroll: true }); window.scrollTo(0, 0); } });
 
 // Android Back pauses the approach without deleting any answers.
 window.roboticsNativeBack = () => {
+  if (supportDialog.open) { supportDialog.close(); return true; }
   if (!bank) return false;
   if (dialog.open) {
     dialog.dispatchEvent(new Event('cancel'));
