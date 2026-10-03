@@ -1,4 +1,6 @@
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.2.0';
+
+const ASSET_VERSION = '1.2.0';
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
 const main = document.getElementById('main');
@@ -385,7 +387,7 @@ async function load() {
   try {
     const files = ['question_bank.json', 'interview_paths.json', 'beginner_tickets.json', 'tickets.json', 'study_plan.json'];
     const data = await Promise.all(files.map(async name => {
-      const response = await fetch(new URL(`./data/${name}`, import.meta.url));
+      const response = await fetch(new URL(`./data/${name}?v=${ASSET_VERSION}`, import.meta.url));
       if (!response.ok) throw new Error(`Data unavailable: ${name}`);
       return response.json();
     }));
