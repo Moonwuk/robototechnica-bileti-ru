@@ -1,6 +1,6 @@
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.2.0';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.2.1';
 
-const ASSET_VERSION = '1.2.0';
+const ASSET_VERSION = '1.2.1';
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
 const main = document.getElementById('main');
@@ -25,6 +25,7 @@ const button = (label, action, id = '', type = 'primary') => `<button class="but
 const heading = (title, text = '', label = '') => `<div class="page-heading"><div>${label ? `<p class="eyebrow">${E(label)}</p>` : ''}<h1>${E(title)}</h1>${text ? `<p class="lead">${E(text)}</p>` : ''}</div></div>`;
 const topicName = id => topicMap.get(id)?.name || id;
 const trackName = id => bank.tracks.find(t => t.id === id)?.name || '';
+const questionCount = count => `${count} ${{ one: 'вопрос', few: 'вопроса', many: 'вопросов', other: 'вопроса' }[new Intl.PluralRules('ru').select(count)]}`;
 const reportButton = q => `<div class="question-tools"><span>${E(q.id)}</span><button class="text-button" data-feedback="error" data-question="${E(q.id)}">Сообщить об ошибке в вопросе</button></div>`;
 function updateSupportDraft() {
   if (!supportContext) return;
@@ -151,14 +152,14 @@ function ticketsPage() {
 function topicsPage() {
   main.innerHTML = heading('Тренировка по темам', 'Краткая теория, полезные формулы и вопросы выбранного уровня.', 'От основ к инженерным задачам') + resumeBanner() + `<div class="card-grid">${bank.topics.map((t, i) => {
     const s = topicProgress(t.id);
-    return `<section class="card topic-card"><div class="card-top"><span class="topic-number">${String(i + 1).padStart(2, '0')} / ${bank.topics.length}</span><span class="tag">${E(trackName(t.track_id))}</span></div><h3>${E(t.name)}</h3><p class="note">${E(t.learning_goals[0])}</p>${t.engineering_question_count ? `<p class="engineering-count">${t.engineering_question_count} вопросов инженерной практики</p>` : ''}<div class="topic-footer"><span>${s.learned} / ${s.total} отвечено верно</span><div class="tiny-progress" aria-hidden="true"><span style="width:${s.percent}%"></span></div></div><div style="margin-top:20px">${button('Открыть тему', 'open-topic', t.id, 'secondary')}</div></section>`;
+    return `<section class="card topic-card"><div class="card-top"><span class="topic-number">${String(i + 1).padStart(2, '0')} / ${bank.topics.length}</span><span class="tag">${E(trackName(t.track_id))}</span></div><h3>${E(t.name)}</h3><p class="note">${E(t.learning_goals[0])}</p>${t.engineering_question_count ? `<p class="engineering-count">${questionCount(t.engineering_question_count)} инженерной практики</p>` : ''}<div class="topic-footer"><span>${s.learned} / ${s.total} отвечено верно</span><div class="tiny-progress" aria-hidden="true"><span style="width:${s.percent}%"></span></div></div><div style="margin-top:20px">${button('Открыть тему', 'open-topic', t.id, 'secondary')}</div></section>`;
   }).join('')}</div>`;
 }
 function topicIntro(id) {
   const t = topicMap.get(id);
   if (!t) return missing();
   const count = bank.questions.filter(q => q.topic_id === id && (topicDifficulty === 'all' || q.difficulty === Number(topicDifficulty))).length;
-  main.innerHTML = heading(t.name, '', trackName(t.track_id)) + `<section class="plain-panel"><h2>Коротко о теме</h2><p class="lesson" style="margin-top:15px">${E(t.mini_lesson)}</p>${t.formulas?.length ? `<ul class="formula-list">${t.formulas.map(f => `<li>${E(f)}</li>`).join('')}</ul>` : ''}<p class="note"><strong>Частая ошибка:</strong> ${E(t.common_error)}</p></section><section class="plain-panel"><h2>Выберите уровень</h2><div class="filters"><label for="topic-difficulty">Сложность</label><select class="field" id="topic-difficulty" data-topic="${E(id)}"><option value="1"${topicDifficulty === '1' ? ' selected' : ''}>Базовый</option><option value="2"${topicDifficulty === '2' ? ' selected' : ''}>Прикладной</option><option value="3"${topicDifficulty === '3' ? ' selected' : ''}>Повышенный</option><option value="all"${topicDifficulty === 'all' ? ' selected' : ''}>Все уровни</option></select><span class="note" style="margin:0">${count} вопросов</span></div><div class="button-row">${button('Начать тренировку', 'begin-topic', id)}<a class="button quiet" href="#topics">Все темы</a></div></section>`;
+  main.innerHTML = heading(t.name, '', trackName(t.track_id)) + `<section class="plain-panel"><h2>Коротко о теме</h2><p class="lesson" style="margin-top:15px">${E(t.mini_lesson)}</p>${t.formulas?.length ? `<ul class="formula-list">${t.formulas.map(f => `<li>${E(f)}</li>`).join('')}</ul>` : ''}<p class="note"><strong>Частая ошибка:</strong> ${E(t.common_error)}</p></section><section class="plain-panel"><h2>Выберите уровень</h2><div class="filters"><label for="topic-difficulty">Сложность</label><select class="field" id="topic-difficulty" data-topic="${E(id)}"><option value="1"${topicDifficulty === '1' ? ' selected' : ''}>Базовый</option><option value="2"${topicDifficulty === '2' ? ' selected' : ''}>Прикладной</option><option value="3"${topicDifficulty === '3' ? ' selected' : ''}>Повышенный</option><option value="all"${topicDifficulty === 'all' ? ' selected' : ''}>Все уровни</option></select><span class="note" style="margin:0">${questionCount(count)}</span></div><div class="button-row">${button('Начать тренировку', 'begin-topic', id)}<a class="button quiet" href="#topics">Все темы</a></div></section>`;
 }
 function sources(ids) {
   return [...new Set(ids)].map(id => sourceMap.get(id)).filter(Boolean).map(s => {
