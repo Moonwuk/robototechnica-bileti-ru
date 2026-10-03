@@ -1,4 +1,33 @@
 export const STORAGE_KEY = 'robototehnika-bileti-ru:progress:v1';
+export const PROJECT_URL = 'https://github.com/Moonwuk/robototechnica-bileti-ru';
+export const SITE_URL = 'https://moonwuk.github.io/robototechnica-bileti-ru/';
+
+// Only explicit question context belongs in a public issue. Never accept progress here.
+export function buildIssueDraft({ kind = 'suggestion', question, topic = '', bankVersion = '', message = '', platform = 'Сайт' } = {}) {
+  if (!['error', 'suggestion'].includes(kind)) throw new Error('Unknown feedback kind');
+  if (kind === 'error' && !question?.id) throw new Error('Question required for an error report');
+  const isError = kind === 'error';
+  const title = isError ? `Ошибка в вопросе ${question.id}` : 'Предложение по тренажёру';
+  const page = isError ? `${SITE_URL}#topic/${encodeURIComponent(question.topic_id)}` : SITE_URL;
+  const context = isError ? [
+    `Вопрос: ${question.id}`, `Тема: ${topic}`, `Редакция вопроса: ${question.revision ?? 1}`,
+    '', question.question, ''
+  ] : [];
+  const body = [
+    isError ? '### Что нужно исправить' : '### Предложение',
+    message.trim() || (isError ? 'Опишите неточность и предложите исправление. При возможности добавьте источник.' : 'Опишите идею и то, кому она поможет.'),
+    '', '### Контекст', ...context, `Банк вопросов: ${bankVersion || 'не загружен'}`,
+    `Версия тренажёра: ${platform}`, `Страница: ${page}`
+  ].join('\n');
+  const url = new URL(`${PROJECT_URL}/issues/new`);
+  url.searchParams.set('title', title);
+  url.searchParams.set('body', body);
+  // GitHub rejects excessively long URLs. Keep the full text available for copying.
+  const needsPaste = url.href.length > 7500;
+  if (needsPaste) url.searchParams.delete('body');
+  return { title, body, text: `${title}\n\n${body}`, url: url.href, needsPaste };
+}
+
 const DAY = 86400000;
 export function freshProgress() {
   return { version: 1, questions: {}, sessions: [], completed: {}, active: null };

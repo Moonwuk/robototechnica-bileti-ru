@@ -63,3 +63,34 @@ test('invalid saved data is handled, and invalid answer does not mutate progress
   s.optionOrders[q.id] = ['a', 'a', 'a', 'a'];
   assert.equal(validateActive(s, questionMap), false);
 });
+
+
+test('public issue draft includes question context and preserves Unicode without exposing answers or progress', async () => {
+  const { buildIssueDraft } = await import('../core.js');
+  const q = { id: 'ENG-TEST-001', topic_id: 'math', revision: 2, question: 'Ток < 2 А & угол 90°?', correct_option_id: 'SECRET', options: [{ id: 'SECRET', text: 'HIDDEN_ANSWER' }] };
+  const message = 'Ссылка: https://example.com/?a=1&b=2\nКавычки "и" #знак + пробел';
+  const draft = buildIssueDraft({ kind: 'error', question: q, topic: 'Математика', bankVersion: '1.2.0', message, progress: { personal: 'PRIVATE_PROGRESS' } });
+  const url = new URL(draft.url);
+  assert.equal(url.origin, 'https://github.com');
+  assert.equal(url.pathname, '/Moonwuk/robototechnica-bileti-ru/issues/new');
+  assert.equal(url.searchParams.get('body'), draft.body);
+  assert.ok(draft.body.includes(message));
+  assert.ok(draft.body.includes(q.question));
+  assert.ok(draft.body.includes('Редакция вопроса: 2'));
+  assert.ok(draft.body.includes('#topic/math'));
+  assert.doesNotMatch(draft.text, /SECRET|HIDDEN_ANSWER|PRIVATE_PROGRESS/);
+  assert.equal(draft.needsPaste, false);
+});
+
+test('suggestions work before data loads and long drafts are never silently truncated', async () => {
+  const { buildIssueDraft } = await import('../core.js');
+  assert.match(buildIssueDraft().body, /не загружен/);
+  const message = 'Пожалуйста, добавьте новую тему! '.repeat(150);
+  const draft = buildIssueDraft({ message });
+  assert.equal(draft.needsPaste, true);
+  assert.ok(draft.text.includes(message.trim()));
+  assert.equal(new URL(draft.url).searchParams.get('body'), null);
+  assert.ok(draft.url.length < 7500);
+  assert.throws(() => buildIssueDraft({ kind: 'error' }), /Question required/);
+  assert.throws(() => buildIssueDraft({ kind: 'other' }), /Unknown feedback kind/);
+});

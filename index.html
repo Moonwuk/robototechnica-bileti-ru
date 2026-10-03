@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#12354a">
-  <meta name="description" content="360 вопросов по электротехнике, электронике и робототехнике. Учебные цепочки, билеты, разбор ошибок и сохранение прогресса.">
+  <meta name="description" content="420 вопросов по электротехнике, электронике и робототехнике. Учебные цепочки, билеты, разбор ошибок и сохранение прогресса.">
   <title>Робототехника — билеты и практика</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%2312354a'/%3E%3Cpath d='M23 5 10 23h9l-2 12 14-19h-10z' fill='%237de2ed'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./style.css">
@@ -29,14 +29,25 @@
       <div class="sidebar-bottom"><span class="small-label">ВАШ ТЕМП</span><p>Один шаг — одно понятие.</p><span class="sidebar-note">Электротехника · электроника<br>роботы · автоматизация</span></div>
     </aside>
     <div class="workspace">
-      <header class="topbar"><span class="topbar-label">Учебная мастерская</span><span id="save-status" class="save-status" role="status">Прогресс на этом устройстве</span></header>
+      <header class="topbar"><span class="topbar-label">Учебная мастерская</span><span id="save-status" class="save-status" role="status">Прогресс на этом устройстве</span><button class="button quiet suggestion-button" data-feedback="suggestion">Предложить улучшение</button></header>
       <div id="storage-warning" class="storage-warning" role="status" hidden></div>
       <main id="main" tabindex="-1"><div class="loading-panel"><div class="loading-mark" aria-hidden="true"></div><h1>Загружаем вопросы…</h1><p>Готовим ваши билеты и учебные цепочки.</p></div></main>
-      <footer class="footer"><span>Авторский учебный банк · <span id="bank-version">1.1.0</span></span><span>Для самостоятельной подготовки</span></footer>
+      <footer class="footer"><span>Авторский учебный банк · <span id="bank-version">1.2.0</span></span><span>Для самостоятельной подготовки</span></footer>
     </div>
   </div>
   <div id="announcement" class="sr-only" aria-live="polite" aria-atomic="true"></div>
   <dialog id="replace-session"><h2>У вас есть незавершённый подход</h2><p>Ответы уже сохранены. Можно продолжить его или начать выбранный заново.</p><div class="button-row"><button id="keep-session" class="button primary">Продолжить</button><button id="new-session" class="button secondary">Начать новый</button><button id="cancel-session" class="button quiet">Отмена</button></div></dialog>
+  <dialog id="support-dialog" class="support-dialog" aria-labelledby="support-title" aria-describedby="support-notice">
+    <div class="support-heading"><h2 id="support-title">Предложить улучшение</h2><button id="support-close" class="button quiet" aria-label="Закрыть обращение">Закрыть</button></div>
+    <p id="support-context" class="support-context" hidden></p>
+    <label id="support-label" for="support-message">Ваша идея</label>
+    <textarea id="support-message" class="field support-message" rows="4" maxlength="4000" autofocus></textarea>
+    <p id="support-notice" class="note">Откроется черновик в GitHub. Для отправки нужен аккаунт GitHub; обращение будет публичным. Не указывайте личные данные. Ваш учебный прогресс не прикладывается.</p>
+    <p id="support-long" class="note" hidden>Текст не помещается в ссылку. Скопируйте черновик и вставьте его в описание обращения на GitHub.</p>
+    <div class="button-row"><a id="support-open" class="button primary" target="_blank" rel="noopener noreferrer">Открыть черновик в GitHub</a><button id="support-copy" class="button secondary">Скопировать текст</button></div>
+    <p id="support-status" class="note" role="status" aria-live="polite"></p>
+    <details id="support-preview"><summary>Посмотреть текст обращения</summary><label class="sr-only" for="support-draft">Текст обращения для копирования</label><textarea id="support-draft" class="field support-draft" rows="7" readonly></textarea></details>
+  </dialog>
   <noscript><p class="noscript">Для тренажёра нужно включить JavaScript в браузере.</p></noscript>
 </body>
 </html>

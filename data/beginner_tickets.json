@@ -1,1 +1,315 @@
-{"schema_version":"1.1.0","bank_version":"1.1.0","language":"ru","description":"12 вводных билетов по 10 вопросов, по одному на тему. Каждый объединяет две учебные цепочки. Вместе они используют все 120 новых вопросов ровно один раз.","default_settings":{"passing_score":null,"time_limit_seconds":null,"show_explanations":"after_each_answer","shuffle_questions":false,"shuffle_options":true},"tickets":[{"id":"START-01","title":"Первые шаги — Постоянный ток и электрические цепи","topic_id":"dc_basics","learning_path_ids":["PATH-ELT-01","PATH-ELT-02"],"question_ids":["ELT-061","ELT-062","ELT-063","ELT-064","ELT-065","ELT-066","ELT-067","ELT-068","ELT-069","ELT-070"],"difficulty_counts":{"1":8,"2":2}},{"id":"START-02","title":"Первые шаги — Переменный ток и реактивные элементы","topic_id":"ac_components","learning_path_ids":["PATH-ELT-03","PATH-ELT-04"],"question_ids":["ELT-071","ELT-072","ELT-073","ELT-074","ELT-075","ELT-076","ELT-077","ELT-078","ELT-079","ELT-080"],"difficulty_counts":{"1":8,"2":2}},{"id":"START-03","title":"Первые шаги — Измерения и безопасная диагностика","topic_id":"measurement_safety","learning_path_ids":["PATH-ELT-05","PATH-ELT-06"],"question_ids":["ELT-081","ELT-082","ELT-083","ELT-084","ELT-085","ELT-086","ELT-087","ELT-088","ELT-089","ELT-090"],"difficulty_counts":{"1":8,"2":2}},{"id":"START-04","title":"Первые шаги — Диоды транзисторы и усилители","topic_id":"semiconductors","learning_path_ids":["PATH-ELN-01","PATH-ELN-02"],"question_ids":["ELN-061","ELN-062","ELN-063","ELN-064","ELN-065","ELN-066","ELN-067","ELN-068","ELN-069","ELN-070"],"difficulty_counts":{"1":8,"2":2}},{"id":"START-05","title":"Первые шаги — Цифровая электроника и микроконтроллеры","topic_id":"digital_mcu","learning_path_ids":["PATH-ELN-03","PATH-ELN-04"],"question_ids":["ELN-071","ELN-072","ELN-073","ELN-074","ELN-075","ELN-076","ELN-077","ELN-078","ELN-079","ELN-080"],"difficulty_counts":{"1":8,"2":2}},{"id":"START-06","title":"Первые шаги — Питание датчики и обработка сигналов","topic_id":"power_sensors","learning_path_ids":["PATH-ELN-05","PATH-ELN-06"],"question_ids":["ELN-081","ELN-082","ELN-083","ELN-084","ELN-085","ELN-086","ELN-087","ELN-088","ELN-089","ELN-090"],"difficulty_counts":{"1":8,"2":2}},{"id":"START-07","title":"Первые шаги — Механика двигатели и приводы","topic_id":"mechanics_drives","learning_path_ids":["PATH-ROB-01","PATH-ROB-02"],"question_ids":["ROB-061","ROB-062","ROB-063","ROB-064","ROB-065","ROB-066","ROB-067","ROB-068","ROB-069","ROB-070"],"difficulty_counts":{"1":8,"2":2}},{"id":"START-08","title":"Первые шаги — Обратная связь и регулирование","topic_id":"control","learning_path_ids":["PATH-ROB-03","PATH-ROB-04"],"question_ids":["ROB-071","ROB-072","ROB-073","ROB-074","ROB-075","ROB-076","ROB-077","ROB-078","ROB-079","ROB-080"],"difficulty_counts":{"1":8,"2":2}},{"id":"START-09","title":"Первые шаги — Кинематика и мобильные роботы","topic_id":"kinematics_mobile","learning_path_ids":["PATH-ROB-05","PATH-ROB-06"],"question_ids":["ROB-081","ROB-082","ROB-083","ROB-084","ROB-085","ROB-086","ROB-087","ROB-088","ROB-089","ROB-090"],"difficulty_counts":{"1":8,"2":2}},{"id":"START-10","title":"Первые шаги — ПЛК и промышленная автоматика","topic_id":"industrial_plc","learning_path_ids":["PATH-AUT-01","PATH-AUT-02"],"question_ids":["AUT-061","AUT-062","AUT-063","AUT-064","AUT-065","AUT-066","AUT-067","AUT-068","AUT-069","AUT-070"],"difficulty_counts":{"1":8,"2":2}},{"id":"START-11","title":"Первые шаги — Программная архитектура и ROS 2","topic_id":"robot_software","learning_path_ids":["PATH-AUT-03","PATH-AUT-04"],"question_ids":["AUT-071","AUT-072","AUT-073","AUT-074","AUT-075","AUT-076","AUT-077","AUT-078","AUT-079","AUT-080"],"difficulty_counts":{"1":8,"2":2}},{"id":"START-12","title":"Первые шаги — Диагностика и интеграция робота","topic_id":"diagnostics_integration","learning_path_ids":["PATH-AUT-05","PATH-AUT-06"],"question_ids":["AUT-081","AUT-082","AUT-083","AUT-084","AUT-085","AUT-086","AUT-087","AUT-088","AUT-089","AUT-090"],"difficulty_counts":{"1":8,"2":2}}]}
+{
+  "schema_version": "1.1.0",
+  "bank_version": "1.2.0",
+  "language": "ru",
+  "description": "12 вводных билетов по 10 вопросов, по одному на тему. Каждый объединяет две учебные цепочки. Вместе они используют все 120 новых вопросов ровно один раз.",
+  "default_settings": {
+    "passing_score": null,
+    "time_limit_seconds": null,
+    "show_explanations": "after_each_answer",
+    "shuffle_questions": false,
+    "shuffle_options": true
+  },
+  "tickets": [
+    {
+      "id": "START-01",
+      "title": "Первые шаги — Постоянный ток и электрические цепи",
+      "topic_id": "dc_basics",
+      "learning_path_ids": [
+        "PATH-ELT-01",
+        "PATH-ELT-02"
+      ],
+      "question_ids": [
+        "ELT-061",
+        "ELT-062",
+        "ELT-063",
+        "ELT-064",
+        "ELT-065",
+        "ELT-066",
+        "ELT-067",
+        "ELT-068",
+        "ELT-069",
+        "ELT-070"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    },
+    {
+      "id": "START-02",
+      "title": "Первые шаги — Переменный ток и реактивные элементы",
+      "topic_id": "ac_components",
+      "learning_path_ids": [
+        "PATH-ELT-03",
+        "PATH-ELT-04"
+      ],
+      "question_ids": [
+        "ELT-071",
+        "ELT-072",
+        "ELT-073",
+        "ELT-074",
+        "ELT-075",
+        "ELT-076",
+        "ELT-077",
+        "ELT-078",
+        "ELT-079",
+        "ELT-080"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    },
+    {
+      "id": "START-03",
+      "title": "Первые шаги — Измерения и безопасная диагностика",
+      "topic_id": "measurement_safety",
+      "learning_path_ids": [
+        "PATH-ELT-05",
+        "PATH-ELT-06"
+      ],
+      "question_ids": [
+        "ELT-081",
+        "ELT-082",
+        "ELT-083",
+        "ELT-084",
+        "ELT-085",
+        "ELT-086",
+        "ELT-087",
+        "ELT-088",
+        "ELT-089",
+        "ELT-090"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    },
+    {
+      "id": "START-04",
+      "title": "Первые шаги — Диоды транзисторы и усилители",
+      "topic_id": "semiconductors",
+      "learning_path_ids": [
+        "PATH-ELN-01",
+        "PATH-ELN-02"
+      ],
+      "question_ids": [
+        "ELN-061",
+        "ELN-062",
+        "ELN-063",
+        "ELN-064",
+        "ELN-065",
+        "ELN-066",
+        "ELN-067",
+        "ELN-068",
+        "ELN-069",
+        "ELN-070"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    },
+    {
+      "id": "START-05",
+      "title": "Первые шаги — Цифровая электроника и микроконтроллеры",
+      "topic_id": "digital_mcu",
+      "learning_path_ids": [
+        "PATH-ELN-03",
+        "PATH-ELN-04"
+      ],
+      "question_ids": [
+        "ELN-071",
+        "ELN-072",
+        "ELN-073",
+        "ELN-074",
+        "ELN-075",
+        "ELN-076",
+        "ELN-077",
+        "ELN-078",
+        "ELN-079",
+        "ELN-080"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    },
+    {
+      "id": "START-06",
+      "title": "Первые шаги — Питание датчики и обработка сигналов",
+      "topic_id": "power_sensors",
+      "learning_path_ids": [
+        "PATH-ELN-05",
+        "PATH-ELN-06"
+      ],
+      "question_ids": [
+        "ELN-081",
+        "ELN-082",
+        "ELN-083",
+        "ELN-084",
+        "ELN-085",
+        "ELN-086",
+        "ELN-087",
+        "ELN-088",
+        "ELN-089",
+        "ELN-090"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    },
+    {
+      "id": "START-07",
+      "title": "Первые шаги — Механика двигатели и приводы",
+      "topic_id": "mechanics_drives",
+      "learning_path_ids": [
+        "PATH-ROB-01",
+        "PATH-ROB-02"
+      ],
+      "question_ids": [
+        "ROB-061",
+        "ROB-062",
+        "ROB-063",
+        "ROB-064",
+        "ROB-065",
+        "ROB-066",
+        "ROB-067",
+        "ROB-068",
+        "ROB-069",
+        "ROB-070"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    },
+    {
+      "id": "START-08",
+      "title": "Первые шаги — Обратная связь и регулирование",
+      "topic_id": "control",
+      "learning_path_ids": [
+        "PATH-ROB-03",
+        "PATH-ROB-04"
+      ],
+      "question_ids": [
+        "ROB-071",
+        "ROB-072",
+        "ROB-073",
+        "ROB-074",
+        "ROB-075",
+        "ROB-076",
+        "ROB-077",
+        "ROB-078",
+        "ROB-079",
+        "ROB-080"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    },
+    {
+      "id": "START-09",
+      "title": "Первые шаги — Кинематика и мобильные роботы",
+      "topic_id": "kinematics_mobile",
+      "learning_path_ids": [
+        "PATH-ROB-05",
+        "PATH-ROB-06"
+      ],
+      "question_ids": [
+        "ROB-081",
+        "ROB-082",
+        "ROB-083",
+        "ROB-084",
+        "ROB-085",
+        "ROB-086",
+        "ROB-087",
+        "ROB-088",
+        "ROB-089",
+        "ROB-090"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    },
+    {
+      "id": "START-10",
+      "title": "Первые шаги — ПЛК и промышленная автоматика",
+      "topic_id": "industrial_plc",
+      "learning_path_ids": [
+        "PATH-AUT-01",
+        "PATH-AUT-02"
+      ],
+      "question_ids": [
+        "AUT-061",
+        "AUT-062",
+        "AUT-063",
+        "AUT-064",
+        "AUT-065",
+        "AUT-066",
+        "AUT-067",
+        "AUT-068",
+        "AUT-069",
+        "AUT-070"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    },
+    {
+      "id": "START-11",
+      "title": "Первые шаги — Программная архитектура и ROS 2",
+      "topic_id": "robot_software",
+      "learning_path_ids": [
+        "PATH-AUT-03",
+        "PATH-AUT-04"
+      ],
+      "question_ids": [
+        "AUT-071",
+        "AUT-072",
+        "AUT-073",
+        "AUT-074",
+        "AUT-075",
+        "AUT-076",
+        "AUT-077",
+        "AUT-078",
+        "AUT-079",
+        "AUT-080"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    },
+    {
+      "id": "START-12",
+      "title": "Первые шаги — Диагностика и интеграция робота",
+      "topic_id": "diagnostics_integration",
+      "learning_path_ids": [
+        "PATH-AUT-05",
+        "PATH-AUT-06"
+      ],
+      "question_ids": [
+        "AUT-081",
+        "AUT-082",
+        "AUT-083",
+        "AUT-084",
+        "AUT-085",
+        "AUT-086",
+        "AUT-087",
+        "AUT-088",
+        "AUT-089",
+        "AUT-090"
+      ],
+      "difficulty_counts": {
+        "1": 8,
+        "2": 2
+      }
+    }
+  ]
+}
