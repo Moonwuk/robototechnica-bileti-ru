@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Тренажёр билетов по электротехнике и робототехнике",
   "scripts": {
-    "test": "node --test tests/core.test.mjs",
+    "test": "node --test tests/*.test.mjs",
     "check": "node scripts/check-bank.mjs",
     "build": "node scripts/build.mjs",
     "start": "python3 -m http.server 4173"

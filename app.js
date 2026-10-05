@@ -1,6 +1,8 @@
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.2.1';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.3.0';
+import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.3.0';
 
-const ASSET_VERSION = '1.2.1';
+const ASSET_VERSION = '1.3.0';
+let circuitUI;
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
 const main = document.getElementById('main');
@@ -40,15 +42,15 @@ function updateSupportDraft() {
   if (draft.needsPaste) document.getElementById('support-preview').open = true;
 }
 function openSupport(kind, questionId, invoker) {
-  const q = kind === 'error' ? questionMap?.get(questionId) : null;
+  const q = kind === 'error' ? questionMap?.get(questionId) || circuitReport(questionId) : null;
   if (kind === 'error' && !q) return;
   supportInvoker = invoker;
-  supportContext = { kind, question: q, topic: q ? topicName(q.topic_id) : '', key: q ? `error:${q.id}` : 'suggestion' };
+  supportContext = { kind, question: q, topic: q ? q.type === 'circuit' ? 'Расчёты — законы Кирхгофа' : topicName(q.topic_id) : '', key: q ? `error:${q.id}` : 'suggestion' };
   document.getElementById('support-title').textContent = q ? 'Сообщить об ошибке в вопросе' : 'Предложить улучшение';
   document.getElementById('support-label').textContent = q ? 'Что нужно исправить?' : 'Ваша идея';
   const context = document.getElementById('support-context');
   context.hidden = !q;
-  context.textContent = q ? `${q.id} · ${topicName(q.topic_id)}\n${q.question}` : '';
+  context.textContent = q ? `${q.id} · ${supportContext.topic}\n${q.question}` : '';
   supportMessage.placeholder = q ? 'Что кажется неверным? Какой ответ или объяснение вы предлагаете?' : 'Новая тема, формат задания или удобная функция — расскажите, чего не хватает.';
   supportMessage.value = supportDrafts.get(supportContext.key) || '';
   supportStatus.textContent = '';
@@ -96,7 +98,7 @@ function persist() {
 function stats() { return summarize(progress, questionMap); }
 function updateNav() {
   const route = location.hash.slice(1).split('/')[0] || 'first-steps';
-  const nav = ['path', 'session', 'results'].includes(route) ? (progress.active?.origin || 'first-steps') : route === 'topic' ? 'topics' : route;
+  const nav = ['path', 'session', 'results'].includes(route) ? (progress.active?.origin || 'first-steps') : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : route;
   for (const link of document.querySelectorAll('[data-route]')) {
     if (link.dataset.route === nav) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -124,6 +126,7 @@ function firstSteps() {
   main.innerHTML = heading('Учитесь небольшими шагами', 'Пять вопросов за подход. Разберитесь в одном понятии и сразу проверьте себя.', 'С чего начать') + resumeBanner() +
     `<section class="start-card" aria-label="Следующая цепочка"><div><p class="eyebrow">${completed === ordered.length ? 'Можно повторить' : 'Ваш следующий шаг'}</p><h2>${E(next.title)}</h2><p>Короткий словарь · 5 вопросов · объяснение своими словами</p></div>${button(completed ? 'Продолжить обучение' : 'Начать с основ', 'open-path', next.id)}</section>
     <div class="stats-strip"><div class="stat-inline"><strong>${bank.questions.length}</strong><span>вопросов в банке</span></div><div class="stat-inline"><strong>${bank.topics.length}</strong><span>учебных тем</span></div><div class="stat-inline"><strong>${completed} / ${paths.length}</strong><span>цепочек пройдено</span></div></div>
+    <section class="plain-panel calc-promo"><div><h2>Кирхгоф — с расчётами по шагам</h2><p class="note">12 задач со схемами, вводом уравнений и проверкой промежуточных результатов.</p></div><a class="button secondary" href="#circuits">Открыть расчёты</a></section>
     <section class="plain-panel engineering-intro"><p class="eyebrow">Дальше — инженерная практика</p><h2>От модели к работающему роботу</h2><p class="note">60 новых вопросов: расчёты, выбор решений и проверка ограничений. Начните с математики и координат, затем переходите к манипуляторам, датчикам и движению.</p><div class="engineering-links">${bank.topics.filter(t => t.track_id === 'engineering').map(t => `<a class="button secondary" href="#topic/${E(t.id)}">${E(t.name)}</a>`).join('')}</div></section><div class="section-title"><h2>От электрической цепи к роботу</h2><span>Рекомендуемый порядок</span></div><div class="card-grid">${bank.topics.filter(t => paths.some(p => p.topic_id === t.id)).map((t, i) => {
       const ps = paths.filter(p => p.topic_id === t.id);
       const s = topicProgress(t.id);
@@ -297,6 +300,8 @@ function render() {
     case 'tickets': ticketsPage(); break;
     case 'topics': topicsPage(); break;
     case 'topic': topicIntro(id); break;
+    case 'circuits': circuitUI.list(); break;
+    case 'circuit': circuitUI.exercise(id); break;
     case 'mistakes': mistakesPage(); break;
     case 'progress': progressPage(); break;
     case 'session': sessionPage(); break;
@@ -380,7 +385,7 @@ window.roboticsNativeBack = () => {
   if (route === 'session' || route === 'results') {
     persist();
     go(progress.active?.origin || 'first-steps');
-  } else go(route === 'topic' ? 'topics' : 'first-steps');
+  } else go(route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : 'first-steps');
   return true;
 };
 
@@ -404,6 +409,7 @@ async function load() {
     } catch { storageWarning('Браузер не позволяет сохранить прогресс. Откройте сайт в обычном режиме браузера.'); }
     if (progress.active && !validateActive(progress.active, questionMap)) { progress.active = null; persist(); }
     document.getElementById('bank-version').textContent = bank.metadata.bank_version;
+    circuitUI = createCircuitUI({ main, announce, onStorageError: storageWarning });
     render();
     registerWebTools();
   } catch (error) {

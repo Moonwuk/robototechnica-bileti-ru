@@ -24,8 +24,9 @@ jobs:
         run: |
           node --check app.js
           node --check core.js
+          node --check circuits-ui.js
           node scripts/check-bank.mjs
-          node --test tests/core.test.mjs
+          node --test tests/*.test.mjs
       - name: Build static files
         run: node scripts/build.mjs
       - name: Upload Pages artifact
