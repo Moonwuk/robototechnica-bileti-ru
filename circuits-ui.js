@@ -1,5 +1,5 @@
-import { circuitProblems, circuitGroups, circuitSources } from './circuits-data.js?v=1.3.0';
-import { CIRCUIT_STORAGE_KEY, readCircuitProgress, checkStep, formatNumber } from './circuits-core.js?v=1.3.0';
+import { circuitProblems, circuitGroups, circuitSources } from './circuits-data.js?v=1.3.1';
+import { CIRCUIT_STORAGE_KEY, readCircuitProgress, checkStep, formatNumber } from './circuits-core.js?v=1.3.1';
 
 const E = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const number = n => formatNumber(n);
@@ -20,7 +20,7 @@ export function circuitDiagram(problem) {
     });
     [...p.outgoing, null].forEach((n, i) => {
       const y = ys(p.outgoing.length + 1)[i];
-      content += wire(`M300 160 L530 ${y}`) + arrow(`M355 ${160+(y-160)*55/230} L440 ${160+(y-160)*140/230}`) + label(450, y - 18, n === null ? 'i = ?' : `${number(n)} А`, 'start');
+      content += wire(`M300 160 L530 ${y}`) + arrow(`M355 ${160+(y-160)*55/230} L440 ${160+(y-160)*140/230}`) + label(450, y > 160 ? y + 25 : y - 18, n === null ? 'i = ?' : `${number(n)} А`, 'start');
     });
     content += '<circle cx="300" cy="160" r="6" fill="currentColor"/>' + label(300, 135, 'A');
     caption = 'Стрелки показывают выбранные направления. Отрицательное i означает ток против стрелки.';
@@ -141,7 +141,7 @@ export function createCircuitUI({ main, announce, onStorageError }) {
     current.steps.forEach(s => { task.checked[s.id] = true; });
     save(); paint();
     announce.textContent = main.querySelector('#calc-summary').textContent;
-    main.querySelector('[aria-invalid="true"]')?.focus({ preventScroll: true });
+    main.querySelector('[aria-invalid="true"]')?.focus();
   });
   return { list, exercise };
 }

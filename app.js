@@ -1,7 +1,7 @@
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.3.0';
-import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.3.0';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.3.1';
+import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.3.1';
 
-const ASSET_VERSION = '1.3.0';
+const ASSET_VERSION = '1.3.1';
 let circuitUI;
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
