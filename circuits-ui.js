@@ -1,5 +1,5 @@
-import { circuitProblems, circuitGroups, circuitSources } from './circuits-data.js?v=1.3.1';
-import { CIRCUIT_STORAGE_KEY, readCircuitProgress, checkStep, formatNumber } from './circuits-core.js?v=1.3.1';
+import { circuitProblems, circuitGroups, circuitSources } from './circuits-data.js?v=1.4.0';
+import { CIRCUIT_STORAGE_KEY, readCircuitProgress, checkStep, formatNumber } from './circuits-core.js?v=1.4.0';
 
 const E = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const number = n => formatNumber(n);

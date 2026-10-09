@@ -1,14 +1,15 @@
 {
   "schema_version": "1.0.0",
-  "bank_version": "1.2.0",
+  "bank_version": "1.3.0",
   "language": "ru",
-  "description": "12 исходных смешанных билетов и 3 билета инженерной практики по 20 вопросов. В сумме охватывают 300 вопросов без повторений. Вводные 120 вопросов находятся в beginner_tickets.json и interview_paths.json.",
+  "description": "15 прежних билетов по 20 вопросов и три прикладных билета (20, 20, 12) охватывают 352 вопроса без повторений. Ещё 120 вводных вопросов находятся в beginner_tickets.json.",
   "default_settings": {
-    "passing_score": 18,
-    "passing_score_note": "Предлагаемая настройка самопроверки, не официальный экзаменационный норматив.",
+    "passing_score": null,
+    "passing_score_note": "Цель: округлить вверх 90% числа вопросов. Это учебный ориентир, не официальный норматив.",
     "time_limit_seconds": null,
     "show_explanations": "after_finish",
-    "shuffle_options": true
+    "shuffle_options": true,
+    "passing_fraction": 0.9
   },
   "tickets": [
     {
@@ -681,6 +682,110 @@
         "1": 4,
         "2": 6,
         "3": 10
+      }
+    },
+    {
+      "id": "INTERVIEW-01",
+      "title": "Прикладное собеседование 1",
+      "category": "interview",
+      "question_ids": [
+        "INT-002",
+        "INT-004",
+        "INT-006",
+        "INT-007",
+        "INT-008",
+        "INT-009",
+        "INT-010",
+        "INT-012",
+        "INT-013",
+        "INT-014",
+        "INT-015",
+        "INT-016",
+        "INT-017",
+        "INT-018",
+        "INT-019",
+        "INT-020",
+        "INT-021",
+        "INT-023",
+        "INT-024",
+        "INT-025"
+      ],
+      "topic_counts": {
+        "control": 4,
+        "digital_mcu": 4,
+        "mechanics_drives": 5,
+        "robot_software": 7
+      },
+      "difficulty_counts": {
+        "2": 13,
+        "3": 7
+      }
+    },
+    {
+      "id": "INTERVIEW-02",
+      "title": "Прикладное собеседование 2",
+      "category": "interview",
+      "question_ids": [
+        "INT-027",
+        "INT-028",
+        "INT-029",
+        "INT-030",
+        "INT-032",
+        "INT-033",
+        "INT-034",
+        "INT-035",
+        "INT-036",
+        "INT-038",
+        "INT-039",
+        "INT-040",
+        "INT-041",
+        "INT-042",
+        "INT-043",
+        "INT-044",
+        "INT-045",
+        "INT-046",
+        "INT-047",
+        "INT-048"
+      ],
+      "topic_counts": {
+        "computer_vision": 5,
+        "industrial_plc": 3,
+        "manipulator_kinematics": 3,
+        "motion_planning": 5,
+        "state_estimation": 4
+      },
+      "difficulty_counts": {
+        "2": 14,
+        "3": 6
+      }
+    },
+    {
+      "id": "INTERVIEW-03",
+      "title": "Прикладное собеседование 3",
+      "category": "interview",
+      "question_ids": [
+        "INT-049",
+        "INT-050",
+        "INT-051",
+        "INT-052",
+        "INT-053",
+        "INT-054",
+        "INT-055",
+        "INT-056",
+        "INT-057",
+        "INT-058",
+        "INT-059",
+        "INT-060"
+      ],
+      "topic_counts": {
+        "diagnostics_integration": 9,
+        "industrial_plc": 2,
+        "robot_math": 1
+      },
+      "difficulty_counts": {
+        "1": 2,
+        "2": 9,
+        "3": 1
       }
     }
   ]

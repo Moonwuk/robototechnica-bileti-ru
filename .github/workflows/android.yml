@@ -26,9 +26,12 @@ jobs:
         run: |
           node --check app.js
           node --check android/android-adapter.js
+          node --check practice-ui.js
+          node --check practice-core.js
           node --check circuits-ui.js
           node scripts/check-bank.mjs
           node --test tests/*.test.mjs
+          python3 docs/research/reference_solutions.py
       - name: Install Android build tools
         run: python3 android/install-sdk.py --sdk-dir "$RUNNER_TEMP/robotics-sdk"
       - name: Build unsigned APK for review

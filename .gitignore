@@ -6,3 +6,4 @@ android/.signing/
 *.jks
 *.keystore
 local.properties
+test-results/
