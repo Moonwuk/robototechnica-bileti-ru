@@ -3,35 +3,38 @@
     "title": "Электротехника и робототехника",
     "subtitle": "От первых понятий к вопросам собеседования",
     "schema_version": "1.1.0",
-    "bank_version": "1.2.0",
+    "bank_version": "1.3.0",
     "language": "ru",
     "created_at": "2026-10-02",
-    "question_count": 420,
-    "source_count": 223,
+    "question_count": 472,
+    "source_count": 254,
     "answer_mode": "single_choice",
-    "description": "420 авторских вопросов: 120 вводных вопросов в 24 учебных цепочках, 240 вопросов базового комплекта и 60 вопросов инженерной практики. Добавлены математика, координаты и ориентация, кинематика манипуляторов, оценка состояния, техническое зрение и планирование движения. У каждого вопроса четыре варианта, один правильный ответ, разбор и источники.",
+    "description": "472 авторских вопроса: 120 вводных, 240 базовых, 60 инженерных и 52 прикладных по исследованию собеседований. Восемь совпадающих тем расширения связаны с прежними заданиями. Дополнительно доступны 20 практических задач, пять профильных маршрутов и шесть тематических цепочек.",
     "scope_note": "Уровень — от основ до уверенного применения базовых принципов. Это авторский учебный банк, а не официальный экзамен или подтверждение допуска к работам. Вопросы по безопасности объясняют принципы; порядок реальной работы задают документация оборудования и применимые правила.",
     "provenance_note": "Открытые подборки для подготовки к собеседованиям использованы как источник тем. Технические объяснения сверены с учебными первоисточниками и документацией производителей. Формулировки, варианты ответов и числовые примеры составлены для этого тренажёра. Это адаптация учебных тем, а не подтверждённый список вопросов конкретного работодателя; ссылки не означают одобрение банка.",
     "difficulty_counts": {
-      "1": 228,
-      "2": 142,
-      "3": 50
+      "1": 230,
+      "2": 178,
+      "3": 64
     },
     "kind_counts": {
+      "calculation": 127,
       "concept": 182,
-      "calculation": 119,
-      "scenario": 119
+      "scenario": 163
     },
-    "updated_at": "2026-10-03",
+    "updated_at": "2026-10-09",
     "beginner_question_count": 120,
     "interview_path_count": 24,
     "companion_files": {
       "learning_paths": "interview_paths.json",
       "beginner_tickets": "beginner_tickets.json",
       "mixed_tickets": "tickets.json",
-      "study_plan": "study_plan.json"
+      "study_plan": "study_plan.json",
+      "interview_practice": "interview_practice.json"
     },
-    "engineering_question_count": 60
+    "engineering_question_count": 60,
+    "interview_extension_question_count": 52,
+    "practical_exercise_count": 20
   },
   "difficulty_levels": [
     {
@@ -106,7 +109,8 @@
       "beginner_path_ids": [
         "PATH-ELT-01",
         "PATH-ELT-02"
-      ]
+      ],
+      "interview_question_count": 0
     },
     {
       "id": "ac_components",
@@ -145,7 +149,8 @@
       "beginner_path_ids": [
         "PATH-ELT-03",
         "PATH-ELT-04"
-      ]
+      ],
+      "interview_question_count": 0
     },
     {
       "id": "measurement_safety",
@@ -187,7 +192,8 @@
       "beginner_path_ids": [
         "PATH-ELT-05",
         "PATH-ELT-06"
-      ]
+      ],
+      "interview_question_count": 0
     },
     {
       "id": "semiconductors",
@@ -232,7 +238,8 @@
       "beginner_path_ids": [
         "PATH-ELN-01",
         "PATH-ELN-02"
-      ]
+      ],
+      "interview_question_count": 0
     },
     {
       "id": "digital_mcu",
@@ -255,7 +262,7 @@
         "D = tвкл/T; среднее напряжение ШИМ 0…U равно D × U"
       ],
       "common_error": "Считать вывод ШИМ настоящим аналоговым выходом или путать разрешение АЦП с точностью измерения.",
-      "question_count": 30,
+      "question_count": 34,
       "source_ids": [
         "S042",
         "S043",
@@ -274,13 +281,18 @@
         "S056",
         "S057",
         "S058",
-        "S073"
+        "S073",
+        "IR13",
+        "IR38",
+        "IR18",
+        "IR17"
       ],
       "beginner_question_count": 10,
       "beginner_path_ids": [
         "PATH-ELN-03",
         "PATH-ELN-04"
-      ]
+      ],
+      "interview_question_count": 4
     },
     {
       "id": "power_sensors",
@@ -325,7 +337,8 @@
       "beginner_path_ids": [
         "PATH-ELN-05",
         "PATH-ELN-06"
-      ]
+      ],
+      "interview_question_count": 0
     },
     {
       "id": "mechanics_drives",
@@ -348,7 +361,7 @@
         "При i = ωвх/ωвых: ωвых = ωвх/i; Mвых ≈ η × i × Mвх"
       ],
       "common_error": "Ожидать увеличения скорости и момента одновременно от пассивного редуктора.",
-      "question_count": 33,
+      "question_count": 38,
       "source_ids": [
         "S074",
         "S075",
@@ -362,14 +375,19 @@
         "S083",
         "S084",
         "S217",
-        "S203"
+        "S203",
+        "IR19",
+        "IR38",
+        "IR23",
+        "IR33"
       ],
       "beginner_question_count": 10,
       "beginner_path_ids": [
         "PATH-ROB-01",
         "PATH-ROB-02"
       ],
-      "engineering_question_count": 3
+      "engineering_question_count": 3,
+      "interview_question_count": 5
     },
     {
       "id": "control",
@@ -394,7 +412,7 @@
         "fs > 2fmax — условие идеального восстановления ограниченного по спектру сигнала; для практической системы нужен запас. Это условие дискретизации сигнала, а не критерий достаточной частоты расчёта регулятора"
       ],
       "common_error": "Считать, что увеличение коэффициента усиления всегда улучшает точность и скорость без побочных эффектов.",
-      "question_count": 33,
+      "question_count": 37,
       "source_ids": [
         "S084",
         "S085",
@@ -411,14 +429,17 @@
         "S096",
         "S205",
         "S218",
-        "S222"
+        "S222",
+        "IR15",
+        "IR38"
       ],
       "beginner_question_count": 10,
       "beginner_path_ids": [
         "PATH-ROB-03",
         "PATH-ROB-04"
       ],
-      "engineering_question_count": 3
+      "engineering_question_count": 3,
+      "interview_question_count": 4
     },
     {
       "id": "kinematics_mobile",
@@ -461,7 +482,8 @@
       "beginner_path_ids": [
         "PATH-ROB-05",
         "PATH-ROB-06"
-      ]
+      ],
+      "interview_question_count": 0
     },
     {
       "id": "industrial_plc",
@@ -484,7 +506,7 @@
         "Логическое И истинно, когда истинны все входные условия; ИЛИ — хотя бы одно"
       ],
       "common_error": "Считать обычный программный флаг достаточной заменой предусмотренной функции безопасности.",
-      "question_count": 30,
+      "question_count": 35,
       "source_ids": [
         "S109",
         "S110",
@@ -495,13 +517,19 @@
         "S115",
         "S116",
         "S117",
-        "S118"
+        "S118",
+        "IR31",
+        "IR32",
+        "IR33",
+        "IR38",
+        "IR10"
       ],
       "beginner_question_count": 10,
       "beginner_path_ids": [
         "PATH-AUT-01",
         "PATH-AUT-02"
-      ]
+      ],
+      "interview_question_count": 5
     },
     {
       "id": "robot_software",
@@ -523,7 +551,7 @@
         "Возраст данных = текущее время − метка времени при согласованной системе времени"
       ],
       "common_error": "Выбирать интерфейс только по привычке или передавать координаты без согласованной системы отсчёта.",
-      "question_count": 33,
+      "question_count": 40,
       "source_ids": [
         "S118",
         "S119",
@@ -539,14 +567,20 @@
         "S129",
         "S130",
         "S219",
-        "S221"
+        "S221",
+        "IR10",
+        "IR14",
+        "IR33",
+        "IR13",
+        "IR15"
       ],
       "beginner_question_count": 10,
       "beginner_path_ids": [
         "PATH-AUT-03",
         "PATH-AUT-04"
       ],
-      "engineering_question_count": 3
+      "engineering_question_count": 3,
+      "interview_question_count": 7
     },
     {
       "id": "diagnostics_integration",
@@ -572,7 +606,7 @@
         "Для сравнений фиксировать нагрузку, питание, прошивку и условия испытания"
       ],
       "common_error": "Сразу менять несколько деталей или скрывать ошибку повторным автоматическим запуском.",
-      "question_count": 33,
+      "question_count": 42,
       "source_ids": [
         "S112",
         "S118",
@@ -593,14 +627,23 @@
         "S142",
         "S220",
         "S219",
-        "S223"
+        "S223",
+        "IR34",
+        "IR35",
+        "IR38",
+        "IR36",
+        "S211",
+        "IR14",
+        "IR01",
+        "IR02"
       ],
       "beginner_question_count": 10,
       "beginner_path_ids": [
         "PATH-AUT-05",
         "PATH-AUT-06"
       ],
-      "engineering_question_count": 3
+      "engineering_question_count": 3,
+      "interview_question_count": 9
     },
     {
       "id": "robot_math",
@@ -622,18 +665,20 @@
         "При y = a·x дисперсия Var(y) = a²·Var(x)"
       ],
       "common_error": "Считать, что наличие нескольких уравнений автоматически означает независимость данных.",
-      "question_count": 8,
+      "question_count": 9,
       "source_ids": [
         "S203",
         "S204",
         "S210",
         "S222",
         "S209",
-        "S206"
+        "S206",
+        "IR38"
       ],
       "beginner_question_count": 0,
       "beginner_path_ids": [],
-      "engineering_question_count": 8
+      "engineering_question_count": 8,
+      "interview_question_count": 1
     },
     {
       "id": "frames_orientation",
@@ -661,7 +706,8 @@
       ],
       "beginner_question_count": 0,
       "beginner_path_ids": [],
-      "engineering_question_count": 8
+      "engineering_question_count": 8,
+      "interview_question_count": 0
     },
     {
       "id": "manipulator_kinematics",
@@ -683,15 +729,21 @@
         "Скорость инструмента: v = J(q)·q̇"
       ],
       "common_error": "Считать любое численное решение обратной кинематики допустимым движением всего робота.",
-      "question_count": 8,
+      "question_count": 11,
       "source_ids": [
         "S208",
         "S209",
-        "S215"
+        "S215",
+        "IR23",
+        "IR30",
+        "IR38",
+        "S211",
+        "IR33"
       ],
       "beginner_question_count": 0,
       "beginner_path_ids": [],
-      "engineering_question_count": 8
+      "engineering_question_count": 8,
+      "interview_question_count": 3
     },
     {
       "id": "state_estimation",
@@ -713,15 +765,19 @@
         "P⁺ = (1 − K)P⁻; P и R — дисперсии"
       ],
       "common_error": "Задавать слишком малую неопределённость измерения без проверки его шума и смещения.",
-      "question_count": 8,
+      "question_count": 12,
       "source_ids": [
         "S205",
         "S210",
-        "S222"
+        "S222",
+        "IR24",
+        "IR25",
+        "IR38"
       ],
       "beginner_question_count": 0,
       "beginner_path_ids": [],
-      "engineering_question_count": 8
+      "engineering_question_count": 8,
+      "interview_question_count": 4
     },
     {
       "id": "computer_vision",
@@ -743,16 +799,21 @@
         "f и d — в пикселях; Z и B — в одинаковых единицах длины"
       ],
       "common_error": "Считать координату пикселя расстоянием в метрах без геометрической модели и масштаба.",
-      "question_count": 8,
+      "question_count": 13,
       "source_ids": [
         "S211",
         "S212",
         "S213",
-        "S222"
+        "S222",
+        "IR38",
+        "IR29",
+        "IR34",
+        "IR14"
       ],
       "beginner_question_count": 0,
       "beginner_path_ids": [],
-      "engineering_question_count": 8
+      "engineering_question_count": 8,
+      "interview_question_count": 5
     },
     {
       "id": "motion_planning",
@@ -774,17 +835,23 @@
         "При удвоении длительности того же профиля скорости уменьшаются в 2 раза, ускорения — в 4"
       ],
       "common_error": "Принимать свободные конечные точки за доказательство отсутствия столкновений на всём пути.",
-      "question_count": 8,
+      "question_count": 13,
       "source_ids": [
         "S214",
         "S215",
         "S216",
         "S208",
-        "S222"
+        "S222",
+        "IR30",
+        "IR23",
+        "IR38",
+        "IR33",
+        "IR01"
       ],
       "beginner_question_count": 0,
       "beginner_path_ids": [],
-      "engineering_question_count": 8
+      "engineering_question_count": 8,
+      "interview_question_count": 5
     }
   ],
   "sources": [
@@ -2794,6 +2861,316 @@
       "accessed_at": "2026-10-03",
       "scope": "Проверка выполнения требований, критерии успешности и документирование результатов. Численные условия испытаний в вопросах авторские.",
       "role": "technical_reference"
+    },
+    {
+      "id": "IR01",
+      "title": "Software Engineering Interviewing at Carbon Robotics",
+      "organization": "Simon Cochrane / Carbon Robotics",
+      "url": "https://www.linkedin.com/pulse/software-engineering-interviewing-carbon-simon-cochrane-xvv5c",
+      "accessed_at": "2026-10-09",
+      "role": "employer_interview_description",
+      "scope": "Алгоритмы, конкурентность, архитектура, embedded, личный вклад в проекты.",
+      "note": "Публикация 25.04.2026. Описание процесса конкретного работодателя; автор предупреждает, что процесс меняется."
+    },
+    {
+      "id": "IR02",
+      "title": "Как устроиться на работу инженером: советы от экспертов, проводящих собеседования",
+      "organization": "YADRO",
+      "url": "https://habr.com/ru/companies/yadro/articles/902234/",
+      "accessed_at": "2026-10-09",
+      "role": "employer_interview_description",
+      "scope": "Теория, интерфейсы, объяснение решений, задачи по аппаратной разработке.",
+      "note": "Публикация 22.04.2025. Смежные аппаратные специальности, а не универсальный профиль робототехника."
+    },
+    {
+      "id": "IR03",
+      "title": "Разработчик на C++ в команду робототехники: манипуляторы",
+      "organization": "Яндекс",
+      "url": "https://yandex.ru/jobs/vacancies/razrabotchik-na-c-v-komandu-robototehniki-42070",
+      "accessed_at": "2026-10-09",
+      "role": "employer_requirements",
+      "scope": "C++, робототехнические алгоритмы, манипуляторы, ROS, практика разработки.",
+      "note": "На 09.10.2026 страница явно помечена работодателем как архивная. Использована как опубликованный пример требований, не как действующая возможность трудоустройства. Раздел «Будет плюсом» нельзя превращать в обязательные требования. Открытая страница не гарантирует, что найм ещё идёт."
+    },
+    {
+      "id": "IR04",
+      "title": "Разработчик на C++ в команду робототехники: локализация",
+      "organization": "Яндекс",
+      "url": "https://yandex.ru/jobs/vacancies/razrabotchik-na-c-v-komandu-robototehniki-23068",
+      "accessed_at": "2026-10-09",
+      "role": "employer_requirements",
+      "scope": "Локализация складских роботов, сенсоры, программная разработка.",
+      "note": "Требования к опытному специалисту не являются порогом для стажёра."
+    },
+    {
+      "id": "IR05",
+      "title": "Инженер-конструктор (стажёр) в отдел складской робототехники Маркета",
+      "organization": "Яндекс",
+      "url": "https://yandex.ru/jobs/vacancies/inzhenerkonstruktor-stazhyor-v-otdel-skladskoy-robototehniki-marketa-14900",
+      "accessed_at": "2026-10-09",
+      "role": "employer_requirements",
+      "scope": "CAD, прототипирование, сборка, испытания и инженерные проекты.",
+      "note": "На 09.10.2026 страница явно помечена работодателем как архивная. Использована как опубликованный пример требований, не как действующая возможность трудоустройства. "
+    },
+    {
+      "id": "IR06",
+      "title": "Software Engineer, Robotics — Grasping",
+      "organization": "Intrinsic",
+      "url": "https://job-boards.greenhouse.io/intrinsicrobotics/jobs/5810890004",
+      "accessed_at": "2026-10-09",
+      "role": "employer_requirements",
+      "scope": "Манипуляция, C++/Python, линейная алгебра, пространственные преобразования, работа с реальными роботами.",
+      "note": "Опытная специализированная роль, не начальная универсальная вакансия."
+    },
+    {
+      "id": "IR07",
+      "title": "Automation Controls Engineer, Manufacturing Automation Design Engineering",
+      "organization": "Amazon",
+      "url": "https://amazon.jobs/en/jobs/10571466/automation-controls-engineer-manufacturing-automation-design-engineering",
+      "accessed_at": "2026-10-09",
+      "role": "employer_requirements",
+      "scope": "ПЛК, системы безопасности, промышленные сети, ввод в эксплуатацию.",
+      "note": "Опытная роль. Конкретные годы опыта и стек не перенесены в обязательный минимум банка."
+    },
+    {
+      "id": "IR08",
+      "title": "Инженер-робототехник",
+      "organization": "Тьюбот",
+      "url": "https://tubot.pro/vacancies/inzhener-robototekhnik",
+      "accessed_at": "2026-10-09",
+      "role": "employer_requirements",
+      "scope": "Мехатроника, чтение электрических и пневматических схем, CAD, интеграция.",
+      "note": ""
+    },
+    {
+      "id": "IR09",
+      "title": "Interview questions to ask a robotics engineer",
+      "organization": "Автор обсуждения и участники r/robotics",
+      "url": "https://www.reddit.com/r/robotics/comments/pwox28/interview_questions_to_ask_a_robotics_engineer/",
+      "accessed_at": "2026-10-09",
+      "role": "community_topic_suggestions",
+      "scope": "Примеры постановок: выбор привода, измерение скорости, изменение нагрузки, движение вдоль стены.",
+      "note": "Обсуждение 2021 года. Это предложенные участниками вопросы, не подтверждённый протокол собеседования."
+    },
+    {
+      "id": "IR10",
+      "title": "Quality of Service settings",
+      "organization": "ROS 2, Jazzy documentation",
+      "url": "https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Quality-of-Service-Settings.html",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Совместимость requested/offered QoS, reliability, history.",
+      "note": "Использован доступный поисковый текст официальной документации; прямое открытие страницы ограничивалось защитой сайта."
+    },
+    {
+      "id": "IR11",
+      "title": "Using callback groups",
+      "organization": "ROS 2, Jazzy documentation",
+      "url": "https://docs.ros.org/en/jazzy/How-To-Guides/Using-callback-groups.html",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Группы callback, синхронные вызовы и взаимная блокировка.",
+      "note": "Использован индексируемый текст официальной документации."
+    },
+    {
+      "id": "IR13",
+      "title": "CppCoreGuidelines",
+      "organization": "C++ Core Guidelines editors",
+      "url": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Владение, время жизни, RAII, конкурентный доступ и синхронизация.",
+      "note": ""
+    },
+    {
+      "id": "IR14",
+      "title": "Understanding real-time programming",
+      "organization": "ROS 2 documentation",
+      "url": "https://docs.ros.org/en/lyrical/Tutorials/Demos/Real-Time-Programming.html",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Сроки исполнения, ограниченность задержек, выделение памяти и блокировки.",
+      "note": "Используются общие принципы; конкретная версия ROS и ОС не гарантирует real-time сама по себе."
+    },
+    {
+      "id": "IR15",
+      "title": "Controller Manager",
+      "organization": "ros2_control, Jazzy documentation",
+      "url": "https://control.ros.org/jazzy/doc/ros2_control/controller_manager/doc/userdoc.html",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Период обновления, детерминированность, джиттер и пропуски срока.",
+      "note": ""
+    },
+    {
+      "id": "IR17",
+      "title": "Deferred interrupt handling",
+      "organization": "FreeRTOS",
+      "url": "https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/11-Deferred-interrupt-handling",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Перенос длительной обработки из прерывания в задачу, уведомления.",
+      "note": ""
+    },
+    {
+      "id": "IR18",
+      "title": "TCAN1044-Q1 terminal resistor",
+      "organization": "Texas Instruments E2E, ответ инженера",
+      "url": "https://e2e.ti.com/support/interface-group/interface/f/interface-forum/1050137/tcan1044-q1-tcan1044-q1-terminal-resistor",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Терминация обычной высокоскоростной CAN-линии.",
+      "note": ""
+    },
+    {
+      "id": "IR19",
+      "title": "Motor operating ranges and thermal limits",
+      "organization": "maxon",
+      "url": "https://www.maxongroup.com/medias/sys_master/8815460712478.pdf",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Длительная и кратковременная нагрузка двигателя, тепловые ограничения.",
+      "note": "Использован текст; таблицы и графики не извлекались. Числовые параметры заданий вымышлены."
+    },
+    {
+      "id": "IR21",
+      "title": "Introduction to Feedforward",
+      "organization": "WPILib",
+      "url": "https://docs.wpilib.org/en/stable/docs/software/advanced-controls/introduction/introduction-to-feedforward.html",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Модельные составляющие управления и компенсация известной нагрузки.",
+      "note": ""
+    },
+    {
+      "id": "IR23",
+      "title": "5.1.1 Space Jacobian",
+      "organization": "Kevin Lynch, Frank Park / Modern Robotics",
+      "url": "https://modernrobotics.northwestern.edu/nu-gm-book-resource/5-1-1-space-jacobian/",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Связь скоростей суставов и рабочего органа.",
+      "note": ""
+    },
+    {
+      "id": "IR24",
+      "title": "Coordinate Frames for Mobile Platforms, REP-105",
+      "organization": "ROS REP authors",
+      "url": "https://www.ros.org/reps/rep-0105.html",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Различие map, odom и base_link.",
+      "note": "Принцип системы координат, не инструкция для конкретной сборки."
+    },
+    {
+      "id": "IR25",
+      "title": "Configuring robot_localization",
+      "organization": "robot_localization documentation",
+      "url": "https://docs.ros.org/en/melodic/api/robot_localization/html/configuring_robot_localization.html",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Повторное использование одной информации от колёс и настройка объединения измерений.",
+      "note": "Это документация ROS 1 Melodic. Использован статистический принцип; API ROS 2 по ней не описывается."
+    },
+    {
+      "id": "IR29",
+      "title": "CMOS global shutter cameras",
+      "organization": "Basler",
+      "url": "https://www.baslerweb.com/en/learning/cmos-global-shutter-cameras/",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Глобальный затвор, движение объекта и экспозиция.",
+      "note": ""
+    },
+    {
+      "id": "IR30",
+      "title": "Setting Up the Robot Footprint",
+      "organization": "Nav2 documentation",
+      "url": "https://docs.nav2.org/rolling/configuration_and_development/first_time_robot_setup_guide/footprint/setup_footprint/",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Геометрия робота и проверки столкновений.",
+      "note": "Документация rolling; задания проверяют геометрический принцип, не названия параметров конкретной версии."
+    },
+    {
+      "id": "IR31",
+      "title": "General rules for MC function blocks",
+      "organization": "Beckhoff TwinCAT MC2 documentation",
+      "url": "https://infosys.beckhoff.com/content/1033/tcplclib_tc2_mc2/70043531.html",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Execute, Busy и завершение команд движения.",
+      "note": "Семантика зависит от блока: MC_Stop имеет особенности. Вопросы ограничены обычным MC_MoveAbsolute."
+    },
+    {
+      "id": "IR32",
+      "title": "MC_MoveAbsolute",
+      "organization": "Beckhoff TwinCAT MC2 documentation",
+      "url": "https://infosys.beckhoff.com/content/1033/tcplclib_tc2_mc2/70094731.html",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Завершение, ошибка и прерывание команды движения.",
+      "note": ""
+    },
+    {
+      "id": "IR33",
+      "title": "Understanding Protective Stops",
+      "organization": "Universal Robots",
+      "url": "https://www.universal-robots.com/articles/ur/robot-care-maintenance/understanding-protective-stops/",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Причины защитных остановок, полезная нагрузка и недопустимость маскировки повторяющейся проблемы.",
+      "note": "Рекомендации конкретного производителя. Не заменяют руководство, оценку риска и допуск к оборудованию."
+    },
+    {
+      "id": "IR34",
+      "title": "Fundamentals of Systems Engineering",
+      "organization": "NASA",
+      "url": "https://www.nasa.gov/reference/2-0-fundamentals-of-systems-engineering/",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Различие верификации требований и валидации пригодности системы.",
+      "note": ""
+    },
+    {
+      "id": "IR35",
+      "title": "How to Write a Good Requirement",
+      "organization": "NASA Systems Engineering Handbook",
+      "url": "https://www.nasa.gov/reference/appendix-c-how-to-write-a-good-requirement/",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Измеримые и проверяемые требования.",
+      "note": ""
+    },
+    {
+      "id": "IR36",
+      "title": "Gazebo Sensors",
+      "organization": "Gazebo",
+      "url": "https://gazebosim.org/libs/sensors/",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Сенсорные модели и шум; применение симуляции.",
+      "note": ""
+    },
+    {
+      "id": "IR37",
+      "title": "Deadlocks in rclpy",
+      "organization": "Karelics engineering blog",
+      "url": "https://karelics.fi/blog/2022/04/21/deadlocks-in-rclpy/",
+      "accessed_at": "2026-10-09",
+      "role": "technical_reference",
+      "scope": "Инженерный разбор взаимных блокировок и групп callback.",
+      "note": ""
+    },
+    {
+      "id": "IR38",
+      "title": "Авторские модели и расчёты этого расширения",
+      "organization": "Материалы тренажёра",
+      "url": null,
+      "accessed_at": "2026-10-09",
+      "role": "authored_model",
+      "scope": "Явно заданные условия, арифметика, дискретные модели, контракты программных задач.",
+      "note": "Не внешняя публикация. Не подтверждает требования работодателей; результаты проверены по условиям задач."
     }
   ],
   "questions": [
@@ -20667,6 +21044,2233 @@
       ],
       "learning_objective": "Строить испытание по условиям, действиям и наблюдаемым критериям.",
       "revision": 1
+    },
+    {
+      "id": "INT-002",
+      "topic_id": "robot_software",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Камера публикует быстрее, чем алгоритм обрабатывает кадры. В этой задаче нужен только самый свежий кадр, а возраст входа не должен превышать 100 мс. Что ближе всего к требованию?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Включить reliable и считать любой доставленный кадр свежим.",
+          "explanation": "Надёжность доставки и свежесть — разные свойства."
+        },
+        {
+          "id": "b",
+          "text": "Ограничить накопление кадров и проверять возраст по согласованной метке времени перед обработкой.",
+          "explanation": "Политика «последний доступный образец» ограничивает очередь, а проверка возраста защищает от обработки уже устаревшего кадра. Маленькая очередь сама по себе не является гарантией возраста или срока выполнения."
+        },
+        {
+          "id": "c",
+          "text": "Оценивать свежесть только по средней частоте публикации.",
+          "explanation": "Средняя частота не показывает возраст конкретного кадра."
+        },
+        {
+          "id": "d",
+          "text": "Увеличить очередь, чтобы никогда ничего не отбрасывать.",
+          "explanation": "При устойчивой перегрузке это увеличит отставание."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "Политика «последний доступный образец» ограничивает очередь, а проверка возраста защищает от обработки уже устаревшего кадра. Маленькая очередь сама по себе не является гарантией возраста или срока выполнения.",
+      "source_ids": [
+        "IR10",
+        "IR14"
+      ],
+      "tags": [
+        "int_ros2",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Различать полноту доставки, длину очереди и возраст данных.",
+      "revision": 1,
+      "interview_block_id": "int_ros2"
+    },
+    {
+      "id": "INT-004",
+      "topic_id": "robot_software",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Управляемый узел привода успешно сконфигурирован и находится в Inactive. Система ещё проверяет калибровку. Какой вывод корректен?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Lifecycle автоматически превращает обычный узел в сертифицированную защиту.",
+          "explanation": "Модель состояний программного компонента не является сертификацией системы безопасности."
+        },
+        {
+          "id": "b",
+          "text": "Готовность конфигурации не равна активации; разрешение штатной работы должно пройти предусмотренный переход и проверки.",
+          "explanation": "Lifecycle позволяет разделить конфигурацию и активную работу. Успешный configure не заменяет activate и не доказывает выполнение требований безопасности всей установки."
+        },
+        {
+          "id": "c",
+          "text": "Inactive означает, что процесс обязательно завершился.",
+          "explanation": "Неактивный управляемый узел может продолжать существовать."
+        },
+        {
+          "id": "d",
+          "text": "Configure сам по себе означает, что команды движения уже допустимы.",
+          "explanation": "Конфигурация и активная работа — разные состояния."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "Lifecycle позволяет разделить конфигурацию и активную работу. Успешный configure не заменяет activate и не доказывает выполнение требований безопасности всей установки.",
+      "source_ids": [
+        "S126",
+        "IR33"
+      ],
+      "tags": [
+        "int_ros2",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Не смешивать запуск компонента с разрешением управления.",
+      "revision": 1,
+      "interview_block_id": "int_ros2"
+    },
+    {
+      "id": "INT-006",
+      "topic_id": "robot_software",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Функция C++ создаёт локальный объект и возвращает callback, захвативший этот объект по ссылке. Callback вызывается после выхода из функции. Какова основная проблема?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Достаточно объявить объект volatile.",
+          "explanation": "Volatile не продлевает время жизни."
+        },
+        {
+          "id": "b",
+          "text": "Ошибка возможна только при нескольких потоках.",
+          "explanation": "Обращение к уже уничтоженному объекту опасно и в одном потоке."
+        },
+        {
+          "id": "c",
+          "text": "Ссылка автоматически делает локальный объект глобальным.",
+          "explanation": "Захват по ссылке не меняет длительность хранения объекта."
+        },
+        {
+          "id": "d",
+          "text": "Callback обращается к объекту, время жизни которого уже закончилось.",
+          "explanation": "Ссылка не продлевает жизнь локального объекта. Нужна схема владения, в которой данные живут до завершения использования: например, подходящий захват по значению. Это не означает, что любой объект нужно переводить в shared_ptr."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "Ссылка не продлевает жизнь локального объекта. Нужна схема владения, в которой данные живут до завершения использования: например, подходящий захват по значению. Это не означает, что любой объект нужно переводить в shared_ptr.",
+      "source_ids": [
+        "IR13"
+      ],
+      "tags": [
+        "int_cpp",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Проверять время жизни данных в отложенных обработчиках.",
+      "revision": 1,
+      "interview_block_id": "int_cpp"
+    },
+    {
+      "id": "INT-007",
+      "topic_id": "robot_software",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Два потока C++ одновременно выполняют count++ для общего обычного int без синхронизации. Какое исправление соответствует задаче простого независимого счётчика?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Использовать подходящий атомарный счётчик либо защитить доступ одной согласованной блокировкой.",
+          "explanation": "Инкремент включает чтение и запись. Для обычного int такой конфликт без синхронизации является гонкой данных. Атомарность счётчика не делает автоматически атомарной связанную многополевую структуру."
+        },
+        {
+          "id": "b",
+          "text": "Добавить задержку перед каждым инкрементом.",
+          "explanation": "Изменение вероятности пересечения не устраняет гонку."
+        },
+        {
+          "id": "c",
+          "text": "Заменить int на volatile int.",
+          "explanation": "Volatile не обеспечивает межпоточную синхронизацию."
+        },
+        {
+          "id": "d",
+          "text": "Считать код безопасным, если значения редко теряются.",
+          "explanation": "Наблюдаемая редкость ошибки не меняет некорректность доступа."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "Инкремент включает чтение и запись. Для обычного int такой конфликт без синхронизации является гонкой данных. Атомарность счётчика не делает автоматически атомарной связанную многополевую структуру.",
+      "source_ids": [
+        "IR13"
+      ],
+      "tags": [
+        "int_cpp",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Отличать атомарность и синхронизацию от видимости через volatile.",
+      "revision": 1,
+      "interview_block_id": "int_cpp"
+    },
+    {
+      "id": "INT-008",
+      "topic_id": "robot_software",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Цикл должен завершаться за 10 мс. У реализации A среднее время 1 мс, но зарегистрирован запуск длительностью 25 мс. Что можно утверждать?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Достаточно назвать поток real-time.",
+          "explanation": "Название или приоритет без анализа не гарантирует сроки."
+        },
+        {
+          "id": "b",
+          "text": "Реализация выполняет требование, потому что среднее меньше 10 мс.",
+          "explanation": "Одно наблюдаемое нарушение уже опровергает требование для этого прогона."
+        },
+        {
+          "id": "c",
+          "text": "Нарушение исчезает, если усреднить больше запусков.",
+          "explanation": "Усреднение не отменяет фактически пропущенный срок."
+        },
+        {
+          "id": "d",
+          "text": "Зафиксированное выполнение нарушило срок, несмотря на хорошее среднее время.",
+          "explanation": "Среднее не доказывает соблюдение deadline. Для заданного требования важен каждый срок и причины выбросов. Даже отсутствие пропусков в конечной серии тестов не является доказательством верхней границы для всех условий."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "Среднее не доказывает соблюдение deadline. Для заданного требования важен каждый срок и причины выбросов. Даже отсутствие пропусков в конечной серии тестов не является доказательством верхней границы для всех условий.",
+      "source_ids": [
+        "IR14",
+        "IR15"
+      ],
+      "tags": [
+        "int_cpp",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Оценивать временное требование по его формулировке, а не только по среднему.",
+      "revision": 1,
+      "interview_block_id": "int_cpp"
+    },
+    {
+      "id": "INT-009",
+      "topic_id": "robot_software",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "В ограниченный по времени цикл добавили выделение памяти, запись лога на диск и захват mutex с неизвестным временем ожидания. Какой план разумнее для уменьшения непредсказуемых задержек?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Предвыделить необходимые ресурсы и вынести неблокирующую передачу логов в отдельный ограниченный канал с явной политикой переполнения.",
+          "explanation": "Нужно ограничить время операций внутри критического цикла и поведение при перегрузке. Перенос логирования не гарантирует real-time всей системы: проверяются также драйверы, ОС, общие ресурсы и время передачи в канал."
+        },
+        {
+          "id": "b",
+          "text": "Считать любой mutex всегда операцией постоянной малой длительности.",
+          "explanation": "Ожидание зависит от владельца, планирования и протокола блокировки."
+        },
+        {
+          "id": "c",
+          "text": "Сделать очередь логов бесконечной.",
+          "explanation": "Память конечна; неограниченное накопление переносит проблему."
+        },
+        {
+          "id": "d",
+          "text": "Оставить операции и оценивать только среднюю загрузку процессора.",
+          "explanation": "Средняя загрузка не ограничивает задержку блокирующей операции."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "Нужно ограничить время операций внутри критического цикла и поведение при перегрузке. Перенос логирования не гарантирует real-time всей системы: проверяются также драйверы, ОС, общие ресурсы и время передачи в канал.",
+      "source_ids": [
+        "IR13",
+        "IR14"
+      ],
+      "tags": [
+        "int_cpp",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Проектировать ограниченное поведение при перегрузке.",
+      "revision": 1,
+      "interview_block_id": "int_cpp"
+    },
+    {
+      "id": "INT-010",
+      "topic_id": "robot_software",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "Общее состояние содержит position и velocity одного измерительного кадра. Каждое поле сделали отдельным atomic, но читатель может увидеть поля разных кадров. Что нужно для согласованного снимка?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Заменить atomic на volatile для всего объекта.",
+          "explanation": "Это не создаёт согласованный межпоточный протокол."
+        },
+        {
+          "id": "b",
+          "text": "Увеличить разрядность обоих atomic.",
+          "explanation": "Размер слова не связывает два значения в одну публикацию."
+        },
+        {
+          "id": "c",
+          "text": "Читать velocity раньше position и считать проблему решённой.",
+          "explanation": "Другой порядок чтения сам по себе не предотвращает смену кадра."
+        },
+        {
+          "id": "d",
+          "text": "Согласованный протокол публикации целого снимка: например, общая блокировка или корректно реализованная передача неизменяемого объекта.",
+          "explanation": "Атомарность отдельных полей не задаёт транзакцию над всем набором. Способ публикации должен гарантировать одновременно время жизни данных и согласованность выбранного кадра."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "Атомарность отдельных полей не задаёт транзакцию над всем набором. Способ публикации должен гарантировать одновременно время жизни данных и согласованность выбранного кадра.",
+      "source_ids": [
+        "IR13"
+      ],
+      "tags": [
+        "int_cpp",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Различать отсутствие гонки отдельного поля и согласованность состояния.",
+      "revision": 1,
+      "interview_block_id": "int_cpp"
+    },
+    {
+      "id": "INT-012",
+      "topic_id": "digital_mcu",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "DMA записывает очередной кадр в буфер, пока задача обрабатывает тот же буфер. Кадры иногда содержат смесь двух измерений. Какое решение направлено на причину?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Повысить приоритет задачи, но не запретить DMA запись в обрабатываемый буфер.",
+          "explanation": "Приоритет процессорной задачи не является протоколом владения буфером с DMA."
+        },
+        {
+          "id": "b",
+          "text": "Пометить указатель volatile и разрешить одновременную перезапись.",
+          "explanation": "Это не делает многобайтовый кадр атомарным и не решает владение."
+        },
+        {
+          "id": "c",
+          "text": "Перед обработкой прочитать номер кадра один раз и считать весь кадр неизменяемым.",
+          "explanation": "Разовое чтение номера не мешает DMA менять полезные данные затем."
+        },
+        {
+          "id": "d",
+          "text": "Явно передавать владение заполненным буфером задаче и не перезаписывать его до освобождения.",
+          "explanation": "Разделение буферов и протокол владения исключают одновременную запись и обработку одного кадра. Двойной буфер работает лишь при учёте скорости потребителя; в системах с кэшем отдельно проверяют когерентность и требования платформы."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "Разделение буферов и протокол владения исключают одновременную запись и обработку одного кадра. Двойной буфер работает лишь при учёте скорости потребителя; в системах с кэшем отдельно проверяют когерентность и требования платформы.",
+      "source_ids": [
+        "IR13",
+        "IR38"
+      ],
+      "tags": [
+        "int_embedded",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Устанавливать контракт владения буферами производителя и потребителя.",
+      "revision": 1,
+      "interview_block_id": "int_embedded"
+    },
+    {
+      "id": "INT-013",
+      "topic_id": "digital_mcu",
+      "difficulty": 2,
+      "kind": "calculation",
+      "question": "В заданной модели 16-битный беззнаковый таймер считает вверх по модулю 65536. Старое значение 65530, новое 14; известно, что прошло меньше одного полного оборота. Сколько тиков прошло?",
+      "options": [
+        {
+          "id": "a",
+          "text": "14 тиков.",
+          "explanation": "Не учтены тики от 65530 до переполнения."
+        },
+        {
+          "id": "b",
+          "text": "Восстановить интервал невозможно даже при данном ограничении.",
+          "explanation": "Ограничение интервала позволяет однозначно выбрать значение от 0 до 65535."
+        },
+        {
+          "id": "c",
+          "text": "20 тиков.",
+          "explanation": "(14 − 65530) mod 65536 = 20. Условие об интервале меньше одного оборота существенно: по двум остаткам нельзя восстановить произвольное число полных оборотов."
+        },
+        {
+          "id": "d",
+          "text": "65516 тиков.",
+          "explanation": "Это модуль обычной разности, а не направленный переход через ноль."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "(14 − 65530) mod 65536 = 20. Условие об интервале меньше одного оборота существенно: по двум остаткам нельзя восстановить произвольное число полных оборотов.",
+      "source_ids": [
+        "IR38"
+      ],
+      "tags": [
+        "int_embedded",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Применять модульную арифметику с указанными ограничениями.",
+      "revision": 1,
+      "interview_block_id": "int_embedded"
+    },
+    {
+      "id": "INT-014",
+      "topic_id": "digital_mcu",
+      "difficulty": 2,
+      "kind": "calculation",
+      "question": "В учебной резистивной модели отключённой CAN-линии между CAN_H и CAN_L остаются только два резистора по 120 Ом, включённые параллельно. Какое эквивалентное сопротивление получается?",
+      "options": [
+        {
+          "id": "a",
+          "text": "240 Ом.",
+          "explanation": "Такой результат получился бы при последовательном соединении."
+        },
+        {
+          "id": "b",
+          "text": "60 Ом.",
+          "explanation": "Для двух одинаковых параллельных резисторов Rэкв = R/2 = 60 Ом. Это результат заданной схемы, а не универсальное диагностическое заключение для любой реальной линии."
+        },
+        {
+          "id": "c",
+          "text": "120 Ом.",
+          "explanation": "В модели присутствуют две параллельные ветви, а не одна."
+        },
+        {
+          "id": "d",
+          "text": "0 Ом.",
+          "explanation": "Параллельные конечные сопротивления не образуют идеального короткого замыкания."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "Для двух одинаковых параллельных резисторов Rэкв = R/2 = 60 Ом. Это результат заданной схемы, а не универсальное диагностическое заключение для любой реальной линии.",
+      "source_ids": [
+        "IR18",
+        "IR38"
+      ],
+      "tags": [
+        "int_embedded",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Связывать физическую терминацию с явно заданной эквивалентной схемой.",
+      "revision": 1,
+      "interview_block_id": "int_embedded"
+    },
+    {
+      "id": "INT-015",
+      "topic_id": "digital_mcu",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Прерывание приходит каждые 100 мкс, а разбор принятого сообщения иногда занимает 2 мс. Как лучше разделить работу?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Удалить любые буферы и считать, что уведомление содержит весь кадр.",
+          "explanation": "Уведомление о событии и хранение данных — отдельные части решения."
+        },
+        {
+          "id": "b",
+          "text": "Заменить уведомление задачи ожиданием внутри ISR.",
+          "explanation": "Ожидание задачи из ISR не является корректной заменой отложенной обработки."
+        },
+        {
+          "id": "c",
+          "text": "Всегда выполнять полный разбор в ISR, потому что прерывания быстрее задач.",
+          "explanation": "Длительный обработчик задерживает обслуживание остальных событий."
+        },
+        {
+          "id": "d",
+          "text": "В ISR выполнить необходимое короткое обслуживание и уведомить задачу, которая разбирает данные вне ISR.",
+          "explanation": "Отложенная обработка сокращает время в прерывании. При этом нужно сохранить данные, учесть вместимость очереди и переполнение, а в FreeRTOS использовать разрешённый для ISR механизм и приоритеты."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "Отложенная обработка сокращает время в прерывании. При этом нужно сохранить данные, учесть вместимость очереди и переполнение, а в FreeRTOS использовать разрешённый для ISR механизм и приоритеты.",
+      "source_ids": [
+        "IR17"
+      ],
+      "tags": [
+        "int_embedded",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Разделять обслуживание аппаратного события и тяжёлую обработку.",
+      "revision": 1,
+      "interview_block_id": "int_embedded"
+    },
+    {
+      "id": "INT-016",
+      "topic_id": "mechanics_drives",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Каталог двигателя допускает большой кратковременный ток и меньший непрерывный. В проекте двигатель работает под нагрузкой почти постоянно. Что нужно проверить вместо выбора только по пиковому моменту?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Рабочий цикл, тепловые условия и допустимую длительную нагрузку вместе со скоростью и ограничениями привода.",
+          "explanation": "Пиковая способность относится к ограниченной длительности и не доказывает пригодность для постоянного режима. Нужны реальные условия охлаждения, нагрузка и ограничения двигателя, передачи и драйвера."
+        },
+        {
+          "id": "b",
+          "text": "Только момент в первую миллисекунду запуска.",
+          "explanation": "Он не характеризует установившийся тепловой режим."
+        },
+        {
+          "id": "c",
+          "text": "Только отсутствие перегрева в первые пять секунд.",
+          "explanation": "Короткое наблюдение не доказывает допустимую длительную температуру."
+        },
+        {
+          "id": "d",
+          "text": "Только максимальный ток, который способен выдать источник.",
+          "explanation": "Доступный ток источника не означает допустимый ток двигателя."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "Пиковая способность относится к ограниченной длительности и не доказывает пригодность для постоянного режима. Нужны реальные условия охлаждения, нагрузка и ограничения двигателя, передачи и драйвера.",
+      "source_ids": [
+        "IR19"
+      ],
+      "tags": [
+        "int_drives",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Отличать кратковременный режим от непрерывной работоспособности.",
+      "revision": 1,
+      "interview_block_id": "int_drives"
+    },
+    {
+      "id": "INT-017",
+      "topic_id": "mechanics_drives",
+      "difficulty": 2,
+      "kind": "calculation",
+      "question": "В упрощённой тепловой модели сопротивление обмотки постоянно. За период ток равен 4 А в течение 2 с и 1 А в течение 6 с. Какой ток создаёт ту же среднюю мощность I²R?",
+      "options": [
+        {
+          "id": "a",
+          "text": "1,75 А.",
+          "explanation": "Это средний ток, а для заданных потерь усредняется квадрат."
+        },
+        {
+          "id": "b",
+          "text": "4,00 А.",
+          "explanation": "Пиковый ток не равен среднеквадратичному для данного цикла."
+        },
+        {
+          "id": "c",
+          "text": "2,50 А.",
+          "explanation": "Такое усреднение игнорирует разные длительности участков."
+        },
+        {
+          "id": "d",
+          "text": "Около 2,18 А.",
+          "explanation": "I_RMS = sqrt((4²·2 + 1²·6)/8) = sqrt(4,75) ≈ 2,18 А. Среднее арифметическое тока 1,75 А не сохраняет средние потери I²R. Реальную температуру эта простая модель полностью не определяет."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "I_RMS = sqrt((4²·2 + 1²·6)/8) = sqrt(4,75) ≈ 2,18 А. Среднее арифметическое тока 1,75 А не сохраняет средние потери I²R. Реальную температуру эта простая модель полностью не определяет.",
+      "source_ids": [
+        "IR19",
+        "IR38"
+      ],
+      "tags": [
+        "int_drives",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Считать нагрев по модели потерь, а не по среднему току.",
+      "revision": 1,
+      "interview_block_id": "int_drives"
+    },
+    {
+      "id": "INT-018",
+      "topic_id": "mechanics_drives",
+      "difficulty": 2,
+      "kind": "calculation",
+      "question": "Два захвата имеют одинаковую массу. У второго центр масс расположен вдвое дальше от оси горизонтального плеча; остальные условия одинаковы. Как меняется статический момент силы тяжести относительно этой оси?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Возрастает в четыре раза, как квадрат расстояния.",
+          "explanation": "Квадрат расстояния возникает в моменте инерции, но не в данной формуле статического момента силы."
+        },
+        {
+          "id": "b",
+          "text": "Не меняется, потому что масса одинакова.",
+          "explanation": "Для момента важно также плечо силы."
+        },
+        {
+          "id": "c",
+          "text": "Уменьшается вдвое, поскольку сила распределяется по большей длине.",
+          "explanation": "При заданной сосредоточенной силе момент пропорционален плечу."
+        },
+        {
+          "id": "d",
+          "text": "Удваивается.",
+          "explanation": "В данной геометрии τ = m·g·l: при неизменных массе и ускорении свободного падения удвоение перпендикулярного плеча удваивает момент. Равная масса не означает одинаковую нагрузку на сустав."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "В данной геометрии τ = m·g·l: при неизменных массе и ускорении свободного падения удвоение перпендикулярного плеча удваивает момент. Равная масса не означает одинаковую нагрузку на сустав.",
+      "source_ids": [
+        "IR23",
+        "IR33",
+        "IR38"
+      ],
+      "tags": [
+        "int_drives",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Учитывать центр масс инструмента отдельно от его массы.",
+      "revision": 1,
+      "interview_block_id": "int_drives"
+    },
+    {
+      "id": "INT-019",
+      "topic_id": "mechanics_drives",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "После смены направления вал двигателя уже вращается, но выход редуктора ещё не сдвинулся из-за люфта. Энкодер стоит только на двигателе. Что даст дополнительное измерение на выходе?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Возможность не учитывать передаточное отношение нигде.",
+          "explanation": "Кинематическая модель передачи по-прежнему нужна."
+        },
+        {
+          "id": "b",
+          "text": "Механическое исчезновение люфта без изменения передачи.",
+          "explanation": "Датчик меняет наблюдение, а не зазоры деталей."
+        },
+        {
+          "id": "c",
+          "text": "Наблюдение фактического положения выходного звена, которое нельзя полностью восстановить из одного моторного энкодера при люфте.",
+          "explanation": "Моторный энкодер измеряет свою сторону передачи. Дополнительный датчик на выходе позволяет увидеть потерянное движение, но сам по себе физически не убирает люфт и не гарантирует устойчивость нового контура."
+        },
+        {
+          "id": "d",
+          "text": "Точное удвоение разрешения моторного энкодера.",
+          "explanation": "Он измеряет другое звено; разрешение старого энкодера не изменяется."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "Моторный энкодер измеряет свою сторону передачи. Дополнительный датчик на выходе позволяет увидеть потерянное движение, но сам по себе физически не убирает люфт и не гарантирует устойчивость нового контура.",
+      "source_ids": [
+        "IR23",
+        "IR38"
+      ],
+      "tags": [
+        "int_drives",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Различать наблюдаемость механической ошибки и устранение причины.",
+      "revision": 1,
+      "interview_block_id": "int_drives"
+    },
+    {
+      "id": "INT-020",
+      "topic_id": "mechanics_drives",
+      "difficulty": 3,
+      "kind": "calculation",
+      "question": "Идеальная передача имеет i = ωдвигателя/ωнагрузки = 4. Инерция нагрузки Jн = 0,08 кг·м². При вычислении энергии через скорость двигателя какую приведённую к двигателю инерцию нагрузки надо использовать?",
+      "options": [
+        {
+          "id": "a",
+          "text": "0,08 кг·м² при любом i.",
+          "explanation": "Энергия должна сохраняться при изменении выбранной угловой скорости."
+        },
+        {
+          "id": "b",
+          "text": "0,02 кг·м².",
+          "explanation": "Зависимость от отношения скоростей квадратичная, а не линейная."
+        },
+        {
+          "id": "c",
+          "text": "1,28 кг·м².",
+          "explanation": "Умножение на i² относится к обратному направлению приведения при согласованных определениях."
+        },
+        {
+          "id": "d",
+          "text": "0,005 кг·м².",
+          "explanation": "Из 0,5·Jн·(ωдв/i)² = 0,5·Jпр·ωдв² следует Jпр = Jн/i² = 0,08/16 = 0,005 кг·м². Это именно приведение нагрузки к двигателю, без собственной инерции передачи и двигателя."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "Из 0,5·Jн·(ωдв/i)² = 0,5·Jпр·ωдв² следует Jпр = Jн/i² = 0,08/16 = 0,005 кг·м². Это именно приведение нагрузки к двигателю, без собственной инерции передачи и двигателя.",
+      "source_ids": [
+        "IR38"
+      ],
+      "tags": [
+        "int_drives",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Выводить направление приведения инерции из энергии.",
+      "revision": 1,
+      "interview_block_id": "int_drives"
+    },
+    {
+      "id": "INT-021",
+      "topic_id": "control",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "Задано clamping-правило: запретить интегрирование, только когда выход насыщен и приращение интегратора усиливает насыщение. Выход у верхнего предела, ошибка стала отрицательной, Ki > 0. Что делать с отрицательным приращением?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Разрешить его, поскольку оно помогает выйти из верхнего насыщения.",
+          "explanation": "В указанном правиле блокируют накопление в сторону ограничения, а не всякое изменение интегратора. Отрицательное приращение уменьшает интегральный вклад. Для другого алгоритма anti-windup нужна его собственная формула."
+        },
+        {
+          "id": "b",
+          "text": "Всегда обнулять интегратор в каждом цикле.",
+          "explanation": "Это другой алгоритм, не заданный clamping."
+        },
+        {
+          "id": "c",
+          "text": "Запретить любое изменение до тех пор, пока насыщение не исчезнет само.",
+          "explanation": "Такое правило может помешать интегратору разгрузиться; оно не соответствует заданному условию."
+        },
+        {
+          "id": "d",
+          "text": "Изменить знак приращения на положительный.",
+          "explanation": "Это усилит накопление в сторону верхнего ограничения."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "В указанном правиле блокируют накопление в сторону ограничения, а не всякое изменение интегратора. Отрицательное приращение уменьшает интегральный вклад. Для другого алгоритма anti-windup нужна его собственная формула.",
+      "source_ids": [
+        "S089"
+      ],
+      "tags": [
+        "int_control",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Применять конкретное anti-windup правило, включая выход из насыщения.",
+      "revision": 1,
+      "interview_block_id": "int_control"
+    },
+    {
+      "id": "INT-023",
+      "topic_id": "control",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "Позиционный регулятор подаёт задание внутреннему регулятору скорости. Во внешней модели предполагается, что внутренний контур быстро отрабатывает команды, но измерения этого не подтверждают. Что проверить до увеличения коэффициента внешнего контура?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Увеличить только частоту вычисления внешнего контура и считать динамику исправленной.",
+          "explanation": "Более частый вызов не делает внутренний контур физически быстрее."
+        },
+        {
+          "id": "b",
+          "text": "Настраивать внешний контур с идеальным внутренним звеном независимо от измерений.",
+          "explanation": "Это сохраняет опровергнутое измерениями допущение."
+        },
+        {
+          "id": "c",
+          "text": "Реальную динамику, задержки и насыщение внутреннего контура, на которые опирается внешняя модель.",
+          "explanation": "Каскад нельзя настраивать так, будто внутреннее звено идеальное, если его динамика существенна. Фиксированное отношение частот для всех приводов из условия не следует: нужна проверка конкретной системы."
+        },
+        {
+          "id": "d",
+          "text": "Увеличить внешний коэффициент до исчезновения ошибки, не анализируя насыщение.",
+          "explanation": "Насыщение и задержки могут сделать такую настройку непригодной."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "Каскад нельзя настраивать так, будто внутреннее звено идеальное, если его динамика существенна. Фиксированное отношение частот для всех приводов из условия не следует: нужна проверка конкретной системы.",
+      "source_ids": [
+        "IR15",
+        "IR38"
+      ],
+      "tags": [
+        "int_control",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Проверять допущения вложенных контуров перед настройкой.",
+      "revision": 1,
+      "interview_block_id": "int_control"
+    },
+    {
+      "id": "INT-024",
+      "topic_id": "control",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "В момент скачка задания измеренная величина y непрерывна. Что происходит с идеальной производной ошибки e = r − y по сравнению с производной только измерения?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Производная ошибки содержит вклад скачка задания; производная только измерения этого вклада не содержит.",
+          "explanation": "Из de/dt = dr/dt − dy/dt следует отдельный вклад изменения задания. Использование производной измерения позволяет не переносить этот скачок напрямую в D-канал; шум измерения и необходимость фильтрации при этом не исчезают."
+        },
+        {
+          "id": "b",
+          "text": "Производная измерения автоматически удаляет любой шум датчика.",
+          "explanation": "Взятие производной само по себе не подавляет шум."
+        },
+        {
+          "id": "c",
+          "text": "Скачок задания обязательно физически мгновенно перемещает механизм.",
+          "explanation": "Изменение команды и движение реального механизма — разные события."
+        },
+        {
+          "id": "d",
+          "text": "Обе производные всегда одинаковы при любых r.",
+          "explanation": "Они различаются на производную задания."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "Из de/dt = dr/dt − dy/dt следует отдельный вклад изменения задания. Использование производной измерения позволяет не переносить этот скачок напрямую в D-канал; шум измерения и необходимость фильтрации при этом не исчезают.",
+      "source_ids": [
+        "IR38"
+      ],
+      "tags": [
+        "int_control",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Выводить поведение реализации D-составляющей из уравнения.",
+      "revision": 1,
+      "interview_block_id": "int_control"
+    },
+    {
+      "id": "INT-025",
+      "topic_id": "control",
+      "difficulty": 2,
+      "kind": "calculation",
+      "question": "Интегратор реализован как z_new = z_old + Ki·e·dt. Ki = 2, e = 3, фактический dt = 0,015 с. Каково приращение z при данных единицах коэффициента?",
+      "options": [
+        {
+          "id": "a",
+          "text": "0,06.",
+          "explanation": "Это результат при dt = 0,01 с, а в условии дано другое время."
+        },
+        {
+          "id": "b",
+          "text": "6.",
+          "explanation": "В этом результате отсутствует множитель dt."
+        },
+        {
+          "id": "c",
+          "text": "0,09.",
+          "explanation": "Δz = 2·3·0,015 = 0,09. Использование номинального шага вместо фактического изменит закон интегрирования при джиттере; допустимость такого приближения требует отдельной оценки."
+        },
+        {
+          "id": "d",
+          "text": "90.",
+          "explanation": "Миллисекунды подставлены как секунды."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "Δz = 2·3·0,015 = 0,09. Использование номинального шага вместо фактического изменит закон интегрирования при джиттере; допустимость такого приближения требует отдельной оценки.",
+      "source_ids": [
+        "IR15",
+        "IR38"
+      ],
+      "tags": [
+        "int_control",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Проверять численную реализацию интегратора с явными единицами.",
+      "revision": 1,
+      "interview_block_id": "int_control"
+    },
+    {
+      "id": "INT-027",
+      "topic_id": "manipulator_kinematics",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "Численный решатель вблизи сингулярности требует очень больших скоростей суставов для небольшой скорости рабочего органа. Какой вывод корректен?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Да, если использован тот же решатель, что успешно сработал в другой сцене.",
+          "explanation": "Предыдущая сцена не доказывает допустимость нового движения."
+        },
+        {
+          "id": "b",
+          "text": "Да, если ни один конечный угол не вышел за допустимый диапазон.",
+          "explanation": "Пределы конечных углов не проверяют столкновения и весь переход."
+        },
+        {
+          "id": "c",
+          "text": "Нужно учитывать обусловленность, ограничивать движение и при необходимости изменить конфигурацию или метод решения.",
+          "explanation": "Вблизи потери ранга некоторые декартовы направления становятся плохо реализуемыми. Ограничение и демпфирование могут уменьшить численную проблему ценой ошибки задачи; увеличение команд сверх аппаратных пределов не возвращает потерянную возможность движения."
+        },
+        {
+          "id": "d",
+          "text": "Да, совпадение конечной позы автоматически проверяет промежуточный путь.",
+          "explanation": "Ограничения конечного и промежуточного состояния различаются."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "Вблизи потери ранга некоторые декартовы направления становятся плохо реализуемыми. Ограничение и демпфирование могут уменьшить численную проблему ценой ошибки задачи; увеличение команд сверх аппаратных пределов не возвращает потерянную возможность движения.",
+      "source_ids": [
+        "S208",
+        "IR23"
+      ],
+      "tags": [
+        "int_geometry",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Отличать геометрическую обусловленность от численной точности.",
+      "revision": 1,
+      "interview_block_id": "int_geometry"
+    },
+    {
+      "id": "INT-028",
+      "topic_id": "manipulator_kinematics",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Обратная кинематика вернула набор углов, достигающий нужной позы инструмента. Этого достаточно для отправки команды движения?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Только название инструмента в программе; масса не влияет на движение.",
+          "explanation": "Масса влияет на динамику и модель усилий."
+        },
+        {
+          "id": "b",
+          "text": "Нет: отдельно проверяются пределы суставов, столкновения и допустимость движения из текущего состояния.",
+          "explanation": "Геометрическое решение конечной позы не доказывает допустимость промежуточного пути, скоростей, нагрузки и ограничений. Даже допустимая конечная конфигурация может быть недостижима данным переходом без столкновений."
+        },
+        {
+          "id": "c",
+          "text": "Ничего: TCP уже содержит всю необходимую модель нагрузки.",
+          "explanation": "Рабочая точка не задаёт массу, центр масс и инерцию."
+        },
+        {
+          "id": "d",
+          "text": "Только массу: положение центра масс всегда можно оставить прежним.",
+          "explanation": "При замене инструмента центр масс может измениться независимо от массы."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "Геометрическое решение конечной позы не доказывает допустимость промежуточного пути, скоростей, нагрузки и ограничений. Даже допустимая конечная конфигурация может быть недостижима данным переходом без столкновений.",
+      "source_ids": [
+        "S208",
+        "IR30",
+        "IR38"
+      ],
+      "tags": [
+        "int_geometry",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Отделять решение кинематики от допустимого выполнения движения.",
+      "revision": 1,
+      "interview_block_id": "int_geometry"
+    },
+    {
+      "id": "INT-029",
+      "topic_id": "manipulator_kinematics",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "После замены захвата корректно настроили TCP, но не обновили массу и центр масс инструмента в модели контроллера. Что остаётся непроверенным?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Только цвет отображения инструмента в визуализаторе.",
+          "explanation": "В условии изменена физическая нагрузка."
+        },
+        {
+          "id": "b",
+          "text": "Модель нагрузки и её влияние на динамику и контроль усилий.",
+          "explanation": "TCP задаёт геометрическую рабочую точку. Масса и центр масс описывают другие свойства инструмента. Корректная геометрия сама по себе не подтверждает корректность модели нагрузки."
+        },
+        {
+          "id": "c",
+          "text": "Только номер сетевого порта.",
+          "explanation": "Это не связано с указанной моделью инструмента."
+        },
+        {
+          "id": "d",
+          "text": "Ничего: TCP полностью определяет массу и инерцию.",
+          "explanation": "Рабочая точка не содержит этих физических параметров."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "TCP задаёт геометрическую рабочую точку. Масса и центр масс описывают другие свойства инструмента. Корректная геометрия сама по себе не подтверждает корректность модели нагрузки.",
+      "source_ids": [
+        "S211",
+        "IR33"
+      ],
+      "tags": [
+        "int_geometry",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Разделять геометрическую и динамическую калибровку.",
+      "revision": 1,
+      "interview_block_id": "int_geometry"
+    },
+    {
+      "id": "INT-030",
+      "topic_id": "computer_vision",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "Hand-eye калибровка рассчитана по серии почти одинаковых поз, а точность оценили на тех же кадрах. Что даст более убедительную проверку?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Скопировать каждый исходный кадр ещё сто раз.",
+          "explanation": "Дубликаты не добавляют новой геометрической информации."
+        },
+        {
+          "id": "b",
+          "text": "Проверять только число файлов калибровки.",
+          "explanation": "Количество файлов не характеризует идентифицируемость и точность."
+        },
+        {
+          "id": "c",
+          "text": "Разнообразные информативные движения при сборе и независимые контрольные позы при проверке результата.",
+          "explanation": "Повторение почти одинаковых наблюдений не гарантирует достаточного возбуждения всех параметров. Проверка на независимых позах помогает обнаружить ошибки, скрытые подгонкой на обучающем наборе; сама по себе малая ошибка на нём не доказывает общую точность."
+        },
+        {
+          "id": "d",
+          "text": "Оставить только лучший кадр и объявить его универсальным.",
+          "explanation": "Один удачный пример не проверяет разнообразные положения."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "Повторение почти одинаковых наблюдений не гарантирует достаточного возбуждения всех параметров. Проверка на независимых позах помогает обнаружить ошибки, скрытые подгонкой на обучающем наборе; сама по себе малая ошибка на нём не доказывает общую точность.",
+      "source_ids": [
+        "S211",
+        "S213",
+        "IR38"
+      ],
+      "tags": [
+        "int_geometry",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Проверять информативность данных и переносимость калибровки.",
+      "revision": 1,
+      "interview_block_id": "int_geometry"
+    },
+    {
+      "id": "INT-032",
+      "topic_id": "state_estimation",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Используется соглашение REP-105. После глобальной коррекции локализации положение в map заметно изменилось скачком. Какое свойство ожидается от odom в этом соглашении?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Автоматическую привязку локального нуля к истинному глобальному нулю.",
+          "explanation": "Непрерывная локальная система не добавляет абсолютного ориентира."
+        },
+        {
+          "id": "b",
+          "text": "Локальная непрерывность при допустимом накоплении дрейфа.",
+          "explanation": "В REP-105 map может корректироваться скачком, а odom нужен как непрерывная локальная система, хотя со временем дрейфует. Это назначение систем координат, а не обещание безошибочности датчиков."
+        },
+        {
+          "id": "c",
+          "text": "Обязательное внесение каждого глобального скачка непосредственно в локальную координату odom.",
+          "explanation": "Это нарушило бы назначение odom как непрерывной локальной системы."
+        },
+        {
+          "id": "d",
+          "text": "Полное отсутствие дрейфа при любой длительности движения.",
+          "explanation": "Odom не имеет такой гарантии абсолютной точности."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "В REP-105 map может корректироваться скачком, а odom нужен как непрерывная локальная система, хотя со временем дрейфует. Это назначение систем координат, а не обещание безошибочности датчиков.",
+      "source_ids": [
+        "IR24"
+      ],
+      "tags": [
+        "int_estimation",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Использовать различие глобальной коррекции и локальной непрерывности.",
+      "revision": 1,
+      "interview_block_id": "int_estimation"
+    },
+    {
+      "id": "INT-033",
+      "topic_id": "state_estimation",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Датчик выдаёт точную метку момента измерения, но пакет приходит на 120 мс позже. Робот в это время двигался. Что неверно в присвоении пакету текущего времени при получении?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Старая информация будет привязана к более позднему состоянию робота.",
+          "explanation": "Время прибытия и время измерения обозначают разные события. Нужны согласованные часы и обработка задержанного измерения, а не стирание его возраста новой меткой."
+        },
+        {
+          "id": "b",
+          "text": "Постоянная задержка никогда не влияет на геометрию при движении.",
+          "explanation": "Даже постоянное смещение времени может давать систематическую ошибку положения."
+        },
+        {
+          "id": "c",
+          "text": "Время получения автоматически учитывает путь, пройденный во время доставки.",
+          "explanation": "Присвоение новой метки не переносит само измерение в новое состояние."
+        },
+        {
+          "id": "d",
+          "text": "Новая метка исправляет синхронизацию часов без оценки их смещения.",
+          "explanation": "Перезапись не устанавливает соответствие двух временных шкал."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "Время прибытия и время измерения обозначают разные события. Нужны согласованные часы и обработка задержанного измерения, а не стирание его возраста новой меткой.",
+      "source_ids": [
+        "IR24",
+        "IR25",
+        "IR38"
+      ],
+      "tags": [
+        "int_estimation",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Различать метку измерения и время доставки.",
+      "revision": 1,
+      "interview_block_id": "int_estimation"
+    },
+    {
+      "id": "INT-034",
+      "topic_id": "state_estimation",
+      "difficulty": 3,
+      "kind": "calculation",
+      "question": "В учебном скалярном фильтре проверяется d² = r²/S, где r — невязка, S — её положительная дисперсия. r = 0,6 м, S = 0,04 м²; правило приёмки d² ≤ 4. Каков результат?",
+      "options": [
+        {
+          "id": "a",
+          "text": "d² = 15; измерение принимается.",
+          "explanation": "Разделена невязка без квадрата, а сравнение с порогом также неверно."
+        },
+        {
+          "id": "b",
+          "text": "d² = 9; измерение обязательно истинное, потому что r положительно.",
+          "explanation": "Знак невязки не отменяет заданный двухсторонний тест."
+        },
+        {
+          "id": "c",
+          "text": "d² = 9; измерение не проходит заданный порог.",
+          "explanation": "0,6²/0,04 = 9 > 4. Решение следует из явно заданного правила. Такой тест не доказывает, что физически неисправен именно датчик: возможны неверная модель, время или дисперсия."
+        },
+        {
+          "id": "d",
+          "text": "d² = 0,9; измерение принимается.",
+          "explanation": "Численно неверно вычислено отношение квадрата невязки к дисперсии."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "0,6²/0,04 = 9 > 4. Решение следует из явно заданного правила. Такой тест не доказывает, что физически неисправен именно датчик: возможны неверная модель, время или дисперсия.",
+      "source_ids": [
+        "IR38"
+      ],
+      "tags": [
+        "int_estimation",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Применять нормированный порог и не путать отказ теста с доказательством причины.",
+      "revision": 1,
+      "interview_block_id": "int_estimation"
+    },
+    {
+      "id": "INT-035",
+      "topic_id": "state_estimation",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "Роботу доступны только приращения движения колёс и относительные наблюдения неизвестных ориентиров. Нет начальной глобальной привязки или внешнего абсолютного ориентира. Какое утверждение об абсолютном положении наиболее обоснованно?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Фильтр с большим числом состояний всегда восстановит недостающий ориентир.",
+          "explanation": "Размер модели не добавляет отсутствующие наблюдения."
+        },
+        {
+          "id": "b",
+          "text": "Увеличение частоты энкодера само задаст глобальный ноль карты.",
+          "explanation": "Частота не добавляет абсолютный ориентир."
+        },
+        {
+          "id": "c",
+          "text": "Относительную карту и движение можно оценивать, но глобальные сдвиг и ориентация не определяются этими данными однозначно.",
+          "explanation": "Одинаковый глобальный перенос и поворот робота с картой сохранят все заданные относительные наблюдения. Для абсолютной привязки нужна дополнительная информация или условное закрепление системы координат, которое не является новым измерением."
+        },
+        {
+          "id": "d",
+          "text": "Произвольный выбор начала координат доказывает истинное положение на Земле.",
+          "explanation": "Это соглашение о координатах, не физическая привязка."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "Одинаковый глобальный перенос и поворот робота с картой сохранят все заданные относительные наблюдения. Для абсолютной привязки нужна дополнительная информация или условное закрепление системы координат, которое не является новым измерением.",
+      "source_ids": [
+        "IR24",
+        "IR38"
+      ],
+      "tags": [
+        "int_estimation",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Замечать неоднозначность задачи оценки состояния.",
+      "revision": 1,
+      "interview_block_id": "int_estimation"
+    },
+    {
+      "id": "INT-036",
+      "topic_id": "computer_vision",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Камеру с rolling shutter заменили на global shutter, но при длинной экспозиции быстро движущийся объект всё ещё размыт. Почему это не противоречие?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Глобальный затвор устраняет различие времени экспонирования строк, но не движение объекта за время экспозиции.",
+          "explanation": "Геометрическое искажение из-за построчного времени и смаз за экспозицию — разные эффекты. Для смаза анализируют экспозицию, освещение и движение, а не только тип затвора."
+        },
+        {
+          "id": "b",
+          "text": "Обычная геометрическая калибровка объектива автоматически восстанавливает детали, потерянные из-за смаза.",
+          "explanation": "Калибровка геометрии не возвращает утраченную пространственную информацию."
+        },
+        {
+          "id": "c",
+          "text": "Global shutter исключает любой смаз при любой экспозиции.",
+          "explanation": "Он не устраняет движение за время накопления света."
+        },
+        {
+          "id": "d",
+          "text": "Повышение FPS обязательно укорачивает экспозицию настолько, что смаз невозможен.",
+          "explanation": "Частота и экспозиция связаны ограничениями, но отсутствие смаза из FPS не следует."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "Геометрическое искажение из-за построчного времени и смаз за экспозицию — разные эффекты. Для смаза анализируют экспозицию, освещение и движение, а не только тип затвора.",
+      "source_ids": [
+        "IR29"
+      ],
+      "tags": [
+        "int_vision",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Различать rolling-shutter геометрию и motion blur.",
+      "revision": 1,
+      "interview_block_id": "int_vision"
+    },
+    {
+      "id": "INT-038",
+      "topic_id": "computer_vision",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Камера имеет малую ошибку репроекции по своей калибровочной доске, но робот систематически промахивается захватом. Что ещё надо проверить?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Преобразование камера–робот, TCP, временную привязку и проверку на независимых позах.",
+          "explanation": "Калибровка внутренней геометрии камеры проверяет только часть цепочки. Ошибка захвата может возникнуть в других преобразованиях, инструменте, времени и механике. По одной ошибке репроекции нельзя выбрать единственную причину."
+        },
+        {
+          "id": "b",
+          "text": "Считать всю цепочку камера–захват точной, поскольку ошибка репроекции мала.",
+          "explanation": "Проверен только ограниченный участок цепочки."
+        },
+        {
+          "id": "c",
+          "text": "Использовать только координаты пикселя как координаты инструмента в метрах.",
+          "explanation": "Нужны геометрическая модель, масштаб и преобразования координат."
+        },
+        {
+          "id": "d",
+          "text": "Повторять только внутреннюю калибровку камеры на тех же кадрах до ещё меньшей ошибки.",
+          "explanation": "Это не проверяет остальные преобразования и новые условия."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "Калибровка внутренней геометрии камеры проверяет только часть цепочки. Ошибка захвата может возникнуть в других преобразованиях, инструменте, времени и механике. По одной ошибке репроекции нельзя выбрать единственную причину.",
+      "source_ids": [
+        "S211",
+        "S213"
+      ],
+      "tags": [
+        "int_vision",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Проверять всю цепочку преобразования наблюдения в действие.",
+      "revision": 1,
+      "interview_block_id": "int_vision"
+    },
+    {
+      "id": "INT-039",
+      "topic_id": "computer_vision",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Модель распознавания учили и проверяли на случайно перемешанных соседних кадрах одного видеопроезда. Нужно оценить работу в новом помещении. Какое разделение лучше проверяет именно это требование?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Оценивать только точность на кадрах, где модель уже дала верный ответ.",
+          "explanation": "Такой отбор исключает ошибки из измерения качества."
+        },
+        {
+          "id": "b",
+          "text": "Перемешать те же кадры ещё раз и объявить новое помещение проверенным.",
+          "explanation": "Перемешивание не создаёт новое помещение."
+        },
+        {
+          "id": "c",
+          "text": "Продублировать обучающие кадры в проверочном наборе.",
+          "explanation": "Это ещё сильнее связывает проверку с обучением."
+        },
+        {
+          "id": "d",
+          "text": "Отложить для проверки отдельные помещения и сессии, не использованные при обучении и подборе настроек.",
+          "explanation": "Соседние кадры могут почти повторять сцену и давать слишком лёгкую проверку. Здесь целевое условие — новое помещение, поэтому независимость проверочного набора задают на уровне помещений и сессий. Это авторская постановка проверки применимости."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "Соседние кадры могут почти повторять сцену и давать слишком лёгкую проверку. Здесь целевое условие — новое помещение, поэтому независимость проверочного набора задают на уровне помещений и сессий. Это авторская постановка проверки применимости.",
+      "source_ids": [
+        "IR34",
+        "IR38"
+      ],
+      "tags": [
+        "int_vision",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Согласовывать независимость проверки с целевыми условиями применения.",
+      "revision": 1,
+      "interview_block_id": "int_vision"
+    },
+    {
+      "id": "INT-040",
+      "topic_id": "computer_vision",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Система выдаёт 30 результатов в секунду, но каждый относится к кадру трёхсекундной давности. Какую величину нужно дополнительно измерять, чтобы обнаруживать именно такое отставание?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Сквозной возраст результата относительно момента съёмки.",
+          "explanation": "Высокая пропускная способность не равна малой задержке. Очередь может сохранять постоянный FPS и большой возраст данных; временные метки нужны на входе и выходе тракта."
+        },
+        {
+          "id": "b",
+          "text": "Только среднюю загрузку процессора.",
+          "explanation": "Загрузка не определяет возраст конкретного результата."
+        },
+        {
+          "id": "c",
+          "text": "Только размер очереди на последнем этапе, не учитывая предыдущие стадии.",
+          "explanation": "Задержка могла накопиться до последней очереди или внутри обработки."
+        },
+        {
+          "id": "d",
+          "text": "Только суммарное число результатов с начала запуска.",
+          "explanation": "Количество не задаёт время съёмки каждого результата."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "Высокая пропускная способность не равна малой задержке. Очередь может сохранять постоянный FPS и большой возраст данных; временные метки нужны на входе и выходе тракта.",
+      "source_ids": [
+        "IR14",
+        "IR38"
+      ],
+      "tags": [
+        "int_vision",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Отделять производительность конвейера от latency.",
+      "revision": 1,
+      "interview_block_id": "int_vision"
+    },
+    {
+      "id": "INT-041",
+      "topic_id": "motion_planning",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "На карте линия центра прямоугольного робота не пересекает препятствие, но при повороте угол корпуса задевает его. Что упущено?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Только частоту отображения центральной линии на экране.",
+          "explanation": "Обновление изображения не меняет используемую геометрию столкновения."
+        },
+        {
+          "id": "b",
+          "text": "Габариты и ориентация робота вдоль движения, включая область, занимаемую при повороте.",
+          "explanation": "Проверка центра соответствует точечной модели. Реальный или заданный контур нужно проверять с ориентацией на всём движении, а не только в начальной и конечной точках."
+        },
+        {
+          "id": "c",
+          "text": "Только проверку габарита в начальной и конечной позах.",
+          "explanation": "Корпус может пересечь препятствие в промежуточной ориентации."
+        },
+        {
+          "id": "d",
+          "text": "Только длину центральной линии пути без ориентации корпуса.",
+          "explanation": "Длина не показывает область, занимаемую углами корпуса."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "Проверка центра соответствует точечной модели. Реальный или заданный контур нужно проверять с ориентацией на всём движении, а не только в начальной и конечной точках.",
+      "source_ids": [
+        "IR30"
+      ],
+      "tags": [
+        "int_planning",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Проверять движение геометрии робота, а не только его центра.",
+      "revision": 1,
+      "interview_block_id": "int_planning"
+    },
+    {
+      "id": "INT-042",
+      "topic_id": "motion_planning",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Геометрический путь проходит через допустимые конфигурации, но команда требует мгновенно изменить скорость с +1 до −1 м/с. Чего не хватает?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Временной параметризации с учётом ограничений скорости и ускорения.",
+          "explanation": "Путь описывает геометрию, а траектория — её прохождение во времени. Допустимые положения не гарантируют допустимые производные движения. Конкретные пределы должны быть заданы для системы."
+        },
+        {
+          "id": "b",
+          "text": "Только более плотной интерполяции геометрии при сохранении скачка скорости.",
+          "explanation": "Добавление точек не делает скачок скорости физически допустимым."
+        },
+        {
+          "id": "c",
+          "text": "Только увеличения максимальной разрешённой скорости.",
+          "explanation": "Здесь нарушается требование к изменению скорости, а не только к её величине."
+        },
+        {
+          "id": "d",
+          "text": "Только ограничения конечного положения без привязки ко времени.",
+          "explanation": "Это не ограничивает производные движения."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "Путь описывает геометрию, а траектория — её прохождение во времени. Допустимые положения не гарантируют допустимые производные движения. Конкретные пределы должны быть заданы для системы.",
+      "source_ids": [
+        "IR23",
+        "IR38"
+      ],
+      "tags": [
+        "int_planning",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Отделять геометрическую допустимость от динамической.",
+      "revision": 1,
+      "interview_block_id": "int_planning"
+    },
+    {
+      "id": "INT-043",
+      "topic_id": "motion_planning",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "После установки выступающего груза корпус робота не изменился, но общий габарит стал шире. Какую модель необходимо пересмотреть перед повторным использованием маршрутов?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Проверить только свободное место в начальной точке, не пересматривая маршрут.",
+          "explanation": "Груз может пересечь препятствие в другой части пути."
+        },
+        {
+          "id": "b",
+          "text": "Пересчитать только массу, не меняя геометрию проверки столкновений.",
+          "explanation": "Динамическая модель не заменяет геометрическую."
+        },
+        {
+          "id": "c",
+          "text": "Контур и другие ограничения движения всей системы робот–груз.",
+          "explanation": "Столкнуться может не только базовый корпус. Нужно учитывать актуальную геометрию груза; при изменении массы и центра масс отдельно проверяются динамика и торможение."
+        },
+        {
+          "id": "d",
+          "text": "Сохранить старый контур, если центр масс остался на прежнем месте.",
+          "explanation": "Центр масс не определяет внешние габариты."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "Столкнуться может не только базовый корпус. Нужно учитывать актуальную геометрию груза; при изменении массы и центра масс отдельно проверяются динамика и торможение.",
+      "source_ids": [
+        "IR30",
+        "IR33"
+      ],
+      "tags": [
+        "int_planning",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Обновлять модель движения после изменения полезной нагрузки.",
+      "revision": 1,
+      "interview_block_id": "int_planning"
+    },
+    {
+      "id": "INT-044",
+      "topic_id": "motion_planning",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "В дискретной модели два робота за один шаг одновременно меняются местами на соседних вершинах A и B. Проверяются только занятые вершины в целые моменты. Какой конфликт может быть пропущен?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Только совпадение имён роботов.",
+          "explanation": "Имена не определяют столкновение на ребре."
+        },
+        {
+          "id": "b",
+          "text": "Обязательная потеря сетевого пакета.",
+          "explanation": "Конфликт возможен при идеальной связи."
+        },
+        {
+          "id": "c",
+          "text": "Никакой: разные конечные вершины доказывают отсутствие столкновений.",
+          "explanation": "Проверка только концов интервала недостаточна."
+        },
+        {
+          "id": "d",
+          "text": "Встречное движение по одному ребру за один интервал.",
+          "explanation": "Разные вершины в начале и конце не исключают движение навстречу внутри интервала. В заданной графовой модели нужна отдельная проверка противоположных переходов. Для реальных роботов дополнительно нужны интервалы и геометрия."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "Разные вершины в начале и конце не исключают движение навстречу внутри интервала. В заданной графовой модели нужна отдельная проверка противоположных переходов. Для реальных роботов дополнительно нужны интервалы и геометрия.",
+      "source_ids": [
+        "IR38"
+      ],
+      "tags": [
+        "int_planning",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Замечать различие конфликта вершин и конфликта рёбер.",
+      "revision": 1,
+      "interview_block_id": "int_planning"
+    },
+    {
+      "id": "INT-045",
+      "topic_id": "motion_planning",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "Два робота зарезервировали по одному узкому участку и ждут освобождения второго, удерживаемого соседом. Связь исправна. Какую причину нужно устранить?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Только слишком короткое время ожидания; увеличить его до бесконечного.",
+          "explanation": "Неограниченное ожидание не разрывает цикл."
+        },
+        {
+          "id": "b",
+          "text": "Только потерю запросов в сети; повторять их без изменения владения участками.",
+          "explanation": "По условию связь исправна, а ресурсы удерживаются взаимно."
+        },
+        {
+          "id": "c",
+          "text": "Только одинаковые времена повторов; использовать случайные задержки, никогда не освобождая ресурсы.",
+          "explanation": "При сохранении обоих захватов случайные повторы не устраняют описанную зависимость."
+        },
+        {
+          "id": "d",
+          "text": "Циклическое ожидание ресурсов через согласованный порядок резервирования или управляемое освобождение и перепланирование.",
+          "explanation": "Повторная отправка тех же запросов не меняет взаимное ожидание. Нужен протокол, разрывающий цикл, с условиями безопасного освобождения, ограничениями повторов и проверкой, что другой робот не будет бесконечно обделён ресурсом."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "Повторная отправка тех же запросов не меняет взаимное ожидание. Нужен протокол, разрывающий цикл, с условиями безопасного освобождения, ограничениями повторов и проверкой, что другой робот не будет бесконечно обделён ресурсом.",
+      "source_ids": [
+        "IR01",
+        "IR38"
+      ],
+      "tags": [
+        "int_planning",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Диагностировать системный deadlock по графу ожидания.",
+      "revision": 1,
+      "interview_block_id": "int_planning"
+    },
+    {
+      "id": "INT-046",
+      "topic_id": "industrial_plc",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Для обычной команды Beckhoff MC_MoveAbsolute появился Busy = TRUE. Ошибки пока нет. Как трактовать это состояние?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Ось точно достигла целевого положения.",
+          "explanation": "Busy описывает выполнение, а не доказанное завершение."
+        },
+        {
+          "id": "b",
+          "text": "Можно удалить блок из циклической программы сразу после Busy.",
+          "explanation": "Блок должен вызываться по правилам библиотеки для обработки выполнения и результата."
+        },
+        {
+          "id": "c",
+          "text": "Блок обрабатывает команду; завершение определяют по выходам Done, Error или CommandAborted.",
+          "explanation": "Busy означает обработку команды и не доказывает достижения позиции. При буферизации Busy может быть TRUE ещё до Active и начала движения. Нужно соблюдать цикл вызова блока и обработать результат. Семантику нельзя без уточнения переносить на все блоки: MC_Stop имеет особенности."
+        },
+        {
+          "id": "d",
+          "text": "Повторно подавать фронт Execute в каждом цикле, пока Busy истинно.",
+          "explanation": "Это не является правильной заменой отслеживанию результата активной команды."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "Busy означает обработку команды и не доказывает достижения позиции. При буферизации Busy может быть TRUE ещё до Active и начала движения. Нужно соблюдать цикл вызова блока и обработать результат. Семантику нельзя без уточнения переносить на все блоки: MC_Stop имеет особенности.",
+      "source_ids": [
+        "IR31",
+        "IR32"
+      ],
+      "tags": [
+        "int_plc",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Отличать принятие и выполнение команды от её результата.",
+      "revision": 2,
+      "interview_block_id": "int_plc"
+    },
+    {
+      "id": "INT-047",
+      "topic_id": "industrial_plc",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "После механического обслуживания и сброса ошибки контроллер не имеет достоверной привязки оси к опорному положению. Что корректно?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Нужно отключить все проверки положения, чтобы цикл продолжился.",
+          "explanation": "Это маскирует неопределённость вместо её устранения."
+        },
+        {
+          "id": "b",
+          "text": "Достоверная привязка не нужна для позиционной команды.",
+          "explanation": "Контроллер должен знать, к чему относятся координаты задания."
+        },
+        {
+          "id": "c",
+          "text": "Сброс ошибки не восстанавливает координатную привязку сам по себе; требуется предусмотренная проверка или процедура референцирования.",
+          "explanation": "Состояние ошибки и достоверность координат — разные свойства. Точный порядок зависит от датчика, механики и руководства: абсолютный датчик тоже требует проверки согласованности после вмешательства."
+        },
+        {
+          "id": "d",
+          "text": "После любого reset текущую координату всегда можно считать физическим нулём.",
+          "explanation": "Присвоение числа не доказывает положение механизма."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "Состояние ошибки и достоверность координат — разные свойства. Точный порядок зависит от датчика, механики и руководства: абсолютный датчик тоже требует проверки согласованности после вмешательства.",
+      "source_ids": [
+        "IR31",
+        "IR33",
+        "IR38"
+      ],
+      "tags": [
+        "int_plc",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Различать сброс неисправности и достоверность состояния механизма.",
+      "revision": 1,
+      "interview_block_id": "int_plc"
+    },
+    {
+      "id": "INT-048",
+      "topic_id": "industrial_plc",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "По сети пришёл запрос «выдать одну деталь» с id = 81. Деталь выдана, но подтверждение потерялось. Клиент повторил запрос с тем же id. Какой контракт предотвращает повторную выдачу?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Клиент меняет id при каждом повторе той же операции.",
+          "explanation": "Так исполнитель не сможет распознать повтор как ту же операцию."
+        },
+        {
+          "id": "b",
+          "text": "Исполнитель выполняет любую повторную команду, потому что сеть надёжная.",
+          "explanation": "Потеря подтверждения может привести к повтору уже выполненного действия."
+        },
+        {
+          "id": "c",
+          "text": "CRC пакета доказывает, что действие ещё не выполнялось.",
+          "explanation": "Контроль целостности не определяет историю бизнес-операции."
+        },
+        {
+          "id": "d",
+          "text": "Исполнитель распознаёт повтор того же id и возвращает сохранённый результат без нового физического действия.",
+          "explanation": "Идентификатор и хранение результата позволяют сделать повтор запроса идемпотентным. Нужно определить срок хранения, поведение после перезапуска и границу, на которой действие считается выполненным. Одного TCP недостаточно для семантики «выполнить один раз»."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "Идентификатор и хранение результата позволяют сделать повтор запроса идемпотентным. Нужно определить срок хранения, поведение после перезапуска и границу, на которой действие считается выполненным. Одного TCP недостаточно для семантики «выполнить один раз».",
+      "source_ids": [
+        "IR38"
+      ],
+      "tags": [
+        "int_plc",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Проектировать повтор команд с физическим эффектом.",
+      "revision": 1,
+      "interview_block_id": "int_plc"
+    },
+    {
+      "id": "INT-049",
+      "topic_id": "industrial_plc",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "После замены захвата робот Universal Robots стал регулярно уходить в protective stop. Какой подход соответствует расследованию, а не сокрытию проблемы?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Без анализа повысить допустимые усилия до максимума.",
+          "explanation": "Исчезновение сообщения не доказывает устранения причины."
+        },
+        {
+          "id": "b",
+          "text": "Автоматически сбрасывать каждую остановку и считать цикл исправным.",
+          "explanation": "Это скрывает повторяющийся отказ и противоречит предупреждениям производителя."
+        },
+        {
+          "id": "c",
+          "text": "Остановить автоматические повторы и по руководству проверить нагрузку, центр масс, движение и возможные столкновения.",
+          "explanation": "Повторяющаяся защитная остановка требует разбора причины. Автоматический reset и продолжение не являются исправлением; ограничения нельзя ослаблять только ради исчезновения сообщения. Реальная работа выполняется допущенным персоналом по процедурам оборудования."
+        },
+        {
+          "id": "d",
+          "text": "Исключить событие из журнала, чтобы не портить метрику.",
+          "explanation": "Удаление наблюдаемости не исправляет систему."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "Повторяющаяся защитная остановка требует разбора причины. Автоматический reset и продолжение не являются исправлением; ограничения нельзя ослаблять только ради исчезновения сообщения. Реальная работа выполняется допущенным персоналом по процедурам оборудования.",
+      "source_ids": [
+        "IR33"
+      ],
+      "tags": [
+        "int_plc",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Сохранять защитную функцию при поиске причины отказа.",
+      "revision": 1,
+      "interview_block_id": "int_plc"
+    },
+    {
+      "id": "INT-050",
+      "topic_id": "industrial_plc",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Штатная программа умеет публиковать команду остановки через обычный топик ROS 2. Достаточно ли этого факта, чтобы считать её независимой функцией аварийной защиты установки?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Да, потому что сообщение reliable никогда не может задержаться.",
+          "explanation": "Reliable не является гарантией отсутствия задержек или сертификацией защиты."
+        },
+        {
+          "id": "b",
+          "text": "Нет: свойства защитной функции подтверждаются отдельно, включая архитектуру, отказы и применимые требования.",
+          "explanation": "Наличие программной команды не доказывает нужную независимость, отказоустойчивость и проверенную функцию защиты. Требования устанавливают для всей установки; этот учебный вопрос не задаёт проект безопасной цепи."
+        },
+        {
+          "id": "c",
+          "text": "Да, если обычный Wi-Fi хорошо работает в среднем.",
+          "explanation": "Средняя связь не доказывает поведение при отказах и выполнение требований защиты."
+        },
+        {
+          "id": "d",
+          "text": "Да, потому что в имени топика есть слово emergency.",
+          "explanation": "Имя не подтверждает свойства защитной системы."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "Наличие программной команды не доказывает нужную независимость, отказоустойчивость и проверенную функцию защиты. Требования устанавливают для всей установки; этот учебный вопрос не задаёт проект безопасной цепи.",
+      "source_ids": [
+        "IR10",
+        "IR33"
+      ],
+      "tags": [
+        "int_plc",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Не подменять подтверждённую защитную функцию обычной программной командой.",
+      "revision": 1,
+      "interview_block_id": "int_plc"
+    },
+    {
+      "id": "INT-051",
+      "topic_id": "diagnostics_integration",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "После обновления алгоритма число успешных захватов выросло, но одновременно изменили освещение и тестовые детали. Что мешает приписать улучшение именно алгоритму?",
+      "options": [
+        {
+          "id": "a",
+          "text": "После любого обновления сравнение результатов в принципе невозможно.",
+          "explanation": "Сопоставимые условия и правильный план эксперимента позволяют сравнивать версии."
+        },
+        {
+          "id": "b",
+          "text": "Любое улучшение после коммита доказывает, что причина — код.",
+          "explanation": "Совпадение во времени не исключает влияние освещения и деталей."
+        },
+        {
+          "id": "c",
+          "text": "Достаточно сравнить только лучшие прогоны двух версий.",
+          "explanation": "Такой отбор и различия условий не позволяют изолировать эффект алгоритма."
+        },
+        {
+          "id": "d",
+          "text": "Изменились несколько условий, поэтому сравнение не изолирует влияние алгоритма.",
+          "explanation": "Для такого вывода нужен сопоставимый протокол: фиксировать условия, версии и набор испытаний либо специально спланировать эксперимент с несколькими факторами. Само улучшение результата ещё не указывает причину."
+        }
+      ],
+      "correct_option_id": "d",
+      "explanation": "Для такого вывода нужен сопоставимый протокол: фиксировать условия, версии и набор испытаний либо специально спланировать эксперимент с несколькими факторами. Само улучшение результата ещё не указывает причину.",
+      "source_ids": [
+        "IR34",
+        "IR35",
+        "IR38"
+      ],
+      "tags": [
+        "int_testing",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Различать улучшение метрики и установленную причинность.",
+      "revision": 1,
+      "interview_block_id": "int_testing"
+    },
+    {
+      "id": "INT-052",
+      "topic_id": "diagnostics_integration",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Робот работает в симуляторе с идеальными датчиками. Какой вывод допустим?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Реальный робот гарантированно имеет ту же надёжность.",
+          "explanation": "Не проверены отличия физической системы от модели."
+        },
+        {
+          "id": "b",
+          "text": "Проверена работа в заданной модели; реальные задержки, шум, контакты и отказы требуют отдельных проверок.",
+          "explanation": "Симуляция полезна для повторяемых сценариев, но её результат ограничен моделью. Даже добавление шума не делает все физические и аппаратные свойства автоматически реалистичными."
+        },
+        {
+          "id": "c",
+          "text": "Достаточно увеличить графическое качество, чтобы подтвердить электронику.",
+          "explanation": "Визуальная детализация не подтверждает электрические и временные свойства."
+        },
+        {
+          "id": "d",
+          "text": "Симуляция вообще не даёт никакой полезной информации.",
+          "explanation": "Она может проверять алгоритмы и сценарии в определённых условиях."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "Симуляция полезна для повторяемых сценариев, но её результат ограничен моделью. Даже добавление шума не делает все физические и аппаратные свойства автоматически реалистичными.",
+      "source_ids": [
+        "IR36",
+        "IR34"
+      ],
+      "tags": [
+        "int_testing",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Формулировать границы доказательства симуляционных испытаний.",
+      "revision": 1,
+      "interview_block_id": "int_testing"
+    },
+    {
+      "id": "INT-053",
+      "topic_id": "diagnostics_integration",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Нужно проверить реакцию на устаревшие данные датчика. Какой тест направлен именно на это свойство?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Многократно публиковать старые значения с текущей меткой и считать проверку возраста пройденной.",
+          "explanation": "Новая метка скрывает старый возраст; проверяется уже другой контракт."
+        },
+        {
+          "id": "b",
+          "text": "В контролируемой среде прекратить новые измерения или задержать их и проверить предписанное состояние, время реакции и диагностику.",
+          "explanation": "Отказ должен воспроизводиться и иметь заранее заданный ожидаемый результат. Нормальный поток измерений не проверяет ветку устаревания. Функциональный тест на стенде не заменяет испытания защитной системы."
+        },
+        {
+          "id": "c",
+          "text": "Проверить только отсутствие ошибок при нормальном свежем потоке.",
+          "explanation": "Ветка устаревания не активируется."
+        },
+        {
+          "id": "d",
+          "text": "Считать отсутствие строк журнала доказательством заданной реакции.",
+          "explanation": "Нет наблюдения требуемого состояния и срока."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "Отказ должен воспроизводиться и иметь заранее заданный ожидаемый результат. Нормальный поток измерений не проверяет ветку устаревания. Функциональный тест на стенде не заменяет испытания защитной системы.",
+      "source_ids": [
+        "IR34",
+        "IR35",
+        "IR38"
+      ],
+      "tags": [
+        "int_testing",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Задавать наблюдаемый контракт испытания отказа.",
+      "revision": 1,
+      "interview_block_id": "int_testing"
+    },
+    {
+      "id": "INT-054",
+      "topic_id": "diagnostics_integration",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "После отката бинарного файла на старую версию ошибка осталась. Формат калибровки между версиями менялся, а файл калибровки не откатили. Что упущено?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Совместимость можно считать доказанной, если оба файла имеют формат JSON.",
+          "explanation": "Общий синтаксис не гарантирует одинаковую схему и смысл полей."
+        },
+        {
+          "id": "b",
+          "text": "Совместимость всего комплекта: программы, параметров, калибровки и схем данных.",
+          "explanation": "Рабочая конфигурация — не один исполняемый файл. Откат должен определять совместимые версии зависимых данных, необходимые преобразования и проверку результата; слепое удаление пользовательских данных не является общей стратегией."
+        },
+        {
+          "id": "c",
+          "text": "Только повторная установка того же старого бинарника, независимо от данных.",
+          "explanation": "Повторная установка не устраняет несовместимость калибровки."
+        },
+        {
+          "id": "d",
+          "text": "Нужно удалить любой файл калибровки и продолжить работу с произвольным нулём.",
+          "explanation": "Это не восстанавливает подтверждённую рабочую конфигурацию."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "Рабочая конфигурация — не один исполняемый файл. Откат должен определять совместимые версии зависимых данных, необходимые преобразования и проверку результата; слепое удаление пользовательских данных не является общей стратегией.",
+      "source_ids": [
+        "S211",
+        "IR34",
+        "IR38"
+      ],
+      "tags": [
+        "int_testing",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Включать данные и конфигурацию в управление версиями системы.",
+      "revision": 1,
+      "interview_block_id": "int_testing"
+    },
+    {
+      "id": "INT-055",
+      "topic_id": "diagnostics_integration",
+      "difficulty": 3,
+      "kind": "scenario",
+      "question": "Требование в этом испытании: каждый из 100 циклов должен завершиться не позже 50 мс. В 99 циклах время 10 мс, в одном 80 мс. Каков вердикт?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Серия не прошла указанное требование из-за одного нарушения.",
+          "explanation": "Критерий относится к каждому циклу. Среднее 10,7 мс или высокий процент быстрых циклов не заменяют заданное условие. Другой критерий, например процентиль, должен быть согласован до испытания, а не после результата."
+        },
+        {
+          "id": "b",
+          "text": "Серия прошла, потому что единичный выброс можно удалить после получения результатов.",
+          "explanation": "Правило исключения не задано; наблюдение нарушает требование."
+        },
+        {
+          "id": "c",
+          "text": "Вердикт зависит только от средней загрузки процессора, которой нет в условии.",
+          "explanation": "Для данного критерия достаточно измеренных времён циклов."
+        },
+        {
+          "id": "d",
+          "text": "Серия прошла, потому что среднее меньше 50 мс.",
+          "explanation": "Это подмена критерия каждого цикла средним."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "Критерий относится к каждому циклу. Среднее 10,7 мс или высокий процент быстрых циклов не заменяют заданное условие. Другой критерий, например процентиль, должен быть согласован до испытания, а не после результата.",
+      "source_ids": [
+        "IR14",
+        "IR35",
+        "IR38"
+      ],
+      "tags": [
+        "int_testing",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Не подменять критерий приёмки удобной статистикой.",
+      "revision": 1,
+      "interview_block_id": "int_testing"
+    },
+    {
+      "id": "INT-056",
+      "topic_id": "diagnostics_integration",
+      "difficulty": 1,
+      "kind": "scenario",
+      "question": "Какое требование к учебному роботу легче проверить однозначным испытанием?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Робот должен быть очень точным и современным.",
+          "explanation": "Нет измеримого смысла слов «очень» и «современным»."
+        },
+        {
+          "id": "b",
+          "text": "В заданном наборе из 100 попыток робот должен успешно разместить не менее 95 деталей с заданным допуском и условиями освещения.",
+          "explanation": "Определены число испытаний, наблюдаемый успех и условия. Полный протокол ещё должен уточнить допуск, состав набора и порядок измерения. Порог 95/100 здесь авторский пример, не отраслевой норматив."
+        },
+        {
+          "id": "c",
+          "text": "Робот должен работать лучше прежнего во всём.",
+          "explanation": "Не заданы свойства, условия и способ сравнения."
+        },
+        {
+          "id": "d",
+          "text": "Робот должен нравиться всем пользователям.",
+          "explanation": "Не определены выборка и измеритель результата."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "Определены число испытаний, наблюдаемый успех и условия. Полный протокол ещё должен уточнить допуск, состав набора и порядок измерения. Порог 95/100 здесь авторский пример, не отраслевой норматив.",
+      "source_ids": [
+        "IR35"
+      ],
+      "tags": [
+        "int_engineering",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Превращать общую цель в наблюдаемый критерий.",
+      "revision": 1,
+      "interview_block_id": "int_engineering"
+    },
+    {
+      "id": "INT-057",
+      "topic_id": "robot_math",
+      "difficulty": 2,
+      "kind": "calculation",
+      "question": "В учебной одномерной модели ошибки трёх звеньев по модулю ограничены 0,4, 0,3 и 0,2 мм. Знаки и зависимости неизвестны. Какую верхнюю границу суммарной ошибки гарантирует только эта информация?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Около 0,54 мм.",
+          "explanation": "Это корень суммы квадратов, не худший случай по данным ограничениям."
+        },
+        {
+          "id": "b",
+          "text": "0,9 мм.",
+          "explanation": "По неравенству треугольника |e1+e2+e3| ≤ 0,4+0,3+0,2 = 0,9 мм. Сложение по корню суммы квадратов требует статистических допущений и не является такой гарантированной границей."
+        },
+        {
+          "id": "c",
+          "text": "0,4 мм.",
+          "explanation": "Остальные ошибки могут иметь тот же знак и добавиться."
+        },
+        {
+          "id": "d",
+          "text": "0,1 мм.",
+          "explanation": "Вычитание предполагает компенсирующие знаки, которые неизвестны."
+        }
+      ],
+      "correct_option_id": "b",
+      "explanation": "По неравенству треугольника |e1+e2+e3| ≤ 0,4+0,3+0,2 = 0,9 мм. Сложение по корню суммы квадратов требует статистических допущений и не является такой гарантированной границей.",
+      "source_ids": [
+        "IR38"
+      ],
+      "tags": [
+        "int_engineering",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Не путать гарантированную границу и статистическую оценку.",
+      "revision": 1,
+      "interview_block_id": "int_engineering"
+    },
+    {
+      "id": "INT-058",
+      "topic_id": "diagnostics_integration",
+      "difficulty": 1,
+      "kind": "scenario",
+      "question": "На собеседовании обсуждают командный проект, часть кода которого сгенерирована с помощью ИИ. Какой ответ лучше позволяет проверить личную компетентность?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Отделить собственные решения и проверки от чужого или сгенерированного кода и подробно разобрать один выбранный технический компромисс.",
+          "explanation": "Проверяемый вклад — это конкретные действия и понимание ограничений, а не присвоение авторства всему проекту. Использование инструментов само по себе не доказывает ни отсутствие, ни наличие компетенции."
+        },
+        {
+          "id": "b",
+          "text": "Перечислить названия библиотек вместо объяснения поведения системы.",
+          "explanation": "Названия не показывают понимания конкретной реализации."
+        },
+        {
+          "id": "c",
+          "text": "Сказать, что весь код написан самостоятельно, даже если это неправда.",
+          "explanation": "Такой ответ не соответствует фактическому вкладу."
+        },
+        {
+          "id": "d",
+          "text": "Считать собственные проверки несущественными и скрыть их.",
+          "explanation": "Постановка экспериментов и оценка результатов могут быть реальным вкладом."
+        }
+      ],
+      "correct_option_id": "a",
+      "explanation": "Проверяемый вклад — это конкретные действия и понимание ограничений, а не присвоение авторства всему проекту. Использование инструментов само по себе не доказывает ни отсутствие, ни наличие компетенции.",
+      "source_ids": [
+        "IR01",
+        "IR02"
+      ],
+      "tags": [
+        "int_engineering",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Представлять проект через честный и технически проверяемый вклад.",
+      "revision": 1,
+      "interview_block_id": "int_engineering"
+    },
+    {
+      "id": "INT-059",
+      "topic_id": "diagnostics_integration",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Робот промахивается только при движении; предполагают ошибку временной синхронизации. Какой эксперимент лучше отличит эту гипотезу от постоянного пространственного смещения?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Удалить из анализа все случаи промаха.",
+          "explanation": "Так исключается сам проверяемый эффект."
+        },
+        {
+          "id": "b",
+          "text": "Провести только один дополнительный прогон на той же скорости.",
+          "explanation": "Он слабо различает две предложенные причины."
+        },
+        {
+          "id": "c",
+          "text": "Сравнить ошибку при нулевой, положительной и отрицательной скорости, сохраняя остальные существенные условия.",
+          "explanation": "При постоянной временной ошибке вклад движения зависит от скорости и меняет знак при её смене в простой поступательной модели. Постоянный пространственный сдвиг ведёт себя иначе. Это различающий эксперимент, а не окончательное доказательство единственной причины."
+        },
+        {
+          "id": "d",
+          "text": "Одновременно поменять камеру, привод и все коэффициенты.",
+          "explanation": "После такого изменения трудно отнести эффект к одной гипотезе."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "При постоянной временной ошибке вклад движения зависит от скорости и меняет знак при её смене в простой поступательной модели. Постоянный пространственный сдвиг ведёт себя иначе. Это различающий эксперимент, а не окончательное доказательство единственной причины.",
+      "source_ids": [
+        "S211",
+        "IR34",
+        "IR38"
+      ],
+      "tags": [
+        "int_engineering",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Выбирать эксперимент, различающий конкурирующие причины.",
+      "revision": 1,
+      "interview_block_id": "int_engineering"
+    },
+    {
+      "id": "INT-060",
+      "topic_id": "diagnostics_integration",
+      "difficulty": 2,
+      "kind": "scenario",
+      "question": "Все модули прошли собственные тесты интерфейсов, но система в целом не выполняет нужную складскую операцию в заданных условиях. Что ещё необходимо?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Изменить целевой сценарий в отчёте на тот, который система уже выполняет.",
+          "explanation": "Это подмена потребности, если новое требование не согласовано."
+        },
+        {
+          "id": "b",
+          "text": "Повторять только те проверки интерфейсов, которые уже проходят.",
+          "explanation": "Они не охватывают наблюдаемую системную проблему."
+        },
+        {
+          "id": "c",
+          "text": "Проверить интеграционные требования и пригодность всей системы для целевого сценария.",
+          "explanation": "Корректность отдельных модулей не доказывает выполнение миссии. Верификация проверяет заданные требования, а валидация — пригодность для предполагаемого применения; нужны оба вида проверки на соответствующих уровнях."
+        },
+        {
+          "id": "d",
+          "text": "Объявить задачу решённой по успешным модульным тестам.",
+          "explanation": "Композиция и целевой сценарий ещё не подтверждены."
+        }
+      ],
+      "correct_option_id": "c",
+      "explanation": "Корректность отдельных модулей не доказывает выполнение миссии. Верификация проверяет заданные требования, а валидация — пригодность для предполагаемого применения; нужны оба вида проверки на соответствующих уровнях.",
+      "source_ids": [
+        "IR34"
+      ],
+      "tags": [
+        "int_engineering",
+        "собеседование",
+        "прикладная_проверка"
+      ],
+      "learning_objective": "Отличать работоспособность компонентов от подтверждённой миссии системы.",
+      "revision": 1,
+      "interview_block_id": "int_engineering"
     }
   ]
 }

@@ -38,7 +38,8 @@ public final class MainActivity extends Activity {
     private static final String ABOUT = "https://" + HOST + "/assets/privacy.html";
     private static final Set<String> ASSETS = new HashSet<>(Arrays.asList(
         "index.html", "privacy.html", "style.css", "app.js", "core.js", "android-adapter.js",
-        "circuits-core.js", "circuits-data.js", "circuits-ui.js",
+        "circuits-core.js", "circuits-data.js", "circuits-ui.js", "practice-core.js", "practice-ui.js",
+        "data/interview_practice.json",
         "data/question_bank.json", "data/interview_paths.json", "data/beginner_tickets.json",
         "data/tickets.json", "data/study_plan.json"
     ));

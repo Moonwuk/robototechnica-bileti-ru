@@ -1,6 +1,6 @@
 {
   "name": "robototehnika-bileti-ru",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "private": true,
   "type": "module",
   "description": "Тренажёр билетов по электротехнике и робототехнике",

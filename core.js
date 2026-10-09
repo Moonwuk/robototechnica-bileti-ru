@@ -8,7 +8,7 @@ export function buildIssueDraft({ kind = 'suggestion', question, topic = '', ban
   if (kind === 'error' && !question?.id) throw new Error('Question required for an error report');
   const isError = kind === 'error';
   const title = isError ? `Ошибка в вопросе ${question.id}` : 'Предложение по тренажёру';
-  const page = isError ? question.type === 'circuit' ? `${SITE_URL}#circuit/${encodeURIComponent(question.id)}` : `${SITE_URL}#topic/${encodeURIComponent(question.topic_id)}` : SITE_URL;
+  const page = isError ? question.type === 'circuit' ? `${SITE_URL}#circuit/${encodeURIComponent(question.id)}` : question.type === 'practice' ? `${SITE_URL}#exercise/${encodeURIComponent(question.id)}` : `${SITE_URL}#topic/${encodeURIComponent(question.topic_id)}` : SITE_URL;
   const context = isError ? [
     `Вопрос: ${question.id}`, `Тема: ${topic}`, `Редакция вопроса: ${question.revision ?? 1}`,
     '', question.question, ''

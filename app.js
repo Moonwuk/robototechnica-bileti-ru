@@ -1,8 +1,9 @@
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.3.1';
-import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.3.1';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.4.0';
+import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.4.0';
+import { createPracticeUI } from './practice-ui.js?v=1.4.0';
 
-const ASSET_VERSION = '1.3.1';
-let circuitUI;
+const ASSET_VERSION = '1.4.0';
+let circuitUI, practiceUI, practiceData;
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
 const main = document.getElementById('main');
@@ -42,7 +43,7 @@ function updateSupportDraft() {
   if (draft.needsPaste) document.getElementById('support-preview').open = true;
 }
 function openSupport(kind, questionId, invoker) {
-  const q = kind === 'error' ? questionMap?.get(questionId) || circuitReport(questionId) : null;
+  const q = kind === 'error' ? questionMap?.get(questionId) || circuitReport(questionId) || practiceUI?.report(questionId) : null;
   if (kind === 'error' && !q) return;
   supportInvoker = invoker;
   supportContext = { kind, question: q, topic: q ? q.type === 'circuit' ? 'Расчёты — законы Кирхгофа' : topicName(q.topic_id) : '', key: q ? `error:${q.id}` : 'suggestion' };
@@ -98,7 +99,7 @@ function persist() {
 function stats() { return summarize(progress, questionMap); }
 function updateNav() {
   const route = location.hash.slice(1).split('/')[0] || 'first-steps';
-  const nav = ['path', 'session', 'results'].includes(route) ? (progress.active?.origin || 'first-steps') : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : route;
+  const nav = ['path', 'session', 'results'].includes(route) ? (progress.active?.origin || 'first-steps') : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['practice-block', 'exercise'].includes(route) ? 'practice' : route;
   for (const link of document.querySelectorAll('[data-route]')) {
     if (link.dataset.route === nav) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -127,7 +128,7 @@ function firstSteps() {
     `<section class="start-card" aria-label="Следующая цепочка"><div><p class="eyebrow">${completed === ordered.length ? 'Можно повторить' : 'Ваш следующий шаг'}</p><h2>${E(next.title)}</h2><p>Короткий словарь · 5 вопросов · объяснение своими словами</p></div>${button(completed ? 'Продолжить обучение' : 'Начать с основ', 'open-path', next.id)}</section>
     <div class="stats-strip"><div class="stat-inline"><strong>${bank.questions.length}</strong><span>вопросов в банке</span></div><div class="stat-inline"><strong>${bank.topics.length}</strong><span>учебных тем</span></div><div class="stat-inline"><strong>${completed} / ${paths.length}</strong><span>цепочек пройдено</span></div></div>
     <section class="plain-panel calc-promo"><div><h2>Кирхгоф — с расчётами по шагам</h2><p class="note">12 задач со схемами, вводом уравнений и проверкой промежуточных результатов.</p></div><a class="button secondary" href="#circuits">Открыть расчёты</a></section>
-    <section class="plain-panel engineering-intro"><p class="eyebrow">Дальше — инженерная практика</p><h2>От модели к работающему роботу</h2><p class="note">60 новых вопросов: расчёты, выбор решений и проверка ограничений. Начните с математики и координат, затем переходите к манипуляторам, датчикам и движению.</p><div class="engineering-links">${bank.topics.filter(t => t.track_id === 'engineering').map(t => `<a class="button secondary" href="#topic/${E(t.id)}">${E(t.name)}</a>`).join('')}</div></section><div class="section-title"><h2>От электрической цепи к роботу</h2><span>Рекомендуемый порядок</span></div><div class="card-grid">${bank.topics.filter(t => paths.some(p => p.topic_id === t.id)).map((t, i) => {
+    <section class="plain-panel calc-promo"><div><h2>Инженерные собеседования: примените знания</h2><p class="note">12 прикладных блоков, пять профилей подготовки и 20 задач с полем решения.</p></div><a class="button secondary" href="#practice">Открыть практику</a></section><section class="plain-panel engineering-intro"><p class="eyebrow">Дальше — инженерная практика</p><h2>От модели к работающему роботу</h2><p class="note">60 новых вопросов: расчёты, выбор решений и проверка ограничений. Начните с математики и координат, затем переходите к манипуляторам, датчикам и движению.</p><div class="engineering-links">${bank.topics.filter(t => t.track_id === 'engineering').map(t => `<a class="button secondary" href="#topic/${E(t.id)}">${E(t.name)}</a>`).join('')}</div></section><div class="section-title"><h2>От электрической цепи к роботу</h2><span>Рекомендуемый порядок</span></div><div class="card-grid">${bank.topics.filter(t => paths.some(p => p.topic_id === t.id)).map((t, i) => {
       const ps = paths.filter(p => p.topic_id === t.id);
       const s = topicProgress(t.id);
       return `<section class="card topic-card"><div class="card-top"><span class="topic-number">ТЕМА ${String(i + 1).padStart(2, '0')}</span><span class="tag">${E(trackName(t.track_id))}</span></div><h3>${E(t.name)}</h3>${ps.map((p, j) => `<button class="path-link" data-action="open-path" data-id="${E(p.id)}"><span class="path-step">${progress.completed[p.id] ? '✓' : j + 1}</span><span class="path-name">${E(p.title)}</span><span class="path-size">5 вопр.</span></button>`).join('')}<div class="topic-footer"><span>${s.learned} / ${s.total} отвечено верно</span><div class="tiny-progress" aria-hidden="true"><span style="width:${s.percent}%"></span></div></div></section>`;
@@ -143,14 +144,15 @@ function pathIntro(id) {
 function ticketCard(t, beginner = false, i = 0) {
   const history = progress.sessions.filter(s => s.resourceId === t.id);
   const best = history.length ? Math.max(...history.map(s => s.correct)) : null;
-  return `<section class="card ticket-card"><div class="card-top"><span class="ticket-number">${String(i + 1).padStart(2, '0')}</span><span class="tag${progress.completed[t.id] ? ' done' : ''}">${progress.completed[t.id] ? 'Пройден' : beginner ? 'Основы' : t.category === 'engineering' ? 'Инженерная практика' : 'Базовые темы'}</span></div><h3>${E(beginner ? topicName(t.topic_id) : t.title)}</h3><p>${t.question_ids.length} вопросов · ${beginner || ticketMode === 'learn' ? 'разбор после каждого ответа' : 'разбор после завершения'}</p>${best !== null ? `<div class="ticket-score">Лучший результат: ${best} / ${t.question_ids.length}</div>` : ''}${button(beginner || ticketMode === 'learn' ? 'Учить билет' : 'Решить билет', beginner ? 'begin-beginner' : 'begin-ticket', t.id, 'secondary')}</section>`;
+  return `<section class="card ticket-card"><div class="card-top"><span class="ticket-number">${String(i + 1).padStart(2, '0')}</span><span class="tag${progress.completed[t.id] ? ' done' : ''}">${progress.completed[t.id] ? 'Пройден' : beginner ? 'Основы' : t.category === 'engineering' ? 'Инженерная практика' : t.category === 'interview' ? 'Собеседования' : 'Базовые темы'}</span></div><h3>${E(beginner ? topicName(t.topic_id) : t.title)}</h3><p>${t.question_ids.length} вопросов · ${beginner || ticketMode === 'learn' ? 'разбор после каждого ответа' : 'разбор после завершения'}</p>${best !== null ? `<div class="ticket-score">Лучший результат: ${best} / ${t.question_ids.length}</div>` : ''}${button(beginner || ticketMode === 'learn' ? 'Учить билет' : 'Решить билет', beginner ? 'begin-beginner' : 'begin-ticket', t.id, 'secondary')}</section>`;
 }
 function ticketsPage() {
-  const foundation = mixedTickets.filter(t => t.category !== 'engineering');
+  const foundation = mixedTickets.filter(t => !['engineering', 'interview'].includes(t.category));
   const engineering = mixedTickets.filter(t => t.category === 'engineering');
+  const interview = mixedTickets.filter(t => t.category === 'interview');
   main.innerHTML = heading('Билеты для практики', 'Начните с вводного билета по знакомой теме. Смешанные билеты пригодятся, когда освоите основы.', 'По одному подходу') + resumeBanner() +
     `<div class="section-title"><h2>Вводные билеты</h2><span>${beginnerTickets.length} билетов по 10 вопросов</span></div><div class="ticket-grid">${beginnerTickets.map((t, i) => ticketCard(t, true, i)).join('')}</div>
-    <div class="section-title"><h2>Смешанные билеты</h2><span>${foundation.length} билетов по 20 вопросов</span></div><div class="filters"><label for="ticket-mode">Как решать</label><select class="field" id="ticket-mode"><option value="learn"${ticketMode === 'learn' ? ' selected' : ''}>Обучение — объяснения сразу</option><option value="exam"${ticketMode === 'exam' ? ' selected' : ''}>Самопроверка — ответы в конце</option></select></div><div class="ticket-grid">${foundation.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Инженерная практика</h2><span>${engineering.length} билета по 20 вопросов</span></div><p class="note">Математика, координаты, манипуляторы, оценка состояния, зрение и планирование. Дополнительно — задачи по механике, управлению, ПО и испытаниям.</p><div class="ticket-grid">${engineering.map((t, i) => ticketCard(t, false, i)).join('')}</div><p class="note">В самопроверке цель — 18 правильных ответов из 20. Это ориентир для учёбы. Время не ограничено.</p>`;
+    <div class="section-title"><h2>Смешанные билеты</h2><span>${foundation.length} билетов по 20 вопросов</span></div><div class="filters"><label for="ticket-mode">Как решать</label><select class="field" id="ticket-mode"><option value="learn"${ticketMode === 'learn' ? ' selected' : ''}>Обучение — объяснения сразу</option><option value="exam"${ticketMode === 'exam' ? ' selected' : ''}>Самопроверка — ответы в конце</option></select></div><div class="ticket-grid">${foundation.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Инженерная практика</h2><span>${engineering.length} билета по 20 вопросов</span></div><p class="note">Математика, координаты, манипуляторы, оценка состояния, зрение и планирование. Дополнительно — задачи по механике, управлению, ПО и испытаниям.</p><div class="ticket-grid">${engineering.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Прикладные собеседования</h2><span>Два билета по 20 вопросов и один на 12</span></div><p class="note">52 вопроса по исследованию вакансий и инженерных интервью. Практические задачи и профильные маршруты — в разделе «Практика».</p><div class="ticket-grid">${interview.map((t, i) => ticketCard(t, false, i)).join('')}</div><p class="note">В самопроверке цель — не меньше 90% правильных ответов: 18 из 20 или 11 из 12. Это ориентир для учёбы. Время не ограничено.</p>`;
 }
 function topicsPage() {
   main.innerHTML = heading('Тренировка по темам', 'Краткая теория, полезные формулы и вопросы выбранного уровня.', 'От основ к инженерным задачам') + resumeBanner() + `<div class="card-grid">${bank.topics.map((t, i) => {
@@ -162,7 +164,7 @@ function topicIntro(id) {
   const t = topicMap.get(id);
   if (!t) return missing();
   const count = bank.questions.filter(q => q.topic_id === id && (topicDifficulty === 'all' || q.difficulty === Number(topicDifficulty))).length;
-  main.innerHTML = heading(t.name, '', trackName(t.track_id)) + `<section class="plain-panel"><h2>Коротко о теме</h2><p class="lesson" style="margin-top:15px">${E(t.mini_lesson)}</p>${t.formulas?.length ? `<ul class="formula-list">${t.formulas.map(f => `<li>${E(f)}</li>`).join('')}</ul>` : ''}<p class="note"><strong>Частая ошибка:</strong> ${E(t.common_error)}</p></section><section class="plain-panel"><h2>Выберите уровень</h2><div class="filters"><label for="topic-difficulty">Сложность</label><select class="field" id="topic-difficulty" data-topic="${E(id)}"><option value="1"${topicDifficulty === '1' ? ' selected' : ''}>Базовый</option><option value="2"${topicDifficulty === '2' ? ' selected' : ''}>Прикладной</option><option value="3"${topicDifficulty === '3' ? ' selected' : ''}>Повышенный</option><option value="all"${topicDifficulty === 'all' ? ' selected' : ''}>Все уровни</option></select><span class="note" style="margin:0">${questionCount(count)}</span></div><div class="button-row">${button('Начать тренировку', 'begin-topic', id)}<a class="button quiet" href="#topics">Все темы</a></div></section>`;
+  main.innerHTML = heading(t.name, '', trackName(t.track_id)) + `<section class="plain-panel"><h2>Коротко о теме</h2><p class="lesson" style="margin-top:15px">${E(t.mini_lesson)}</p>${t.formulas?.length ? `<ul class="formula-list">${t.formulas.map(f => `<li>${E(f)}</li>`).join('')}</ul>` : ''}<p class="note"><strong>Частая ошибка:</strong> ${E(t.common_error)}</p></section>${practiceUI.topicLinks(id)}<section class="plain-panel"><h2>Выберите уровень</h2><div class="filters"><label for="topic-difficulty">Сложность</label><select class="field" id="topic-difficulty" data-topic="${E(id)}"><option value="1"${topicDifficulty === '1' ? ' selected' : ''}>Базовый</option><option value="2"${topicDifficulty === '2' ? ' selected' : ''}>Прикладной</option><option value="3"${topicDifficulty === '3' ? ' selected' : ''}>Повышенный</option><option value="all"${topicDifficulty === 'all' ? ' selected' : ''}>Все уровни</option></select><span class="note" style="margin:0">${questionCount(count)}</span></div><div class="button-row">${button('Начать тренировку', 'begin-topic', id)}<a class="button quiet" href="#topics">Все темы</a></div></section>`;
 }
 function sources(ids) {
   return [...new Set(ids)].map(id => sourceMap.get(id)).filter(Boolean).map(s => {
@@ -201,7 +203,7 @@ function sessionPage() {
   const answeredCount = Object.keys(s.answers).length;
   const allAnswered = answeredCount === s.questionIds.length;
   main.innerHTML = `<div class="page-heading"><div><p class="eyebrow">${s.mode === 'exam' ? 'Самопроверка' : 'Обучение'}</p><h1>${E(s.title)}</h1></div>${button('Сохранить и выйти', 'pause', '', 'quiet')}</div>
-    <div class="session-layout"><section class="quiz-panel"><div class="question-meta"><span class="question-index">Вопрос ${s.index + 1} из ${s.questionIds.length}</span><span class="tag">${E(bank.difficulty_levels.find(d => d.id === q.difficulty)?.name)}</span></div><h2 class="question-title" id="question-title">${E(q.question)}</h2><div class="options" aria-labelledby="question-title">${options.map((o, i) => {
+    <div class="session-layout"><section class="quiz-panel"><div class="question-meta"><span class="question-index">Вопрос ${s.index + 1} из ${s.questionIds.length}</span><span class="tag">${E(bank.difficulty_levels.find(d => d.id === q.difficulty)?.name)}</span></div><h2 class="question-title" id="question-title">${E(q.question)}</h2>${s.mode !== 'exam' ? practiceUI.questionGlossary(q.id) : ''}<div class="options" aria-labelledby="question-title">${options.map((o, i) => {
       let cls = answer === o.id ? ' selected' : '';
       let label = '';
       if (showFeedback) {
@@ -226,9 +228,10 @@ function resultsPage() {
   const p = paths.find(p => p.id === s.pathId);
   const nextPath = p && paths[paths.indexOf(p) + 1];
   const hinted = s.questionIds.filter(id => s.hints[id]).length;
-  const pass = s.mode === 'exam' && s.questionIds.length === 20;
-  main.innerHTML = heading('Подход завершён', s.title, 'Результат') + `<section class="score-panel"><div class="score-value">${score}<span> / ${s.questionIds.length}</span></div><div><h2>${pass ? score >= 18 ? 'Цель достигнута' : 'Продолжайте тренироваться' : wrong.length ? 'Каждая ошибка — повод разобраться' : 'Все ответы верные'}</h2><p>${wrong.length ? `Вопросов для разбора: ${wrong.length}. Они добавлены в работу над ошибками.` : 'Можно переходить дальше или закрепить тему.'}${hinted ? ` С подсказкой: ${hinted}. Повторите эти вопросы самостоятельно.` : ''}</p></div></section>
+  const pass = s.mode === 'exam';
+  main.innerHTML = heading('Подход завершён', s.title, 'Результат') + `<section class="score-panel"><div class="score-value">${score}<span> / ${s.questionIds.length}</span></div><div><h2>${pass ? score >= Math.ceil(s.questionIds.length * .9) ? 'Цель достигнута' : 'Продолжайте тренироваться' : wrong.length ? 'Каждая ошибка — повод разобраться' : 'Все ответы верные'}</h2><p>${wrong.length ? `Вопросов для разбора: ${wrong.length}. Они добавлены в работу над ошибками.` : 'Можно переходить дальше или закрепить тему.'}${hinted ? ` С подсказкой: ${hinted}. Повторите эти вопросы самостоятельно.` : ''}</p></div></section>
     <div class="button-row result-actions">${wrong.length ? button('Повторить ошибки', 'retry-wrong') : ''}${nextPath ? button('Следующая цепочка', 'open-path', nextPath.id, wrong.length ? 'secondary' : 'primary') : ''}${button('Повторить подход', 'retry', '', 'secondary')}<a class="button quiet" href="#${E(s.origin)}">К разделу</a></div>
+    ${s.origin === 'practice' ? practiceUI.continuation(s.resourceId) : ''}
     ${p ? `<section class="plain-panel"><p class="eyebrow">Теперь своими словами</p><h2>Попробуйте ответить как на собеседовании</h2><p class="interview-prompt">${E(p.interview_prompt)}</p><label for="interview-answer">Ваш ответ — для самопроверки</label><textarea id="interview-answer" class="field text-answer" placeholder="Объясните так, как объяснили бы знакомому…">${E(s.draft)}</textarea><p class="note">Ответ сохраняется в текущем подходе. Оценки за формулировку нет.</p><details><summary>Сравнить с примером ответа</summary><p class="lesson" style="margin-top:15px">${E(p.plain_answer)}</p><h3 style="margin-top:18px">Проверьте, что вы назвали</h3><ul class="checklist">${p.answer_checklist.map(item => `<li>${E(item)}</li>`).join('')}</ul><p class="note">Не нужно запоминать пример дословно. Важно правильно объяснить смысл.</p></details></section>` : ''}
     <div class="section-title"><h2>${s.mode === 'exam' ? 'Разбор билета' : 'Все ответы подхода'}</h2><span>${score} верно · ${wrong.length} ошибок</span></div><div class="result-review">${s.questionIds.map((id, i) => {
       const q = questionMap.get(id);
@@ -301,6 +304,9 @@ function render() {
     case 'topics': topicsPage(); break;
     case 'topic': topicIntro(id); break;
     case 'circuits': circuitUI.list(); break;
+    case 'practice': practiceUI.list(id); break;
+    case 'practice-block': practiceUI.block(id); break;
+    case 'exercise': practiceUI.exercise(id); break;
     case 'circuit': circuitUI.exercise(id); break;
     case 'mistakes': mistakesPage(); break;
     case 'progress': progressPage(); break;
@@ -385,19 +391,19 @@ window.roboticsNativeBack = () => {
   if (route === 'session' || route === 'results') {
     persist();
     go(progress.active?.origin || 'first-steps');
-  } else go(route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : 'first-steps');
+  } else go(route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['exercise', 'practice-block'].includes(route) ? 'practice' : 'first-steps');
   return true;
 };
 
 async function load() {
   try {
-    const files = ['question_bank.json', 'interview_paths.json', 'beginner_tickets.json', 'tickets.json', 'study_plan.json'];
+    const files = ['question_bank.json', 'interview_paths.json', 'beginner_tickets.json', 'tickets.json', 'study_plan.json', 'interview_practice.json'];
     const data = await Promise.all(files.map(async name => {
       const response = await fetch(new URL(`./data/${name}?v=${ASSET_VERSION}`, import.meta.url));
       if (!response.ok) throw new Error(`Data unavailable: ${name}`);
       return response.json();
     }));
-    [bank, { paths }, { tickets: beginnerTickets }, { tickets: mixedTickets }, studyPlan] = data;
+    [bank, { paths }, { tickets: beginnerTickets }, { tickets: mixedTickets }, studyPlan, practiceData] = data;
     questionMap = new Map(bank.questions.map(q => [q.id, q]));
     topicMap = new Map(bank.topics.map(t => [t.id, t]));
     sourceMap = new Map(bank.sources.map(s => [s.id, s]));
@@ -410,6 +416,7 @@ async function load() {
     if (progress.active && !validateActive(progress.active, questionMap)) { progress.active = null; persist(); }
     document.getElementById('bank-version').textContent = bank.metadata.bank_version;
     circuitUI = createCircuitUI({ main, announce, onStorageError: storageWarning });
+    practiceUI = createPracticeUI({ main, data: practiceData, announce, onStorageError: storageWarning, sources, startQuiz: (ids, title, resourceId) => begin({ questions: selectedQuestions(ids), title, resourceId, origin: 'practice' }) });
     render();
     registerWebTools();
   } catch (error) {
