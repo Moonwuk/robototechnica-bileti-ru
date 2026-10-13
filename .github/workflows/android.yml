@@ -24,6 +24,9 @@ jobs:
           java-version: '17'
       - name: Check trainer
         run: |
+          node --check service-core.js
+          node --check service-data.js
+          node --check service-ui.js
           node --check reasoning-core.js
           node --check reasoning-data.js
           node --check reasoning-scene.js

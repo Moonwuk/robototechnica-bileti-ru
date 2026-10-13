@@ -1,6 +1,6 @@
-import { reasoningCases, reasoningSources, experiments, causes, fixes, mobileControls, conveyorControls, mobileDefaults, conveyorDefaults } from './reasoning-data.js?v=1.6.0';
-import { REASONING_KEY, normalize, simulateMobile, simulateConveyor, mobileReadings, conveyorReadings, runExperiment, verifyRepair, freshReasoningCase, recordExperiment, assessReasoning, readReasoning } from './reasoning-core.js?v=1.6.0';
-import { mobileScene, conveyorScene } from './reasoning-scene.js?v=1.6.0';
+import { reasoningCases, reasoningSources, experiments, causes, fixes, mobileControls, conveyorControls, mobileDefaults, conveyorDefaults } from './reasoning-data.js?v=1.7.0';
+import { REASONING_KEY, normalize, simulateMobile, simulateConveyor, mobileReadings, conveyorReadings, runExperiment, verifyRepair, freshReasoningCase, recordExperiment, assessReasoning, readReasoning } from './reasoning-core.js?v=1.7.0';
+import { mobileScene, conveyorScene } from './reasoning-scene.js?v=1.7.0';
 
 const E=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n=x=>new Intl.NumberFormat('ru',{maximumFractionDigits:2}).format(x);

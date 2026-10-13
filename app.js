@@ -1,12 +1,13 @@
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.6.0';
-import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.6.0';
-import { createPracticeUI } from './practice-ui.js?v=1.6.0';
+import { createServiceUI } from './service-ui.js?v=1.7.0';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.7.0';
+import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.7.0';
+import { createPracticeUI } from './practice-ui.js?v=1.7.0';
 
-import { createWorkshopUI } from './workshop-ui.js?v=1.6.0';
-import { createReasoningUI } from './reasoning-ui.js?v=1.6.0';
+import { createWorkshopUI } from './workshop-ui.js?v=1.7.0';
+import { createReasoningUI } from './reasoning-ui.js?v=1.7.0';
 
-const ASSET_VERSION = '1.6.0';
-let circuitUI, practiceUI, practiceData, workshopUI, reasoningUI;
+const ASSET_VERSION = '1.7.0';
+let circuitUI, practiceUI, practiceData, workshopUI, reasoningUI, serviceUI;
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
 const main = document.getElementById('main');
@@ -46,10 +47,10 @@ function updateSupportDraft() {
   if (draft.needsPaste) document.getElementById('support-preview').open = true;
 }
 function openSupport(kind, questionId, invoker) {
-  const q = kind === 'error' ? questionMap?.get(questionId) || circuitReport(questionId) || practiceUI?.report(questionId) || workshopUI?.report(questionId) || reasoningUI?.report(questionId) : null;
+  const q = kind === 'error' ? questionMap?.get(questionId) || circuitReport(questionId) || practiceUI?.report(questionId) || workshopUI?.report(questionId) || reasoningUI?.report(questionId) || serviceUI?.report(questionId) : null;
   if (kind === 'error' && !q) return;
   supportInvoker = invoker;
-  supportContext = { kind, question: q, topic: q ? q.type === 'circuit' ? 'Расчёты — законы Кирхгофа' : ['workshop', 'reasoning'].includes(q.type) ? 'Промышленная мастерская' : topicName(q.topic_id) : '', key: q ? `error:${q.id}` : 'suggestion' };
+  supportContext = { kind, question: q, topic: q ? q.type === 'circuit' ? 'Расчёты — законы Кирхгофа' : ['workshop', 'reasoning', 'service'].includes(q.type) ? 'Промышленная мастерская' : topicName(q.topic_id) : '', key: q ? `error:${q.id}` : 'suggestion' };
   document.getElementById('support-title').textContent = q ? 'Сообщить об ошибке в вопросе' : 'Предложить улучшение';
   document.getElementById('support-label').textContent = q ? 'Что нужно исправить?' : 'Ваша идея';
   const context = document.getElementById('support-context');
@@ -102,7 +103,7 @@ function persist() {
 function stats() { return summarize(progress, questionMap); }
 function updateNav() {
   const route = location.hash.slice(1).split('/')[0] || 'first-steps';
-  const nav = ['path', 'session', 'results'].includes(route) ? (progress.active?.origin || 'first-steps') : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['practice-block', 'exercise'].includes(route) ? 'practice' : ['workshop-lab', 'workshop-case', 'reasoning', 'reasoning-case', 'mobile-lab', 'conveyor-lab'].includes(route) ? 'workshop' : route;
+  const nav = ['path', 'session', 'results'].includes(route) ? (progress.active?.origin || 'first-steps') : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['practice-block', 'exercise'].includes(route) ? 'practice' : ['service', 'service-case', 'service-lab', 'workshop-lab', 'workshop-case', 'reasoning', 'reasoning-case', 'mobile-lab', 'conveyor-lab'].includes(route) ? 'workshop' : route;
   for (const link of document.querySelectorAll('[data-route]')) {
     if (link.dataset.route === nav) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -300,6 +301,7 @@ function registerWebTools() {
 function render() {
   workshopUI?.stop();
   reasoningUI?.stop();
+  serviceUI?.stop();
   const [route = 'first-steps', id] = (location.hash.slice(1) || 'first-steps').split('/');
   updateNav();
   switch (route) {
@@ -312,6 +314,9 @@ function render() {
     case 'workshop': workshopUI.list(); break;
     case 'workshop-lab': workshopUI.lab(); break;
     case 'workshop-case': workshopUI.exercise(id); break;
+    case 'service': serviceUI.list(); break;
+    case 'service-case': serviceUI.exercise(id); break;
+    case 'service-lab': serviceUI.lab(id); break;
     case 'reasoning': reasoningUI.list(); break;
     case 'reasoning-case': reasoningUI.exercise(id); break;
     case 'mobile-lab': reasoningUI.lab('mobile'); break;
@@ -403,7 +408,7 @@ window.roboticsNativeBack = () => {
   if (route === 'session' || route === 'results') {
     persist();
     go(progress.active?.origin || 'first-steps');
-  } else go(route === 'reasoning-case' ? 'reasoning' : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['exercise', 'practice-block'].includes(route) ? 'practice' : ['workshop-lab', 'workshop-case', 'reasoning', 'reasoning-case', 'mobile-lab', 'conveyor-lab'].includes(route) ? 'workshop' : 'first-steps');
+  } else go(['service-case', 'service-lab'].includes(route) ? 'service' : route === 'reasoning-case' ? 'reasoning' : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['exercise', 'practice-block'].includes(route) ? 'practice' : ['service', 'service-case', 'service-lab', 'workshop-lab', 'workshop-case', 'reasoning', 'reasoning-case', 'mobile-lab', 'conveyor-lab'].includes(route) ? 'workshop' : 'first-steps');
   return true;
 };
 
@@ -430,6 +435,7 @@ async function load() {
     circuitUI = createCircuitUI({ main, announce, onStorageError: storageWarning });
     practiceUI = createPracticeUI({ main, data: practiceData, announce, onStorageError: storageWarning, sources, startQuiz: (ids, title, resourceId) => begin({ questions: selectedQuestions(ids), title, resourceId, origin: 'practice' }) });
     workshopUI = createWorkshopUI({ main, announce, onStorageError: storageWarning });
+    serviceUI = createServiceUI({ main, announce, onStorageError: storageWarning });
     reasoningUI = createReasoningUI({ main, announce, onStorageError: storageWarning });
     render();
     registerWebTools();
