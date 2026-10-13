@@ -38,7 +38,7 @@ def main():
     for directory in [work, output, work / "assets/site", work / "classes", work / "dex", work / "gen"]:
         directory.mkdir(parents=True, exist_ok=True)
     assets = work / "assets/site"
-    for name in ["index.html", "workshop-core.js", "workshop-data.js", "workshop-scene.js", "workshop-ui.js", "privacy.html", "style.css", "app.js", "core.js", "circuits-core.js", "circuits-data.js", "circuits-ui.js", "practice-core.js", "practice-ui.js", "data"]:
+    for name in ["index.html", "workshop-core.js", "workshop-data.js", "workshop-scene.js", "workshop-ui.js", "reasoning-core.js", "reasoning-data.js", "reasoning-scene.js", "reasoning-ui.js", "privacy.html", "style.css", "app.js", "core.js", "circuits-core.js", "circuits-data.js", "circuits-ui.js", "practice-core.js", "practice-ui.js", "data"]:
         source = ROOT / name
         if source.is_dir():
             shutil.copytree(source, assets / name)

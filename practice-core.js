@@ -1,4 +1,4 @@
-import { expression, formatNumber } from './circuits-core.js?v=1.5.0';
+import { expression, formatNumber } from './circuits-core.js?v=1.6.0';
 
 export const PRACTICE_STORAGE_KEY = 'robototehnika-bileti-ru:practice:v1';
 export const DRAFT_LIMIT = 12000;

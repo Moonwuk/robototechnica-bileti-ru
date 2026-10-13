@@ -1,6 +1,6 @@
-import { defaults, controls, scenarios, probes, repairs, hypotheses, workshopSources } from './workshop-data.js?v=1.5.0';
-import { WORKSHOP_KEY, normalizeParameters, simulateCell, initialParameters, caseParameters, freshCase, assessCase, readWorkshop, measurements } from './workshop-core.js?v=1.5.0';
-import { scene, cycleFrames, vacuumChart } from './workshop-scene.js?v=1.5.0';
+import { defaults, controls, scenarios, probes, repairs, hypotheses, workshopSources } from './workshop-data.js?v=1.6.0';
+import { WORKSHOP_KEY, normalizeParameters, simulateCell, initialParameters, caseParameters, freshCase, assessCase, readWorkshop, measurements } from './workshop-core.js?v=1.6.0';
+import { scene, cycleFrames, vacuumChart } from './workshop-scene.js?v=1.6.0';
 
 const E=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n=value=>new Intl.NumberFormat('ru',{maximumFractionDigits:1}).format(value);
@@ -21,9 +21,10 @@ export function createWorkshopUI({main,announce,onStorageError}) {
   const parameters=()=>active?.scenario?caseParameters(active.scenario,entry()):state.lab.parameters;
   function list(){stop();active=null;
     const count=scenarios.filter(s=>state.cases[s.id]&&assessCase(s,state.cases[s.id]).complete).length;
-    main.innerHTML=head('Промышленная ячейка','Манипулятор, вакуумный захват, конвейер и поддон. Исследуйте процесс, затем найдите причину остановки или неточной укладки.')+
+    main.innerHTML=head('Инженерная мастерская','Роборука, транспортная тележка и промышленная автоматика. Исследуйте процесс, собирайте измерения и проверяйте причины неисправностей.')+
       `<section class="ws-intro"><div><span class="ws-tag">СТЕНД 01</span><h2>С конвейера — на поддон</h2><p>Изменяйте геометрию, задержку данных и сигналы. Наблюдайте за циклом, измеряйте и проверяйте гипотезы.</p><a class="button primary" href="#workshop-lab">Открыть лабораторию</a></div><div class="ws-intro-art">${scene(simulateCell(defaults))}</div></section>
-      <div class="section-title"><h2>Найди неисправность</h2><span>${count} из ${scenarios.length} разобрано</span></div><p class="note">В каждом задании одна исходная неисправность. Сначала выполните прогон, затем соберите измерения, выберите причину и исправление. Повторный прогон проверит результат.</p><div class="card-grid ws-cases">${scenarios.map(s=>{const e=state.cases[s.id],a=e&&assessCase(s,e);return `<a class="card ws-case-card" href="#workshop-case/${s.id}"><span class="small-label">${s.id} · ${s.level}</span><h3>${E(s.title)}</h3><p>${E(s.brief)}</p><span class="ws-card-status">${a?.complete?(a.assisted?'Разобрано с подсказкой':'Диагноз подтверждён'):e?.runs?'Продолжить диагностику':'Начать диагностику'}</span></a>`;}).join('')}</div>${knowledge()}`;
+      <section class="reason-promo"><div><span class="ws-tag">НОВЫЕ СТЕНДЫ · 6 РАЗБОРОВ</span><h2>Учимся проверять гипотезы</h2><p>Сначала предскажите результат, затем измерьте. Объясните причину и проверьте исправление в другом режиме.</p><a class="button primary" href="#reasoning">К инженерным заданиям</a></div><div class="reason-promo-links"><a href="#mobile-lab"><strong>02 · Мобильный робот ↗</strong><span>Колёса, траектория, одометрия</span></a><a href="#conveyor-lab"><strong>03 · Конвейер и ПЛК →</strong><span>Датчик, фильтр, счётчик деталей</span></a></div></section>
+      <div class="section-title"><h2>Роборука: найди неисправность</h2><span>${count} из ${scenarios.length} разобрано</span></div><p class="note">В каждом задании одна исходная неисправность. Сначала выполните прогон, затем соберите измерения, выберите причину и исправление. Повторный прогон проверит результат.</p><div class="card-grid ws-cases">${scenarios.map(s=>{const e=state.cases[s.id],a=e&&assessCase(s,e);return `<a class="card ws-case-card" href="#workshop-case/${s.id}"><span class="small-label">${s.id} · ${s.level}</span><h3>${E(s.title)}</h3><p>${E(s.brief)}</p><span class="ws-card-status">${a?.complete?(a.assisted?'Разобрано с подсказкой':'Диагноз подтверждён'):e?.runs?'Продолжить диагностику':'Начать диагностику'}</span></a>`;}).join('')}</div>${knowledge()}`;
   }
   function open(id){stop();selectedProbe=null;feedback='';
     const scenario=id?scenarios.find(s=>s.id===id):null;
