@@ -24,6 +24,9 @@ jobs:
           java-version: '17'
       - name: Check trainer
         run: |
+          node --check workshop-core.js
+          node --check workshop-ui.js
+          node --check workshop-scene.js
           node --check app.js
           node --check android/android-adapter.js
           node --check practice-ui.js

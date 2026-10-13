@@ -1,4 +1,4 @@
-import { PRACTICE_STORAGE_KEY, DRAFT_LIMIT, freshExercise, readPractice, checkNumericAnswer, exerciseStatus } from './practice-core.js?v=1.4.0';
+import { PRACTICE_STORAGE_KEY, DRAFT_LIMIT, freshExercise, readPractice, checkNumericAnswer, exerciseStatus } from './practice-core.js?v=1.5.0';
 
 const E = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const kindNames = { calculation: 'Расчёт', diagnostic: 'Диагностика', design: 'Проектирование', coding: 'Программирование', planning: 'Планирование' };
@@ -48,6 +48,7 @@ export function createPracticeUI({ main, data, announce, onStorageError, startQu
     const done = tasks.filter(t => exerciseStatus(t, progress.exercises[t.id]).complete).length;
     main.innerHTML = heading('От вопроса к решению', 'Выберите профиль или прикладной блок. Решайте задачи здесь, проверяйте вычисления и разбирайте ход рассуждений.') +
       `<section class="plain-panel"><div class="filters"><label for="practice-role">Профиль подготовки</label><select class="field" id="practice-role"><option value="">Все направления</option>${data.role_paths.map(r => `<option value="${E(r.id)}"${role?.id === r.id ? ' selected' : ''}>${E(r.name)}</option>`).join('')}</select></div>${role ? `<p class="note">${E(role.note)}</p>` : '<p class="note">12 прикладных блоков · 20 задач · 6 цепочек. Уровень показывает сложность задания.</p>'}<p class="practice-counter">Самопроверка: ${done} из ${tasks.length} задач</p></section>
+      <section class="plain-panel calc-promo"><div><h2>Промышленная мастерская</h2><p class="note">Роборука, конвейер и поддон: лаборатория и пять неисправностей с измерениями.</p></div><a class="button secondary" href="#workshop">Открыть ячейку</a></section>
       <div class="section-title"><h2>${role ? 'Блоки в порядке маршрута' : 'Прикладные блоки'}</h2></div><div class="card-grid">${selected.map(blockCard).join('')}</div>
       <div class="section-title"><h2>Практические задачи</h2><span>${tasks.length} задач</span></div><div class="calc-grid">${tasks.map(taskCard).join('')}</div>
       <details class="plain-panel practice-chains"><summary>Шесть коротких цепочек по инженерным ситуациям</summary><div class="card-grid">${data.learning_chains.map(c => `<section class="card"><h3>${E(c.title)}</h3><button class="button secondary" data-practice-action="chain" data-id="${E(c.id)}">Пройти 5 вопросов</button><div class="practice-related">${c.exercise_ids.map(id => link(exercises.get(id).title, `exercise/${id}`, 'quiet')).join('')}</div></section>`).join('')}</div></details>`;
