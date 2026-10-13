@@ -1,9 +1,11 @@
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.4.0';
-import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.4.0';
-import { createPracticeUI } from './practice-ui.js?v=1.4.0';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.5.0';
+import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.5.0';
+import { createPracticeUI } from './practice-ui.js?v=1.5.0';
 
-const ASSET_VERSION = '1.4.0';
-let circuitUI, practiceUI, practiceData;
+import { createWorkshopUI } from './workshop-ui.js?v=1.5.0';
+
+const ASSET_VERSION = '1.5.0';
+let circuitUI, practiceUI, practiceData, workshopUI;
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
 const main = document.getElementById('main');
@@ -43,10 +45,10 @@ function updateSupportDraft() {
   if (draft.needsPaste) document.getElementById('support-preview').open = true;
 }
 function openSupport(kind, questionId, invoker) {
-  const q = kind === 'error' ? questionMap?.get(questionId) || circuitReport(questionId) || practiceUI?.report(questionId) : null;
+  const q = kind === 'error' ? questionMap?.get(questionId) || circuitReport(questionId) || practiceUI?.report(questionId) || workshopUI?.report(questionId) : null;
   if (kind === 'error' && !q) return;
   supportInvoker = invoker;
-  supportContext = { kind, question: q, topic: q ? q.type === 'circuit' ? 'Расчёты — законы Кирхгофа' : topicName(q.topic_id) : '', key: q ? `error:${q.id}` : 'suggestion' };
+  supportContext = { kind, question: q, topic: q ? q.type === 'circuit' ? 'Расчёты — законы Кирхгофа' : q.type === 'workshop' ? 'Промышленная мастерская' : topicName(q.topic_id) : '', key: q ? `error:${q.id}` : 'suggestion' };
   document.getElementById('support-title').textContent = q ? 'Сообщить об ошибке в вопросе' : 'Предложить улучшение';
   document.getElementById('support-label').textContent = q ? 'Что нужно исправить?' : 'Ваша идея';
   const context = document.getElementById('support-context');
@@ -99,7 +101,7 @@ function persist() {
 function stats() { return summarize(progress, questionMap); }
 function updateNav() {
   const route = location.hash.slice(1).split('/')[0] || 'first-steps';
-  const nav = ['path', 'session', 'results'].includes(route) ? (progress.active?.origin || 'first-steps') : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['practice-block', 'exercise'].includes(route) ? 'practice' : route;
+  const nav = ['path', 'session', 'results'].includes(route) ? (progress.active?.origin || 'first-steps') : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['practice-block', 'exercise'].includes(route) ? 'practice' : ['workshop-lab', 'workshop-case'].includes(route) ? 'workshop' : route;
   for (const link of document.querySelectorAll('[data-route]')) {
     if (link.dataset.route === nav) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -295,6 +297,7 @@ function registerWebTools() {
   window.addEventListener('pagehide', () => lifecycle.abort(), { once: true });
 }
 function render() {
+  workshopUI?.stop();
   const [route = 'first-steps', id] = (location.hash.slice(1) || 'first-steps').split('/');
   updateNav();
   switch (route) {
@@ -304,6 +307,9 @@ function render() {
     case 'topics': topicsPage(); break;
     case 'topic': topicIntro(id); break;
     case 'circuits': circuitUI.list(); break;
+    case 'workshop': workshopUI.list(); break;
+    case 'workshop-lab': workshopUI.lab(); break;
+    case 'workshop-case': workshopUI.exercise(id); break;
     case 'practice': practiceUI.list(id); break;
     case 'practice-block': practiceUI.block(id); break;
     case 'exercise': practiceUI.exercise(id); break;
@@ -391,7 +397,7 @@ window.roboticsNativeBack = () => {
   if (route === 'session' || route === 'results') {
     persist();
     go(progress.active?.origin || 'first-steps');
-  } else go(route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['exercise', 'practice-block'].includes(route) ? 'practice' : 'first-steps');
+  } else go(route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['exercise', 'practice-block'].includes(route) ? 'practice' : ['workshop-lab', 'workshop-case'].includes(route) ? 'workshop' : 'first-steps');
   return true;
 };
 
@@ -417,6 +423,7 @@ async function load() {
     document.getElementById('bank-version').textContent = bank.metadata.bank_version;
     circuitUI = createCircuitUI({ main, announce, onStorageError: storageWarning });
     practiceUI = createPracticeUI({ main, data: practiceData, announce, onStorageError: storageWarning, sources, startQuiz: (ids, title, resourceId) => begin({ questions: selectedQuestions(ids), title, resourceId, origin: 'practice' }) });
+    workshopUI = createWorkshopUI({ main, announce, onStorageError: storageWarning });
     render();
     registerWebTools();
   } catch (error) {

@@ -22,6 +22,9 @@ jobs:
         uses: actions/checkout@v6
       - name: Validate questions and learning logic
         run: |
+          node --check workshop-core.js
+          node --check workshop-ui.js
+          node --check workshop-scene.js
           node --check app.js
           node --check core.js
           node --check practice-ui.js
@@ -38,6 +41,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Check mobile practice flow
         run: node scripts/check-practice-ui.cjs
+      - name: Check industrial workshop
+        run: node scripts/check-workshop-ui.cjs
       - name: Upload browser screenshots
         if: always()
         uses: actions/upload-artifact@v4
