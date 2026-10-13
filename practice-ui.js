@@ -1,4 +1,4 @@
-import { PRACTICE_STORAGE_KEY, DRAFT_LIMIT, freshExercise, readPractice, checkNumericAnswer, exerciseStatus } from './practice-core.js?v=1.6.0';
+import { PRACTICE_STORAGE_KEY, DRAFT_LIMIT, freshExercise, readPractice, checkNumericAnswer, exerciseStatus } from './practice-core.js?v=1.7.0';
 
 const E = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const kindNames = { calculation: 'Расчёт', diagnostic: 'Диагностика', design: 'Проектирование', coding: 'Программирование', planning: 'Планирование' };
