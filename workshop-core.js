@@ -1,4 +1,4 @@
-import { controls, defaults, scenarios, probes, repairs, hypotheses } from './workshop-data.js?v=1.7.0';
+import { controls, defaults, scenarios, probes, repairs, hypotheses } from './workshop-data.js?v=1.8.0';
 
 export const WORKSHOP_KEY = 'robototehnika-bileti-ru:workshop:v1';
 export const MODEL = Object.freeze({ pickTime:.8, vacuumTime:1, tau:.35, maxVacuum:60, threshold:40, tolerance:8, pitch:100, palletX:650, palletY:105 });

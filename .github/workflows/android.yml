@@ -24,6 +24,8 @@ jobs:
           java-version: '17'
       - name: Check trainer
         run: |
+          node --check teo-core.js
+          node --check teo-ui.js
           node --check service-core.js
           node --check service-data.js
           node --check service-ui.js
@@ -41,6 +43,7 @@ jobs:
           node --check circuits-ui.js
           node scripts/check-bank.mjs
           node --test tests/*.test.mjs
+          python3 scripts/check-teo-numerics.py
           python3 docs/research/reference_solutions.py
       - name: Install Android build tools
         run: python3 android/install-sdk.py --sdk-dir "$RUNNER_TEMP/robotics-sdk"

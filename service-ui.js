@@ -1,5 +1,5 @@
-import {serviceCases,serviceSources} from './service-data.js?v=1.7.0';
-import {SERVICE_KEY,normalizeService,simulateService,serviceProbe,serviceVerify,freshService,numericService,assessService,readService} from './service-core.js?v=1.7.0';
+import {serviceCases,serviceSources} from './service-data.js?v=1.8.0';
+import {SERVICE_KEY,normalizeService,simulateService,serviceProbe,serviceVerify,freshService,numericService,assessService,readService} from './service-core.js?v=1.8.0';
 const E=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const options=(items,value)=>items.map(([id,label])=>`<option value="${E(id)}"${String(id)===value?' selected':''}>${E(label)}</option>`).join('');
 const select=(id,label,items,value)=>`<label for="${id}">${E(label)}</label><select class="field" id="${id}"><option value="">Выберите вариант</option>${options(items,value)}</select>`;

@@ -1,13 +1,15 @@
-import { createServiceUI } from './service-ui.js?v=1.7.0';
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.7.0';
-import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.7.0';
-import { createPracticeUI } from './practice-ui.js?v=1.7.0';
+import { mergeTeoBank } from './teo-core.js?v=1.8.0';
+import { createTeoUI } from './teo-ui.js?v=1.8.0';
+import { createServiceUI } from './service-ui.js?v=1.8.0';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.8.0';
+import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.8.0';
+import { createPracticeUI } from './practice-ui.js?v=1.8.0';
 
-import { createWorkshopUI } from './workshop-ui.js?v=1.7.0';
-import { createReasoningUI } from './reasoning-ui.js?v=1.7.0';
+import { createWorkshopUI } from './workshop-ui.js?v=1.8.0';
+import { createReasoningUI } from './reasoning-ui.js?v=1.8.0';
 
-const ASSET_VERSION = '1.7.0';
-let circuitUI, practiceUI, practiceData, workshopUI, reasoningUI, serviceUI;
+const ASSET_VERSION = '1.8.0';
+let circuitUI, practiceUI, practiceData, workshopUI, reasoningUI, serviceUI, teoUI, teoData;
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
 const main = document.getElementById('main');
@@ -47,7 +49,7 @@ function updateSupportDraft() {
   if (draft.needsPaste) document.getElementById('support-preview').open = true;
 }
 function openSupport(kind, questionId, invoker) {
-  const q = kind === 'error' ? questionMap?.get(questionId) || circuitReport(questionId) || practiceUI?.report(questionId) || workshopUI?.report(questionId) || reasoningUI?.report(questionId) || serviceUI?.report(questionId) : null;
+  const q = kind === 'error' ? questionMap?.get(questionId) || circuitReport(questionId) || practiceUI?.report(questionId) || workshopUI?.report(questionId) || reasoningUI?.report(questionId) || serviceUI?.report(questionId) || teoUI?.report(questionId) : null;
   if (kind === 'error' && !q) return;
   supportInvoker = invoker;
   supportContext = { kind, question: q, topic: q ? q.type === 'circuit' ? 'Расчёты — законы Кирхгофа' : ['workshop', 'reasoning', 'service'].includes(q.type) ? 'Промышленная мастерская' : topicName(q.topic_id) : '', key: q ? `error:${q.id}` : 'suggestion' };
@@ -103,7 +105,7 @@ function persist() {
 function stats() { return summarize(progress, questionMap); }
 function updateNav() {
   const route = location.hash.slice(1).split('/')[0] || 'first-steps';
-  const nav = ['path', 'session', 'results'].includes(route) ? (progress.active?.origin || 'first-steps') : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['practice-block', 'exercise'].includes(route) ? 'practice' : ['service', 'service-case', 'service-lab', 'workshop-lab', 'workshop-case', 'reasoning', 'reasoning-case', 'mobile-lab', 'conveyor-lab'].includes(route) ? 'workshop' : route;
+  const nav = ['path', 'session', 'results'].includes(route) ? (progress.active?.origin || 'first-steps') : route.startsWith('teo') ? 'teo' : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['practice-block', 'exercise'].includes(route) ? 'practice' : ['service', 'service-case', 'service-lab', 'workshop-lab', 'workshop-case', 'reasoning', 'reasoning-case', 'mobile-lab', 'conveyor-lab'].includes(route) ? 'workshop' : route;
   for (const link of document.querySelectorAll('[data-route]')) {
     if (link.dataset.route === nav) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -131,6 +133,7 @@ function firstSteps() {
   main.innerHTML = heading('Учитесь небольшими шагами', 'Пять вопросов за подход. Разберитесь в одном понятии и сразу проверьте себя.', 'С чего начать') + resumeBanner() +
     `<section class="start-card" aria-label="Следующая цепочка"><div><p class="eyebrow">${completed === ordered.length ? 'Можно повторить' : 'Ваш следующий шаг'}</p><h2>${E(next.title)}</h2><p>Короткий словарь · 5 вопросов · объяснение своими словами</p></div>${button(completed ? 'Продолжить обучение' : 'Начать с основ', 'open-path', next.id)}</section>
     <div class="stats-strip"><div class="stat-inline"><strong>${bank.questions.length}</strong><span>вопросов в банке</span></div><div class="stat-inline"><strong>${bank.topics.length}</strong><span>учебных тем</span></div><div class="stat-inline"><strong>${completed} / ${paths.length}</strong><span>цепочек пройдено</span></div></div>
+    <section class="plain-panel calc-promo"><div><h2>Основы электротехники: от теории к применению</h2><p class="note">10 тем, 150 заданий, 50 расчётов с вводом числа и 10 подробных разборов.</p></div><a class="button secondary" href="#teo">Открыть электротехнику</a></section>
     <section class="plain-panel calc-promo"><div><h2>Кирхгоф — с расчётами по шагам</h2><p class="note">12 задач со схемами, вводом уравнений и проверкой промежуточных результатов.</p></div><a class="button secondary" href="#circuits">Открыть расчёты</a></section>
     <section class="plain-panel calc-promo"><div><h2>Инженерные собеседования: примените знания</h2><p class="note">12 прикладных блоков, пять профилей подготовки и 20 задач с полем решения.</p></div><a class="button secondary" href="#practice">Открыть практику</a></section><section class="plain-panel engineering-intro"><p class="eyebrow">Дальше — инженерная практика</p><h2>От модели к работающему роботу</h2><p class="note">60 новых вопросов: расчёты, выбор решений и проверка ограничений. Начните с математики и координат, затем переходите к манипуляторам, датчикам и движению.</p><div class="engineering-links">${bank.topics.filter(t => t.track_id === 'engineering').map(t => `<a class="button secondary" href="#topic/${E(t.id)}">${E(t.name)}</a>`).join('')}</div></section><div class="section-title"><h2>От электрической цепи к роботу</h2><span>Рекомендуемый порядок</span></div><div class="card-grid">${bank.topics.filter(t => paths.some(p => p.topic_id === t.id)).map((t, i) => {
       const ps = paths.filter(p => p.topic_id === t.id);
@@ -148,15 +151,16 @@ function pathIntro(id) {
 function ticketCard(t, beginner = false, i = 0) {
   const history = progress.sessions.filter(s => s.resourceId === t.id);
   const best = history.length ? Math.max(...history.map(s => s.correct)) : null;
-  return `<section class="card ticket-card"><div class="card-top"><span class="ticket-number">${String(i + 1).padStart(2, '0')}</span><span class="tag${progress.completed[t.id] ? ' done' : ''}">${progress.completed[t.id] ? 'Пройден' : beginner ? 'Основы' : t.category === 'engineering' ? 'Инженерная практика' : t.category === 'interview' ? 'Собеседования' : 'Базовые темы'}</span></div><h3>${E(beginner ? topicName(t.topic_id) : t.title)}</h3><p>${t.question_ids.length} вопросов · ${beginner || ticketMode === 'learn' ? 'разбор после каждого ответа' : 'разбор после завершения'}</p>${best !== null ? `<div class="ticket-score">Лучший результат: ${best} / ${t.question_ids.length}</div>` : ''}${button(beginner || ticketMode === 'learn' ? 'Учить билет' : 'Решить билет', beginner ? 'begin-beginner' : 'begin-ticket', t.id, 'secondary')}</section>`;
+  return `<section class="card ticket-card"><div class="card-top"><span class="ticket-number">${String(i + 1).padStart(2, '0')}</span><span class="tag${progress.completed[t.id] ? ' done' : ''}">${progress.completed[t.id] ? 'Пройден' : beginner ? 'Основы' : t.category === 'engineering' ? 'Инженерная практика' : t.category === 'interview' ? 'Собеседования' : t.category === 'teo' ? 'Электротехника' : 'Базовые темы'}</span></div><h3>${E(beginner ? topicName(t.topic_id) : t.title)}</h3><p>${t.question_ids.length} вопросов · ${beginner || ticketMode === 'learn' ? 'разбор после каждого ответа' : 'разбор после завершения'}</p>${best !== null ? `<div class="ticket-score">Лучший результат: ${best} / ${t.question_ids.length}</div>` : ''}${button(beginner || ticketMode === 'learn' ? 'Учить билет' : 'Решить билет', beginner ? 'begin-beginner' : 'begin-ticket', t.id, 'secondary')}</section>`;
 }
 function ticketsPage() {
-  const foundation = mixedTickets.filter(t => !['engineering', 'interview'].includes(t.category));
+  const foundation = mixedTickets.filter(t => !['engineering', 'interview', 'teo'].includes(t.category));
   const engineering = mixedTickets.filter(t => t.category === 'engineering');
   const interview = mixedTickets.filter(t => t.category === 'interview');
+  const teoTickets = mixedTickets.filter(t => t.category === 'teo');
   main.innerHTML = heading('Билеты для практики', 'Начните с вводного билета по знакомой теме. Смешанные билеты пригодятся, когда освоите основы.', 'По одному подходу') + resumeBanner() +
     `<div class="section-title"><h2>Вводные билеты</h2><span>${beginnerTickets.length} билетов по 10 вопросов</span></div><div class="ticket-grid">${beginnerTickets.map((t, i) => ticketCard(t, true, i)).join('')}</div>
-    <div class="section-title"><h2>Смешанные билеты</h2><span>${foundation.length} билетов по 20 вопросов</span></div><div class="filters"><label for="ticket-mode">Как решать</label><select class="field" id="ticket-mode"><option value="learn"${ticketMode === 'learn' ? ' selected' : ''}>Обучение — объяснения сразу</option><option value="exam"${ticketMode === 'exam' ? ' selected' : ''}>Самопроверка — ответы в конце</option></select></div><div class="ticket-grid">${foundation.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Инженерная практика</h2><span>${engineering.length} билета по 20 вопросов</span></div><p class="note">Математика, координаты, манипуляторы, оценка состояния, зрение и планирование. Дополнительно — задачи по механике, управлению, ПО и испытаниям.</p><div class="ticket-grid">${engineering.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Прикладные собеседования</h2><span>Два билета по 20 вопросов и один на 12</span></div><p class="note">52 вопроса по исследованию вакансий и инженерных интервью. Практические задачи и профильные маршруты — в разделе «Практика».</p><div class="ticket-grid">${interview.map((t, i) => ticketCard(t, false, i)).join('')}</div><p class="note">В самопроверке цель — не меньше 90% правильных ответов: 18 из 20 или 11 из 12. Это ориентир для учёбы. Время не ограничено.</p>`;
+    <div class="section-title"><h2>Смешанные билеты</h2><span>${foundation.length} билетов по 20 вопросов</span></div><div class="filters"><label for="ticket-mode">Как решать</label><select class="field" id="ticket-mode"><option value="learn"${ticketMode === 'learn' ? ' selected' : ''}>Обучение — объяснения сразу</option><option value="exam"${ticketMode === 'exam' ? ' selected' : ''}>Самопроверка — ответы в конце</option></select></div><div class="ticket-grid">${foundation.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Инженерная практика</h2><span>${engineering.length} билета по 20 вопросов</span></div><p class="note">Математика, координаты, манипуляторы, оценка состояния, зрение и планирование. Дополнительно — задачи по механике, управлению, ПО и испытаниям.</p><div class="ticket-grid">${engineering.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Прикладные собеседования</h2><span>Два билета по 20 вопросов и один на 12</span></div><p class="note">52 вопроса по исследованию вакансий и инженерных интервью. Практические задачи и профильные маршруты — в разделе «Практика».</p><div class="ticket-grid">${interview.map((t, i) => ticketCard(t, false, i)).join('')}</div><p class="note">В смешанных билетах цель самопроверки — не меньше 90% правильных ответов: 18 из 20 или 11 из 12. Это ориентир для учёбы. Время не ограничено.</p><div class="section-title"><h2>Основы электротехники</h2><span>${teoTickets.length} билетов по 15 вопросов</span></div><p class="note">По темам учебного оглавления: понимание, расчёты и инженерные ситуации. Без проходного балла. Режим выбирается выше.</p><div class="ticket-grid">${teoTickets.map((t, i) => ticketCard(t, false, i)).join('')}</div>`;
 }
 function topicsPage() {
   main.innerHTML = heading('Тренировка по темам', 'Краткая теория, полезные формулы и вопросы выбранного уровня.', 'От основ к инженерным задачам') + resumeBanner() + `<div class="card-grid">${bank.topics.map((t, i) => {
@@ -167,8 +171,10 @@ function topicsPage() {
 function topicIntro(id) {
   const t = topicMap.get(id);
   if (!t) return missing();
-  const count = bank.questions.filter(q => q.topic_id === id && (topicDifficulty === 'all' || q.difficulty === Number(topicDifficulty))).length;
-  main.innerHTML = heading(t.name, '', trackName(t.track_id)) + `<section class="plain-panel"><h2>Коротко о теме</h2><p class="lesson" style="margin-top:15px">${E(t.mini_lesson)}</p>${t.formulas?.length ? `<ul class="formula-list">${t.formulas.map(f => `<li>${E(f)}</li>`).join('')}</ul>` : ''}<p class="note"><strong>Частая ошибка:</strong> ${E(t.common_error)}</p></section>${practiceUI.topicLinks(id)}<section class="plain-panel"><h2>Выберите уровень</h2><div class="filters"><label for="topic-difficulty">Сложность</label><select class="field" id="topic-difficulty" data-topic="${E(id)}"><option value="1"${topicDifficulty === '1' ? ' selected' : ''}>Базовый</option><option value="2"${topicDifficulty === '2' ? ' selected' : ''}>Прикладной</option><option value="3"${topicDifficulty === '3' ? ' selected' : ''}>Повышенный</option><option value="all"${topicDifficulty === 'all' ? ' selected' : ''}>Все уровни</option></select><span class="note" style="margin:0">${questionCount(count)}</span></div><div class="button-row">${button('Начать тренировку', 'begin-topic', id)}<a class="button quiet" href="#topics">Все темы</a></div></section>`;
+  const available = bank.questions.filter(q => q.topic_id === id);
+  if (topicDifficulty !== 'all' && !available.some(q => q.difficulty === Number(topicDifficulty))) topicDifficulty = String(Math.min(...available.map(q => q.difficulty)));
+  const count = available.filter(q => topicDifficulty === 'all' || q.difficulty === Number(topicDifficulty)).length;
+  main.innerHTML = heading(t.name, '', trackName(t.track_id)) + `<section class="plain-panel"><h2>Коротко о теме</h2><p class="lesson" style="margin-top:15px">${E(t.mini_lesson)}</p>${t.formulas?.length ? `<ul class="formula-list">${t.formulas.map(f => `<li>${E(f)}</li>`).join('')}</ul>` : ''}<p class="note"><strong>Частая ошибка:</strong> ${E(t.common_error)}</p></section>${practiceUI.topicLinks(id)}${teoUI.topicLinks(id)}<section class="plain-panel"><h2>Выберите уровень</h2><div class="filters"><label for="topic-difficulty">Сложность</label><select class="field" id="topic-difficulty" data-topic="${E(id)}"><option value="1"${topicDifficulty === '1' ? ' selected' : ''}${available.some(q => q.difficulty === 1) ? '' : ' disabled'}>Базовый</option><option value="2"${topicDifficulty === '2' ? ' selected' : ''}${available.some(q => q.difficulty === 2) ? '' : ' disabled'}>Прикладной</option><option value="3"${topicDifficulty === '3' ? ' selected' : ''}${available.some(q => q.difficulty === 3) ? '' : ' disabled'}>Повышенный</option><option value="all"${topicDifficulty === 'all' ? ' selected' : ''}>Все уровни</option></select><span class="note" style="margin:0">${questionCount(count)}</span></div><div class="button-row">${button('Начать тренировку', 'begin-topic', id)}<a class="button quiet" href="#topics">Все темы</a></div></section>`;
 }
 function sources(ids) {
   return [...new Set(ids)].map(id => sourceMap.get(id)).filter(Boolean).map(s => {
@@ -181,7 +187,7 @@ function feedback(q, answer, hinted = false) {
   const correct = answer === q.correct_option_id;
   const chosen = q.options.find(o => o.id === answer);
   const explanation = q.beginner_explanation || q.explanation;
-  return `<section class="feedback${correct ? '' : ' wrong'}" aria-label="Разбор ответа"><h3>${correct ? (hinted ? 'Верно, с подсказкой' : 'Верно') : 'Пока неверно — разберёмся'}</h3><p>${E(explanation)}</p>${!correct ? `<p class="selected-reason"><strong>Почему выбранный ответ не подходит:</strong> ${E(chosen?.explanation)}</p>` : ''}${hinted ? '<p class="note">Этот вопрос останется в повторении. Попробуйте ещё раз без подсказки.</p>' : ''}<details><summary>Разбор всех вариантов</summary><ul class="option-reasons">${q.options.map(o => `<li><strong>${E(o.text)}${o.id === q.correct_option_id ? ' — верно' : ''}.</strong> ${E(o.explanation)}</li>`).join('')}</ul></details><details><summary>Источники и подробное объяснение</summary>${q.beginner_explanation ? `<p style="margin-top:12px">${E(q.explanation)}</p>` : ''}<ul class="source-list">${sources(q.source_ids)}</ul></details></section>`;
+  return `<section class="feedback${correct ? '' : ' wrong'}" aria-label="Разбор ответа"><h3>${correct ? (hinted ? 'Верно, с подсказкой' : 'Верно') : 'Пока неверно — разберёмся'}</h3><p>${E(explanation)}</p>${!correct ? `<p class="selected-reason"><strong>Почему выбранный ответ не подходит:</strong> ${E(chosen?.explanation)}</p>` : ''}${teoUI.questionReview(q.id)}${hinted ? '<p class="note">Этот вопрос останется в повторении. Попробуйте ещё раз без подсказки.</p>' : ''}<details><summary>Разбор всех вариантов</summary><ul class="option-reasons">${q.options.map(o => `<li><strong>${E(o.text)}${o.id === q.correct_option_id ? ' — верно' : ''}.</strong> ${E(o.explanation)}</li>`).join('')}</ul></details><details><summary>Источники и подробное объяснение</summary>${q.beginner_explanation ? `<p style="margin-top:12px">${E(q.explanation)}</p>` : ''}<ul class="source-list">${sources(q.source_ids)}</ul></details></section>`;
 }
 function begin(config, replace = false) {
   if (!config.questions.length) return;
@@ -207,7 +213,7 @@ function sessionPage() {
   const answeredCount = Object.keys(s.answers).length;
   const allAnswered = answeredCount === s.questionIds.length;
   main.innerHTML = `<div class="page-heading"><div><p class="eyebrow">${s.mode === 'exam' ? 'Самопроверка' : 'Обучение'}</p><h1>${E(s.title)}</h1></div>${button('Сохранить и выйти', 'pause', '', 'quiet')}</div>
-    <div class="session-layout"><section class="quiz-panel"><div class="question-meta"><span class="question-index">Вопрос ${s.index + 1} из ${s.questionIds.length}</span><span class="tag">${E(bank.difficulty_levels.find(d => d.id === q.difficulty)?.name)}</span></div><h2 class="question-title" id="question-title">${E(q.question)}</h2>${s.mode !== 'exam' ? practiceUI.questionGlossary(q.id) : ''}<div class="options" aria-labelledby="question-title">${options.map((o, i) => {
+    <div class="session-layout"><section class="quiz-panel"><div class="question-meta"><span class="question-index">Вопрос ${s.index + 1} из ${s.questionIds.length}</span><span class="tag">${E(bank.difficulty_levels.find(d => d.id === q.difficulty)?.name)}</span></div><h2 class="question-title" id="question-title">${E(q.question)}</h2>${s.mode !== 'exam' ? practiceUI.questionGlossary(q.id) + teoUI.questionGlossary(q.id) : ''}<div class="options" aria-labelledby="question-title">${options.map((o, i) => {
       let cls = answer === o.id ? ' selected' : '';
       let label = '';
       if (showFeedback) {
@@ -232,16 +238,16 @@ function resultsPage() {
   const p = paths.find(p => p.id === s.pathId);
   const nextPath = p && paths[paths.indexOf(p) + 1];
   const hinted = s.questionIds.filter(id => s.hints[id]).length;
-  const pass = s.mode === 'exam';
+  const pass = s.mode === 'exam' && !s.questionIds.every(id => id.startsWith('TEO-'));
   main.innerHTML = heading('Подход завершён', s.title, 'Результат') + `<section class="score-panel"><div class="score-value">${score}<span> / ${s.questionIds.length}</span></div><div><h2>${pass ? score >= Math.ceil(s.questionIds.length * .9) ? 'Цель достигнута' : 'Продолжайте тренироваться' : wrong.length ? 'Каждая ошибка — повод разобраться' : 'Все ответы верные'}</h2><p>${wrong.length ? `Вопросов для разбора: ${wrong.length}. Они добавлены в работу над ошибками.` : 'Можно переходить дальше или закрепить тему.'}${hinted ? ` С подсказкой: ${hinted}. Повторите эти вопросы самостоятельно.` : ''}</p></div></section>
     <div class="button-row result-actions">${wrong.length ? button('Повторить ошибки', 'retry-wrong') : ''}${nextPath ? button('Следующая цепочка', 'open-path', nextPath.id, wrong.length ? 'secondary' : 'primary') : ''}${button('Повторить подход', 'retry', '', 'secondary')}<a class="button quiet" href="#${E(s.origin)}">К разделу</a></div>
-    ${s.origin === 'practice' ? practiceUI.continuation(s.resourceId) : ''}
+    ${s.origin === 'practice' ? practiceUI.continuation(s.resourceId) : ''}${s.questionIds.every(id => id.startsWith('TEO-')) ? teoUI.continuation() : ''}
     ${p ? `<section class="plain-panel"><p class="eyebrow">Теперь своими словами</p><h2>Попробуйте ответить как на собеседовании</h2><p class="interview-prompt">${E(p.interview_prompt)}</p><label for="interview-answer">Ваш ответ — для самопроверки</label><textarea id="interview-answer" class="field text-answer" placeholder="Объясните так, как объяснили бы знакомому…">${E(s.draft)}</textarea><p class="note">Ответ сохраняется в текущем подходе. Оценки за формулировку нет.</p><details><summary>Сравнить с примером ответа</summary><p class="lesson" style="margin-top:15px">${E(p.plain_answer)}</p><h3 style="margin-top:18px">Проверьте, что вы назвали</h3><ul class="checklist">${p.answer_checklist.map(item => `<li>${E(item)}</li>`).join('')}</ul><p class="note">Не нужно запоминать пример дословно. Важно правильно объяснить смысл.</p></details></section>` : ''}
     <div class="section-title"><h2>${s.mode === 'exam' ? 'Разбор билета' : 'Все ответы подхода'}</h2><span>${score} верно · ${wrong.length} ошибок</span></div><div class="result-review">${s.questionIds.map((id, i) => {
       const q = questionMap.get(id);
       const answer = s.answers[id];
       const correct = answer === q.correct_option_id;
-      return `<article class="review-card"><span class="review-label${correct ? ' right' : ''}">Вопрос ${i + 1} · ${correct ? 'Верно' : 'Ошибка'}${s.hints[id] ? ' · с подсказкой' : ''}</span><h3 class="question-title">${E(q.question)}</h3><p><strong>Ваш ответ:</strong> ${E(q.options.find(o => o.id === answer)?.text)}</p>${!correct ? `<p><strong>Правильный ответ:</strong> ${E(q.options.find(o => o.id === q.correct_option_id)?.text)}</p>` : ''}<p class="explanation">${E(q.beginner_explanation || q.explanation)}</p><details><summary>Почему подходят или не подходят другие варианты</summary><ul class="option-reasons">${q.options.map(o => `<li><strong>${E(o.text)}.</strong> ${E(o.explanation)}</li>`).join('')}</ul><ul class="source-list">${sources(q.source_ids)}</ul></details>${reportButton(q)}</article>`;
+      return `<article class="review-card"><span class="review-label${correct ? ' right' : ''}">Вопрос ${i + 1} · ${correct ? 'Верно' : 'Ошибка'}${s.hints[id] ? ' · с подсказкой' : ''}</span><h3 class="question-title">${E(q.question)}</h3><p><strong>Ваш ответ:</strong> ${E(q.options.find(o => o.id === answer)?.text)}</p>${!correct ? `<p><strong>Правильный ответ:</strong> ${E(q.options.find(o => o.id === q.correct_option_id)?.text)}</p>` : ''}<p class="explanation">${E(q.beginner_explanation || q.explanation)}</p>${teoUI.questionReview(q.id)}<details><summary>Почему подходят или не подходят другие варианты</summary><ul class="option-reasons">${q.options.map(o => `<li><strong>${E(o.text)}.</strong> ${E(o.explanation)}</li>`).join('')}</ul><ul class="source-list">${sources(q.source_ids)}</ul></details>${reportButton(q)}</article>`;
     }).join('')}</div>`;
 }
 function mistakesPage() {
@@ -310,7 +316,12 @@ function render() {
     case 'tickets': ticketsPage(); break;
     case 'topics': topicsPage(); break;
     case 'topic': topicIntro(id); break;
-    case 'circuits': circuitUI.list(); break;
+    case 'teo': teoUI.list(); break;
+    case 'teo-topic': teoUI.topic(id); break;
+    case 'teo-calc': teoUI.calculation(id); break;
+    case 'teo-application': teoUI.application(id); break;
+    case 'teo-glossary': teoUI.dictionary(); break;
+    case 'circuits': circuitUI.list(); main.querySelector('.page-heading')?.insertAdjacentHTML('afterend', `<section class="plain-panel"><h2>Ещё 50 расчётов по электротехнике</h2><p>Постоянный и переменный ток, фильтры, трёхфазные и магнитные цепи. Ввод числа и разбор решения.</p><a class="button secondary" href="#teo">Открыть учебные модули</a></section>`); break;
     case 'workshop': workshopUI.list(); break;
     case 'workshop-lab': workshopUI.lab(); break;
     case 'workshop-case': workshopUI.exercise(id); break;
@@ -325,8 +336,8 @@ function render() {
     case 'practice-block': practiceUI.block(id); break;
     case 'exercise': practiceUI.exercise(id); break;
     case 'circuit': circuitUI.exercise(id); break;
-    case 'mistakes': mistakesPage(); break;
-    case 'progress': progressPage(); break;
+    case 'mistakes': mistakesPage(); if (teoUI.summary().wrong) main.insertAdjacentHTML('beforeend', teoUI.progressPanel()); break;
+    case 'progress': progressPage(); main.insertAdjacentHTML('beforeend', teoUI.progressPanel()); break;
     case 'session': sessionPage(); break;
     case 'results': resultsPage(); break;
     default: missing();
@@ -408,19 +419,23 @@ window.roboticsNativeBack = () => {
   if (route === 'session' || route === 'results') {
     persist();
     go(progress.active?.origin || 'first-steps');
-  } else go(['service-case', 'service-lab'].includes(route) ? 'service' : route === 'reasoning-case' ? 'reasoning' : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['exercise', 'practice-block'].includes(route) ? 'practice' : ['service', 'service-case', 'service-lab', 'workshop-lab', 'workshop-case', 'reasoning', 'reasoning-case', 'mobile-lab', 'conveyor-lab'].includes(route) ? 'workshop' : 'first-steps');
+  } else if (route.startsWith('teo') && route !== 'teo') go(teoUI.backRoute(route, location.hash.slice(1).split('/')[1]));
+  else go(['service-case', 'service-lab'].includes(route) ? 'service' : route === 'reasoning-case' ? 'reasoning' : route === 'topic' ? 'topics' : route === 'circuit' ? 'circuits' : ['exercise', 'practice-block'].includes(route) ? 'practice' : ['service', 'service-case', 'service-lab', 'workshop-lab', 'workshop-case', 'reasoning', 'reasoning-case', 'mobile-lab', 'conveyor-lab'].includes(route) ? 'workshop' : 'first-steps');
   return true;
 };
 
 async function load() {
   try {
-    const files = ['question_bank.json', 'interview_paths.json', 'beginner_tickets.json', 'tickets.json', 'study_plan.json', 'interview_practice.json'];
+    const files = ['question_bank.json', 'interview_paths.json', 'beginner_tickets.json', 'tickets.json', 'study_plan.json', 'interview_practice.json', 'teo/question_bank.json', 'teo/applications.json', 'teo/glossary.json', 'teo/teo_tickets.json', 'teo/learning_routes.json'];
     const data = await Promise.all(files.map(async name => {
       const response = await fetch(new URL(`./data/${name}?v=${ASSET_VERSION}`, import.meta.url));
       if (!response.ok) throw new Error(`Data unavailable: ${name}`);
       return response.json();
     }));
     [bank, { paths }, { tickets: beginnerTickets }, { tickets: mixedTickets }, studyPlan, practiceData] = data;
+    teoData = { bank: data[6], applications: data[7].applications, glossary: data[8].entries, tickets: data[9].tickets, routes: data[10] };
+    bank = mergeTeoBank(bank, teoData.bank);
+    mixedTickets = [...mixedTickets, ...teoData.tickets.map(t => ({ ...t, category: 'teo' }))];
     questionMap = new Map(bank.questions.map(q => [q.id, q]));
     topicMap = new Map(bank.topics.map(t => [t.id, t]));
     sourceMap = new Map(bank.sources.map(s => [s.id, s]));
@@ -437,6 +452,13 @@ async function load() {
     workshopUI = createWorkshopUI({ main, announce, onStorageError: storageWarning });
     serviceUI = createServiceUI({ main, announce, onStorageError: storageWarning });
     reasoningUI = createReasoningUI({ main, announce, onStorageError: storageWarning });
+    teoUI = createTeoUI({ main, data: teoData, announce, onStorageError: storageWarning, sources,
+      startQuiz: (ids, title, resourceId, mode) => begin({ questions: selectedQuestions(ids), title, resourceId, mode, origin: 'teo' }),
+      onQuizAssistance: id => {
+        const s = progress.active;
+        if (s && s.mode !== 'exam' && s.questionIds[s.index] === id && !Object.hasOwn(s.answers, id)) { s.hints[id] = true; persist(); }
+      }
+    });
     render();
     registerWebTools();
   } catch (error) {
