@@ -1,0 +1,925 @@
+{
+  "version": "1.2.0",
+  "provenance": "Только видимое оглавление на шести изображениях пользователя. Заголовки контрольных вопросов, примеров и ответов не считаются самостоятельными теоретическими темами.",
+  "scope_limitations": [
+    "Принцип и назначение метода не равны полноценному владению им.",
+    "В этом комплекте нет исчерпывающего расчёта произвольной несимметричной сети методом симметричных составляющих.",
+    "Нет полного синтеза фильтров, полевого моделирования или проектирования сертифицированного силового оборудования.",
+    "Для следующей глубины нужны многошаговые задачи с самостоятельным построением схем и проверкой решений."
+  ],
+  "headings": [
+    {
+      "section_ref": "1.1.1",
+      "title": "Электрическая цепь",
+      "topic_id": "teo_elements",
+      "question_ids": [
+        "TEO-001",
+        "TEO-012",
+        "TEO-015"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.1.2",
+      "title": "Электрический ток, электродвижущая сила, напряжение",
+      "topic_id": "teo_elements",
+      "question_ids": [
+        "TEO-001",
+        "TEO-002",
+        "TEO-007",
+        "TEO-009",
+        "TEO-013"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.1.3",
+      "title": "Активные элементы цепи",
+      "topic_id": "teo_elements",
+      "question_ids": [
+        "TEO-002",
+        "TEO-003",
+        "TEO-011",
+        "TEO-013"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.1.4",
+      "title": "Пассивные элементы цепи",
+      "topic_id": "teo_elements",
+      "question_ids": [
+        "TEO-004",
+        "TEO-006",
+        "TEO-008",
+        "TEO-010",
+        "TEO-012",
+        "TEO-014"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.1.5",
+      "title": "Основные законы электрических цепей",
+      "topic_id": "teo_elements",
+      "question_ids": [
+        "TEO-005",
+        "TEO-006",
+        "TEO-008",
+        "TEO-009",
+        "TEO-011",
+        "TEO-012",
+        "TEO-013",
+        "TEO-015"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.2.1",
+      "title": "Электрические цепи постоянного тока",
+      "topic_id": "teo_dc_methods",
+      "question_ids": [
+        "TEO-020"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.2.2",
+      "title": "Методы преобразования",
+      "topic_id": "teo_dc_methods",
+      "question_ids": [
+        "TEO-023",
+        "TEO-024"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.2.3",
+      "title": "Метод, основанный на непосредственном применении законов Кирхгофа",
+      "topic_id": "teo_dc_methods",
+      "question_ids": [
+        "TEO-016",
+        "TEO-021",
+        "TEO-022"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.2.4",
+      "title": "Метод контурных токов",
+      "topic_id": "teo_dc_methods",
+      "question_ids": [
+        "TEO-020",
+        "TEO-022"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.2.5",
+      "title": "Метод узловых напряжений",
+      "topic_id": "teo_dc_methods",
+      "question_ids": [
+        "TEO-016",
+        "TEO-020",
+        "TEO-021"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.2.6",
+      "title": "Метод наложения (суперпозиции)",
+      "topic_id": "teo_dc_methods",
+      "question_ids": [
+        "TEO-017",
+        "TEO-018",
+        "TEO-029"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.2.7",
+      "title": "Метод эквивалентного генератора (активного двухполюсника)",
+      "topic_id": "teo_dc_methods",
+      "question_ids": [
+        "TEO-023",
+        "TEO-026",
+        "TEO-028"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.2.8",
+      "title": "Принцип взаимности",
+      "topic_id": "teo_dc_methods",
+      "question_ids": [
+        "TEO-019"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.2.9",
+      "title": "Баланс мощностей",
+      "topic_id": "teo_dc_methods",
+      "question_ids": [
+        "TEO-018",
+        "TEO-025",
+        "TEO-026",
+        "TEO-027",
+        "TEO-029"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.2.10",
+      "title": "Передача электрической энергии по двухпроводной линии",
+      "topic_id": "teo_dc_methods",
+      "question_ids": [
+        "TEO-025",
+        "TEO-030"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.3.1",
+      "title": "Основные понятия и соотношения для линейных цепей переменного тока",
+      "topic_id": "teo_ac",
+      "question_ids": [
+        "TEO-031"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.3.2",
+      "title": "Среднее, средневыпрямленное и действующее значения переменных токов и напряжений",
+      "topic_id": "teo_ac",
+      "question_ids": [
+        "TEO-031",
+        "TEO-040"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.3.3",
+      "title": "Представление гармонических токов, напряжений и ЭДС комплексными числами",
+      "topic_id": "teo_ac",
+      "question_ids": [
+        "TEO-032",
+        "TEO-036",
+        "TEO-045"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.3.4",
+      "title": "Гармонический ток в элементах R, L, C",
+      "topic_id": "teo_ac",
+      "question_ids": [
+        "TEO-032",
+        "TEO-037",
+        "TEO-043",
+        "TEO-044"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.3.5",
+      "title": "Последовательное соединение элементов R, L, C. Треугольники напряжений, сопротивлений и мощностей",
+      "topic_id": "teo_ac",
+      "question_ids": [
+        "TEO-034",
+        "TEO-036",
+        "TEO-043"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.3.6",
+      "title": "Параллельное соединение элементов R, L, C. Треугольники токов, проводимостей и мощностей",
+      "topic_id": "teo_ac",
+      "question_ids": [
+        "TEO-035",
+        "TEO-042"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.3.7",
+      "title": "Связь между сопротивлениями и проводимостями электрической цепи переменного тока",
+      "topic_id": "teo_ac",
+      "question_ids": [
+        "TEO-033"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.3.8",
+      "title": "Мощности электрической цепи гармонического тока. Баланс мощностей",
+      "topic_id": "teo_ac",
+      "question_ids": [
+        "TEO-038",
+        "TEO-041",
+        "TEO-042"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.3.9",
+      "title": "Методика расчёта электрических цепей гармонического тока",
+      "topic_id": "teo_ac",
+      "question_ids": [
+        "TEO-035",
+        "TEO-036",
+        "TEO-043",
+        "TEO-044",
+        "TEO-045"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.3.10",
+      "title": "Резонансные явления в электрических цепях",
+      "topic_id": "teo_ac",
+      "question_ids": [
+        "TEO-034",
+        "TEO-039",
+        "TEO-042"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.4.1",
+      "title": "Определения и обозначения основных величин",
+      "topic_id": "teo_coupling",
+      "question_ids": [
+        "TEO-046",
+        "TEO-047",
+        "TEO-048",
+        "TEO-051",
+        "TEO-057",
+        "TEO-058"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.4.2",
+      "title": "Основные законы и положения",
+      "topic_id": "teo_coupling",
+      "question_ids": [
+        "TEO-046",
+        "TEO-047",
+        "TEO-048",
+        "TEO-050",
+        "TEO-051",
+        "TEO-052",
+        "TEO-053",
+        "TEO-054",
+        "TEO-055",
+        "TEO-056",
+        "TEO-057",
+        "TEO-058",
+        "TEO-059"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.4.3",
+      "title": "Трансформатор без стального сердечника (воздушный трансформатор)",
+      "topic_id": "teo_coupling",
+      "question_ids": [
+        "TEO-049",
+        "TEO-050",
+        "TEO-056",
+        "TEO-060"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.5.1",
+      "title": "Разложение периодической несинусоидальной функции времени в тригонометрический ряд Фурье",
+      "topic_id": "teo_harmonics",
+      "question_ids": [
+        "TEO-061",
+        "TEO-062",
+        "TEO-065",
+        "TEO-066",
+        "TEO-070"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.5.2",
+      "title": "Действующее и среднее значения несинусоидальных токов и напряжений",
+      "topic_id": "teo_harmonics",
+      "question_ids": [
+        "TEO-063",
+        "TEO-067",
+        "TEO-068",
+        "TEO-069",
+        "TEO-070",
+        "TEO-071",
+        "TEO-072"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.5.3",
+      "title": "Мощности периодических несинусоидальных токов",
+      "topic_id": "teo_harmonics",
+      "question_ids": [
+        "TEO-063",
+        "TEO-064",
+        "TEO-068",
+        "TEO-071",
+        "TEO-072",
+        "TEO-074"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.5.4",
+      "title": "Методика расчёта линейных электрических цепей несинусоидального тока",
+      "topic_id": "teo_harmonics",
+      "question_ids": [
+        "TEO-062",
+        "TEO-073",
+        "TEO-075"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.6.1",
+      "title": "Четырёхполюсники и их системы уравнений",
+      "topic_id": "teo_twoports_filters",
+      "question_ids": [
+        "TEO-076",
+        "TEO-077",
+        "TEO-081",
+        "TEO-086"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.6.2",
+      "title": "Режимы холостого хода и короткого замыкания четырёхполюсника",
+      "topic_id": "teo_twoports_filters",
+      "question_ids": [
+        "TEO-077",
+        "TEO-081"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.6.3",
+      "title": "Эквивалентные схемы четырёхполюсника",
+      "topic_id": "teo_twoports_filters",
+      "question_ids": [
+        "TEO-076",
+        "TEO-086"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.6.4",
+      "title": "Характеристическое сопротивление и постоянная передачи четырёхполюсника",
+      "topic_id": "teo_twoports_filters",
+      "question_ids": [
+        "TEO-078",
+        "TEO-082",
+        "TEO-085"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.6.5",
+      "title": "Электрические фильтры. Основные понятия и обозначения",
+      "topic_id": "teo_twoports_filters",
+      "question_ids": [
+        "TEO-079",
+        "TEO-088",
+        "TEO-090"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.6.6",
+      "title": "Условия прозрачности фильтра",
+      "topic_id": "teo_twoports_filters",
+      "question_ids": [
+        "TEO-079",
+        "TEO-090"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.6.7",
+      "title": "Частотные характеристики фильтров",
+      "topic_id": "teo_twoports_filters",
+      "question_ids": [
+        "TEO-079",
+        "TEO-083",
+        "TEO-084",
+        "TEO-085",
+        "TEO-088",
+        "TEO-089"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.6.8",
+      "title": "Фильтры низших частот",
+      "topic_id": "teo_twoports_filters",
+      "question_ids": [
+        "TEO-080",
+        "TEO-083",
+        "TEO-084",
+        "TEO-086",
+        "TEO-088"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.6.9",
+      "title": "Фильтры верхних частот",
+      "topic_id": "teo_twoports_filters",
+      "question_ids": [
+        "TEO-080",
+        "TEO-087"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.6.10",
+      "title": "Полосовые и заграждающие фильтры",
+      "topic_id": "teo_twoports_filters",
+      "question_ids": [
+        "TEO-080",
+        "TEO-090"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.1",
+      "title": "Понятие о многофазных цепях",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-091"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.2",
+      "title": "Трёхфазная система ЭДС. Порядок чередования фаз",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-091",
+        "TEO-103"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.3",
+      "title": "Схемы соединения трёхфазных систем. Фазные и линейные токи и напряжения",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-092",
+        "TEO-093",
+        "TEO-096",
+        "TEO-097"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.4",
+      "title": "Симметричные трёхфазные цепи при соединении приёмника «звездой»",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-092",
+        "TEO-096"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.5",
+      "title": "Симметричные трёхфазные цепи при соединении приёмника «треугольником»",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-093",
+        "TEO-097"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.6",
+      "title": "Несимметричные трёхфазные цепи при соединении приёмника «звездой»",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-099",
+        "TEO-101"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.7",
+      "title": "Несимметричные трёхфазные цепи при соединении приёмника «треугольником»",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-102"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.8",
+      "title": "Мощность трёхфазных цепей",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-098"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.9",
+      "title": "Вращающееся магнитное поле",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-100",
+        "TEO-103"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.10",
+      "title": "Метод симметричных составляющих. Симметричные составляющие трёхфазной системы величин",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-094",
+        "TEO-095",
+        "TEO-099",
+        "TEO-105"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.11",
+      "title": "Применение метода симметричных составляющих к расчёту симметричных трёхфазных приёмников",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-094",
+        "TEO-105"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.12",
+      "title": "Применение метода симметричных составляющих к расчёту несимметричных трёхфазных приёмников",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-094",
+        "TEO-095",
+        "TEO-105"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "1.7.13",
+      "title": "Высшие гармоники в трёхфазных цепях",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-095",
+        "TEO-104"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.1.1",
+      "title": "Нелинейные элементы, их характеристики и параметры",
+      "topic_id": "teo_nonlinear_dc",
+      "question_ids": [
+        "TEO-106",
+        "TEO-107",
+        "TEO-109",
+        "TEO-111",
+        "TEO-112",
+        "TEO-113",
+        "TEO-115",
+        "TEO-116",
+        "TEO-117",
+        "TEO-118",
+        "TEO-120"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.1.2",
+      "title": "Графический метод расчёта нелинейных цепей постоянного тока",
+      "topic_id": "teo_nonlinear_dc",
+      "question_ids": [
+        "TEO-108",
+        "TEO-110",
+        "TEO-114",
+        "TEO-117",
+        "TEO-119"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.1.3",
+      "title": "Графоаналитический метод расчёта нелинейных цепей",
+      "topic_id": "teo_nonlinear_dc",
+      "question_ids": [
+        "TEO-107",
+        "TEO-108",
+        "TEO-109",
+        "TEO-110",
+        "TEO-111",
+        "TEO-113",
+        "TEO-114",
+        "TEO-115",
+        "TEO-116",
+        "TEO-118",
+        "TEO-119",
+        "TEO-120"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.2.1",
+      "title": "Магнитное поле и его основные характеристики",
+      "topic_id": "teo_magnetics",
+      "question_ids": [
+        "TEO-121",
+        "TEO-126"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.2.2",
+      "title": "Ферромагнитные материалы и их характеристики",
+      "topic_id": "teo_magnetics",
+      "question_ids": [
+        "TEO-124",
+        "TEO-125",
+        "TEO-132",
+        "TEO-133"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.2.3",
+      "title": "Магнитные цепи. Законы магнитных цепей",
+      "topic_id": "teo_magnetics",
+      "question_ids": [
+        "TEO-122",
+        "TEO-123",
+        "TEO-127",
+        "TEO-128",
+        "TEO-129",
+        "TEO-130",
+        "TEO-131"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.2.4",
+      "title": "Расчёт неразветвлённых магнитных цепей",
+      "topic_id": "teo_magnetics",
+      "question_ids": [
+        "TEO-122",
+        "TEO-123",
+        "TEO-127",
+        "TEO-128",
+        "TEO-129",
+        "TEO-131",
+        "TEO-135"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.2.5",
+      "title": "Расчёт разветвлённых магнитных цепей",
+      "topic_id": "teo_magnetics",
+      "question_ids": [
+        "TEO-130",
+        "TEO-135"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.2.6",
+      "title": "Постоянные магниты и методика их расчёта",
+      "topic_id": "teo_magnetics",
+      "question_ids": [
+        "TEO-125",
+        "TEO-133",
+        "TEO-134"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.3.1",
+      "title": "Нелинейные элементы и их характеристики",
+      "topic_id": "teo_nonlinear_ac",
+      "question_ids": [
+        "TEO-136",
+        "TEO-145"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.3.2",
+      "title": "Методы расчёта нелинейных цепей переменного тока",
+      "topic_id": "teo_nonlinear_ac",
+      "question_ids": [
+        "TEO-136",
+        "TEO-145"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.3.3",
+      "title": "Нелинейные цепи, содержащие катушки индуктивности с ферромагнитным сердечником",
+      "topic_id": "teo_nonlinear_ac",
+      "question_ids": [
+        "TEO-137",
+        "TEO-141",
+        "TEO-142",
+        "TEO-146",
+        "TEO-147",
+        "TEO-150"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.3.4",
+      "title": "Формы кривых тока, напряжения и магнитного потока катушки с ферромагнитным сердечником",
+      "topic_id": "teo_nonlinear_ac",
+      "question_ids": [
+        "TEO-137",
+        "TEO-141",
+        "TEO-142",
+        "TEO-146",
+        "TEO-147"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.3.5",
+      "title": "Эквивалентная схема и векторная диаграмма катушки индуктивности с ферромагнитным сердечником",
+      "topic_id": "teo_nonlinear_ac",
+      "question_ids": [
+        "TEO-138",
+        "TEO-148"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.3.6",
+      "title": "Расчёт катушки с ферромагнитным сердечником по действующему значению величин",
+      "topic_id": "teo_nonlinear_ac",
+      "question_ids": [
+        "TEO-139",
+        "TEO-148",
+        "TEO-150"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.3.7",
+      "title": "Трансформаторы. Режимы работы трансформаторов",
+      "topic_id": "teo_nonlinear_ac",
+      "question_ids": [
+        "TEO-140",
+        "TEO-141",
+        "TEO-143",
+        "TEO-144",
+        "TEO-146",
+        "TEO-147",
+        "TEO-149"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    },
+    {
+      "section_ref": "2.3.8",
+      "title": "Эквивалентная схема и векторная диаграмма трансформатора",
+      "topic_id": "teo_nonlinear_ac",
+      "question_ids": [
+        "TEO-138",
+        "TEO-140",
+        "TEO-143",
+        "TEO-149"
+      ],
+      "coverage_level": "introductory_representative",
+      "note": "Связь с вводными аспектами темы; не заявление о полном освоении подраздела."
+    }
+  ]
+}

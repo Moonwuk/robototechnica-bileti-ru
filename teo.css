@@ -1,0 +1,21 @@
+/* TEO inherits the app palette, spacing and accessible controls. */
+.teo { min-width: 0; }
+.teo .plain-panel h2:not(:first-child) { margin-top: 1.5rem; }
+.teo .plain-panel > p, .teo-lines { line-height: 1.65; }
+.teo-lines { padding-left: 1.5rem; margin: 1rem 0; }
+.teo-lines li + li { margin-top: .6rem; }
+.teo .plain-panel, .teo .card, .teo .teo-lines, .teo-review { overflow-wrap: anywhere; }
+.teo .button-row { flex-wrap: wrap; }
+.teo .button { white-space: normal; text-align: center; max-width: 100%; }
+.teo .field { width: 100%; max-width: 100%; box-sizing: border-box; }
+.teo label { display: block; font-weight: 600; margin: 1rem 0 .5rem; }
+.teo-search { margin-bottom: 1.5rem; }
+.teo-task-list { display: grid; gap: 1rem; margin-top: 1rem; }
+.teo-task { display: block; text-decoration: none; color: inherit; }
+.teo-task .tag { white-space: normal; margin-top: .75rem; }
+.teo details { margin-top: 1rem; }
+.teo details summary { cursor: pointer; padding: .5rem 0; line-height: 1.5; }
+.teo .text-answer { min-height: 7rem; }
+.teo .card[hidden] { display: none; }
+.teo-review { margin-top: 1rem; }
+@media (min-width: 960px) { .teo-task-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

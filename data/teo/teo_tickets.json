@@ -1,0 +1,233 @@
+{
+  "version": "1.2.0",
+  "bank_version": "1.2.0",
+  "description": "10 тематических билетов по 15 заданий. В сумме охватывают все 150 новых вопросов по одному разу. Это не дополнительные вопросы.",
+  "default_settings": {
+    "passing_score": null,
+    "time_limit_seconds": null,
+    "shuffle_options": true,
+    "show_explanations": "after_finish"
+  },
+  "tickets": [
+    {
+      "id": "TEO-TICKET-01",
+      "title": "1.1. Электрические цепи, элементы и основные законы",
+      "topic_id": "teo_elements",
+      "question_ids": [
+        "TEO-001",
+        "TEO-002",
+        "TEO-003",
+        "TEO-004",
+        "TEO-005",
+        "TEO-006",
+        "TEO-007",
+        "TEO-008",
+        "TEO-009",
+        "TEO-010",
+        "TEO-011",
+        "TEO-012",
+        "TEO-013",
+        "TEO-014",
+        "TEO-015"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-02",
+      "title": "1.2. Методы расчёта цепей постоянного тока",
+      "topic_id": "teo_dc_methods",
+      "question_ids": [
+        "TEO-016",
+        "TEO-017",
+        "TEO-018",
+        "TEO-019",
+        "TEO-020",
+        "TEO-021",
+        "TEO-022",
+        "TEO-023",
+        "TEO-024",
+        "TEO-025",
+        "TEO-026",
+        "TEO-027",
+        "TEO-028",
+        "TEO-029",
+        "TEO-030"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-03",
+      "title": "1.3. Однофазные цепи гармонического тока",
+      "topic_id": "teo_ac",
+      "question_ids": [
+        "TEO-031",
+        "TEO-032",
+        "TEO-033",
+        "TEO-034",
+        "TEO-035",
+        "TEO-036",
+        "TEO-037",
+        "TEO-038",
+        "TEO-039",
+        "TEO-040",
+        "TEO-041",
+        "TEO-042",
+        "TEO-043",
+        "TEO-044",
+        "TEO-045"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-04",
+      "title": "1.4. Индуктивно связанные цепи",
+      "topic_id": "teo_coupling",
+      "question_ids": [
+        "TEO-046",
+        "TEO-047",
+        "TEO-048",
+        "TEO-049",
+        "TEO-050",
+        "TEO-051",
+        "TEO-052",
+        "TEO-053",
+        "TEO-054",
+        "TEO-055",
+        "TEO-056",
+        "TEO-057",
+        "TEO-058",
+        "TEO-059",
+        "TEO-060"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-05",
+      "title": "1.5. Несинусоидальные сигналы и гармоники",
+      "topic_id": "teo_harmonics",
+      "question_ids": [
+        "TEO-061",
+        "TEO-062",
+        "TEO-063",
+        "TEO-064",
+        "TEO-065",
+        "TEO-066",
+        "TEO-067",
+        "TEO-068",
+        "TEO-069",
+        "TEO-070",
+        "TEO-071",
+        "TEO-072",
+        "TEO-073",
+        "TEO-074",
+        "TEO-075"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-06",
+      "title": "1.6. Четырёхполюсники и электрические фильтры",
+      "topic_id": "teo_twoports_filters",
+      "question_ids": [
+        "TEO-076",
+        "TEO-077",
+        "TEO-078",
+        "TEO-079",
+        "TEO-080",
+        "TEO-081",
+        "TEO-082",
+        "TEO-083",
+        "TEO-084",
+        "TEO-085",
+        "TEO-086",
+        "TEO-087",
+        "TEO-088",
+        "TEO-089",
+        "TEO-090"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-07",
+      "title": "1.7. Трёхфазные электрические цепи",
+      "topic_id": "teo_threephase",
+      "question_ids": [
+        "TEO-091",
+        "TEO-092",
+        "TEO-093",
+        "TEO-094",
+        "TEO-095",
+        "TEO-096",
+        "TEO-097",
+        "TEO-098",
+        "TEO-099",
+        "TEO-100",
+        "TEO-101",
+        "TEO-102",
+        "TEO-103",
+        "TEO-104",
+        "TEO-105"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-08",
+      "title": "2.1. Нелинейные цепи постоянного тока",
+      "topic_id": "teo_nonlinear_dc",
+      "question_ids": [
+        "TEO-106",
+        "TEO-107",
+        "TEO-108",
+        "TEO-109",
+        "TEO-110",
+        "TEO-111",
+        "TEO-112",
+        "TEO-113",
+        "TEO-114",
+        "TEO-115",
+        "TEO-116",
+        "TEO-117",
+        "TEO-118",
+        "TEO-119",
+        "TEO-120"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-09",
+      "title": "2.2. Магнитные цепи и постоянные магниты",
+      "topic_id": "teo_magnetics",
+      "question_ids": [
+        "TEO-121",
+        "TEO-122",
+        "TEO-123",
+        "TEO-124",
+        "TEO-125",
+        "TEO-126",
+        "TEO-127",
+        "TEO-128",
+        "TEO-129",
+        "TEO-130",
+        "TEO-131",
+        "TEO-132",
+        "TEO-133",
+        "TEO-134",
+        "TEO-135"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-10",
+      "title": "2.3. Нелинейные цепи переменного тока и трансформаторы",
+      "topic_id": "teo_nonlinear_ac",
+      "question_ids": [
+        "TEO-136",
+        "TEO-137",
+        "TEO-138",
+        "TEO-139",
+        "TEO-140",
+        "TEO-141",
+        "TEO-142",
+        "TEO-143",
+        "TEO-144",
+        "TEO-145",
+        "TEO-146",
+        "TEO-147",
+        "TEO-148",
+        "TEO-149",
+        "TEO-150"
+      ]
+    }
+  ]
+}
