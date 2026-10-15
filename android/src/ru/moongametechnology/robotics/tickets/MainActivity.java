@@ -38,6 +38,9 @@ public final class MainActivity extends Activity {
     private static final String ABOUT = "https://" + HOST + "/assets/privacy.html";
     private static final Set<String> ASSETS = new HashSet<>(Arrays.asList(
         "index.html", "privacy.html", "style.css", "app.js", "core.js", "android-adapter.js",
+        "teo-core.js", "teo-ui.js", "teo.css",
+        "data/teo/question_bank.json", "data/teo/applications.json", "data/teo/glossary.json",
+        "data/teo/teo_tickets.json", "data/teo/learning_routes.json",
         "circuits-core.js", "circuits-data.js", "circuits-ui.js", "practice-core.js", "practice-ui.js",
         "data/interview_practice.json",
         "workshop-core.js", "workshop-data.js", "workshop-scene.js", "workshop-ui.js", "industry-core.js", "industry-data.js", "service-core.js", "service-data.js", "service-ui.js", "reasoning-core.js", "reasoning-data.js", "reasoning-scene.js", "reasoning-ui.js",
