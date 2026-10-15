@@ -48,7 +48,7 @@ export function checkTeoNumber(input, answer) {
   return { valid: true, correct: Math.abs(value - answer.value) <= answer.absolute_tolerance + rounding, value };
 }
 export function freshTeoTask() {
-  return { answer: '', reasoning: '', attempts: 0, lastResult: null,
+  return { answer: '', reasoning: '', steps: {}, stepsChecked: false, stepsUsed: false, attempts: 0, lastResult: null,
     checkedAnswer: '', lastAssisted: false, solutionSeen: false };
 }
 export function freshTeoProgress() { return { version: 1, calculations: {}, oral: {} }; }
@@ -65,6 +65,8 @@ export function readTeoProgress(storage, questionIds, applicationIds) {
       progress.calculations[id] = { ...freshTeoTask(),
         answer: typeof row.answer === 'string' ? row.answer.slice(0, 64) : '',
         reasoning: typeof row.reasoning === 'string' ? row.reasoning.slice(0, TEO_DRAFT_LIMIT) : '',
+        steps: record(row.steps) ? Object.fromEntries(Object.entries(row.steps).filter(([k,v]) => /^step[1-5]$/.test(k) && typeof v === 'string').map(([k,v]) => [k,v.slice(0,64)])) : {},
+        stepsChecked: row.stepsChecked === true, stepsUsed: row.stepsUsed === true,
         attempts: Number.isSafeInteger(row.attempts) && row.attempts >= 0 ? row.attempts : 0,
         lastResult: typeof row.lastResult === 'boolean' ? row.lastResult : null,
         checkedAnswer: typeof row.checkedAnswer === 'string' ? row.checkedAnswer.slice(0, 64) : '',
@@ -83,13 +85,13 @@ export function submitTeoNumber(task, question) {
   task.attempts += 1;
   task.checkedAnswer = task.answer;
   task.lastResult = result.correct;
-  task.lastAssisted = task.solutionSeen;
+  task.lastAssisted = task.solutionSeen || task.stepsUsed;
   return result;
 }
 export function teoTaskStatus(task) {
   if (!task || task.lastResult === null) return { state: 'new', label: 'Ещё не проверено' };
   if (!task.lastResult) return { state: 'wrong', label: 'Нужен разбор' };
   return task.lastAssisted
-    ? { state: 'assisted', label: 'Верно после просмотра решения' }
+    ? { state: 'assisted', label: 'Верно после просмотра решения или проверки шагов' }
     : { state: 'correct', label: 'Верно без просмотра решения' };
 }

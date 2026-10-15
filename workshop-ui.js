@@ -1,6 +1,6 @@
-import { defaults, controls, scenarios, probes, repairs, hypotheses, workshopSources } from './workshop-data.js?v=1.8.0';
-import { WORKSHOP_KEY, normalizeParameters, simulateCell, initialParameters, caseParameters, freshCase, assessCase, readWorkshop, measurements } from './workshop-core.js?v=1.8.0';
-import { scene, cycleFrames, vacuumChart } from './workshop-scene.js?v=1.8.0';
+import { defaults, controls, scenarios, probes, repairs, hypotheses, workshopSources } from './workshop-data.js?v=1.9.0';
+import { WORKSHOP_KEY, normalizeParameters, simulateCell, initialParameters, caseParameters, freshCase, assessCase, readWorkshop, measurements } from './workshop-core.js?v=1.9.0';
+import { scene, cycleFrames, vacuumChart } from './workshop-scene.js?v=1.9.0';
 
 const E=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n=value=>new Intl.NumberFormat('ru',{maximumFractionDigits:1}).format(value);
@@ -24,7 +24,7 @@ export function createWorkshopUI({main,announce,onStorageError}) {
     main.innerHTML=head('Инженерная мастерская','Роборука, транспортная тележка и промышленная автоматика. Исследуйте процесс, собирайте измерения и проверяйте причины неисправностей.')+
       `<section class="ws-intro"><div><span class="ws-tag">СТЕНД 01</span><h2>С конвейера — на поддон</h2><p>Изменяйте геометрию, задержку данных и сигналы. Наблюдайте за циклом, измеряйте и проверяйте гипотезы.</p><a class="button primary" href="#workshop-lab">Открыть лабораторию</a></div><div class="ws-intro-art">${scene(simulateCell(defaults))}</div></section>
       <section class="reason-promo"><div><span class="ws-tag">НОВЫЕ СТЕНДЫ · 6 РАЗБОРОВ</span><h2>Учимся проверять гипотезы</h2><p>Сначала предскажите результат, затем измерьте. Объясните причину и проверьте исправление в другом режиме.</p><a class="button primary" href="#reasoning">К инженерным заданиям</a></div><div class="reason-promo-links"><a href="#mobile-lab"><strong>02 · Мобильный робот ↗</strong><span>Колёса, траектория, одометрия</span></a><a href="#conveyor-lab"><strong>03 · Конвейер и ПЛК →</strong><span>Датчик, фильтр, счётчик деталей</span></a></div></section>
-      <section class="reason-promo"><div><span class="ws-tag">8 НОВЫХ ЗАДАЧ · ПРОМЫШЛЕННОСТЬ И СЕРВИС</span><h2>От симптома к проверенному ремонту</h2><p>Сервоприводы, масштаб энкодера, Modbus, CANopen, EtherCAT, обмен со станком, зарядная база и испытания после ремонта.</p><a class="button primary" href="#service">Диагностика и испытания →</a></div></section><div class="section-title"><h2>Роборука: найди неисправность</h2><span>${count} из ${scenarios.length} разобрано</span></div><p class="note">В каждом задании одна исходная неисправность. Сначала выполните прогон, затем соберите измерения, выберите причину и исправление. Повторный прогон проверит результат.</p><div class="card-grid ws-cases">${scenarios.map(s=>{const e=state.cases[s.id],a=e&&assessCase(s,e);return `<a class="card ws-case-card" href="#workshop-case/${s.id}"><span class="small-label">${s.id} · ${s.level}</span><h3>${E(s.title)}</h3><p>${E(s.brief)}</p><span class="ws-card-status">${a?.complete?(a.assisted?'Разобрано с подсказкой':'Диагноз подтверждён'):e?.runs?'Продолжить диагностику':'Начать диагностику'}</span></a>`;}).join('')}</div>${knowledge()}`;
+      <section class="reason-promo"><div><span class="ws-tag">15 ЗАДАЧ · ПРОМЫШЛЕННОСТЬ И СЕРВИС</span><h2>От симптома к проверенному ремонту</h2><p>Производительность ячейки, TCP, захваты, ПЛК, навигация и флот роботов. Также приводы, промышленные сети, зарядная база и испытания после ремонта.</p><a class="button primary" href="#service">Диагностика и испытания →</a></div></section><div class="section-title"><h2>Роборука: найди неисправность</h2><span>${count} из ${scenarios.length} разобрано</span></div><p class="note">В каждом задании одна исходная неисправность. Сначала выполните прогон, затем соберите измерения, выберите причину и исправление. Повторный прогон проверит результат.</p><div class="card-grid ws-cases">${scenarios.map(s=>{const e=state.cases[s.id],a=e&&assessCase(s,e);return `<a class="card ws-case-card" href="#workshop-case/${s.id}"><span class="small-label">${s.id} · ${s.level}</span><h3>${E(s.title)}</h3><p>${E(s.brief)}</p><span class="ws-card-status">${a?.complete?(a.assisted?'Разобрано с подсказкой':'Диагноз подтверждён'):e?.runs?'Продолжить диагностику':'Начать диагностику'}</span></a>`;}).join('')}</div>${knowledge()}`;
   }
   function open(id){stop();selectedProbe=null;feedback='';
     const scenario=id?scenarios.find(s=>s.id===id):null;
@@ -69,26 +69,4 @@ export function createWorkshopUI({main,announce,onStorageError}) {
   main.addEventListener('click',event=>{const t=event.target.closest('[data-ws-action]');if(!t||t.disabled||!active)return;const action=t.dataset.wsAction;
     if(action==='zoom'){const large=main.querySelector('#ws-scene').classList.toggle('ws-zoom');t.setAttribute('aria-pressed',String(large));t.textContent=large?'Показать всю ячейку':'Увеличить схему';return;}
     if(action==='run'){start();return;}
-    if(action==='pause'){if(timer!==null)clearInterval(timer);timer=null;main.querySelector('[data-ws-action="run"]').disabled=false;return;}
-    if(action==='step'){if(timer!==null)clearInterval(timer);timer=null;prepare();main.querySelector('[data-ws-action="run"]').disabled=false;advance();return;}
-    if(action==='lab-reset'){stop();state.lab.parameters={...defaults};persist();paint();return;}
-    const s=active.scenario,e=entry();if(!s)return;
-    if(action==='probe'&&e.baselineRun){if(!e.tests.includes(t.dataset.id))e.tests.push(t.dataset.id);selectedProbe=t.dataset.id;persist();t.setAttribute('aria-pressed','true');showMeasurement(selectedProbe);showAssessment(false);}
-    if(action==='repair'&&e.baselineRun){const id=main.querySelector('#ws-repair').value,fix=repairs.find(x=>x.id===id);if(!fix){main.querySelector('#ws-result').textContent='Сначала выберите исправление.';return;}if(e.repairs.length>=20){main.querySelector('#ws-result').textContent='Достигнут предел 20 изменений. Начните этот сценарий заново.';return;}stop();e.repairs.push(id);persist();feedback=fix.note+' Запустите повторный прогон.';paint();}
-    if(action==='assess')showAssessment(true);
-    if(action==='hint'){e.hint=true;persist();paint();}
-    if(action==='case-reset'){stop();state.cases[s.id]=freshCase();selectedProbe=null;feedback='';persist();paint();}
-  });
-  main.addEventListener('input',event=>{if(!active)return;const t=event.target;
-    if(t.id==='ws-prediction'){state.lab.prediction=t.value.slice(0,2000);persist();return;}
-    if(t.id==='ws-notes'){entry().notes=t.value.slice(0,2000);persist();return;}
-    if(t.dataset.wsParam&&controls.some(c=>c.key===t.dataset.wsParam)){stop();state.lab.parameters=normalizeParameters({...state.lab.parameters,[t.dataset.wsParam]:Number(t.value)});persist();const c=controls.find(c=>c.key===t.dataset.wsParam);main.querySelector(`#ws-value-${c.key}`).textContent=`${n(state.lab.parameters[c.key])} ${c.unit}`;invalidateLab();}
-  });
-  function invalidateLab(){main.querySelector('#ws-result').className='ws-result';main.querySelector('#ws-result').textContent='Параметры изменены. Запустите новый цикл для проверки.';main.querySelector('#ws-metrics').innerHTML='';main.querySelector('#ws-events').innerHTML='<p class="note">Ожидается новый прогон.</p>';main.querySelector('#ws-scene').innerHTML=scene(simulateCell(parameters()));main.querySelector('#ws-stage').textContent='Новая конфигурация';}
-  main.addEventListener('change',event=>{if(!active)return;const t=event.target;
-    if(t.id==='ws-tracking'||t.id==='ws-input'){stop();state.lab.parameters=normalizeParameters({...state.lab.parameters,[t.id==='ws-tracking'?'tracking':'input']:t.id==='ws-tracking'?t.checked:t.value});persist();invalidateLab();}
-    if(t.id==='ws-hypothesis'){entry().hypothesis=t.value;persist();showAssessment(false);}
-  });
-  window.addEventListener('pagehide',stop);
-  return {list,lab:()=>open(),exercise:open,stop,report(id){const s=scenarios.find(x=>x.id===id);return s?{id:s.id,question:s.brief,revision:1,type:'workshop',topic_id:'diagnostics_integration'}:null;}};
-}
+    if(action==='pause'){if(timer!==null)clearInterval(timer);timer=null;main.querySelector('[data-

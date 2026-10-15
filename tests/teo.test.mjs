@@ -15,6 +15,32 @@ const bank = mergeTeoBank(base, extension);
 const questionMap = new Map(bank.questions.map(q => [q.id, q]));
 const numeric = extension.questions.filter(q => q.numeric_answer);
 
+test('all 19 course headings lead to understanding, calculation and application', () => {
+  const outline=read('teo/learning_routes.json').course19;
+  assert.deepEqual(outline.map(row=>row.number),Array.from({length:19},(_,i)=>i+1));
+  for(const row of outline) {
+    assert.ok(row.title && row.topic_ids.length);
+    for(const id of row.topic_ids) {
+      const t=extension.topics.find(t=>t.id===id); assert.ok(t?.mini_lesson && t.formulas.length);
+      for(const kind of ['concept','calculation','scenario']) assert.ok(extension.questions.some(q=>q.topic_id===id && q.kind===kind));
+      assert.ok(applications.some(a=>a.topic_id===id));
+    }
+  }
+});
+test('intermediate steps survive storage, reject code and record assistance only on submission', () => {
+  const q=extension.questions.find(q=>q.numeric_steps), step=q.numeric_steps[0], task=freshTeoTask();
+  assert.equal(checkTeoNumber(String(step.value),step).correct,true);
+  assert.equal(checkTeoNumber('0',step).correct,false);
+  assert.equal(checkTeoNumber('alert(1)',step).valid,false);
+  task.answer=String(q.numeric_answer.value);submitTeoNumber(task,q);
+  task.stepsUsed=true;task.stepsChecked=true;task.steps[step.id]=String(step.value);
+  assert.equal(teoTaskStatus(task).state,'correct');
+  submitTeoNumber(task,q);assert.equal(teoTaskStatus(task).state,'assisted');
+  const raw={version:1,calculations:{[q.id]:{...task,steps:{...task.steps,evil:'x'}}},oral:{}};
+  const loaded=readTeoProgress({getItem:()=>JSON.stringify(raw)},[q.id],[]).progress.calculations[q.id];
+  assert.deepEqual(loaded.steps,task.steps);assert.equal(loaded.stepsUsed,true);
+});
+
 test('TEO is additive: all existing questions, topics, source IDs and objects remain intact', () => {
   const before = JSON.stringify(base);
   const merged = mergeTeoBank(base, extension);
@@ -22,8 +48,8 @@ test('TEO is additive: all existing questions, topics, source IDs and objects re
   assert.deepEqual(merged.questions.slice(0, base.questions.length), base.questions);
   assert.deepEqual(merged.topics.slice(0, base.topics.length), base.topics);
   assert.deepEqual(merged.sources.slice(0, base.sources.length), base.sources);
-  assert.equal(merged.questions.length, base.questions.length + 150);
-  assert.equal(merged.topics.length, base.topics.length + 10);
+  assert.equal(merged.questions.length, base.questions.length + 228);
+  assert.equal(merged.topics.length, base.topics.length + 23);
   assert.equal(merged.metadata.question_count, merged.questions.length);
   assert.equal(merged.metadata.source_count, merged.sources.length);
   assert.equal(new Set(merged.topics.map(t => t.order)).size, merged.topics.length);
@@ -47,11 +73,11 @@ test('legacy active sessions and stored answers survive integration', () => {
   assert.notEqual(STORAGE_KEY, TEO_STORAGE_KEY);
 });
 
-test('150 questions, 10 topics, 10 applications, 40 definitions and 72 headings are linked', () => {
-  assert.equal(extension.questions.length, 150);
-  assert.equal(numeric.length, 50);
-  assert.equal(applications.length, 10);
-  assert.equal(terms.length, 40);
+test('228 questions, 23 modules, 66 definitions and both course outlines are linked', () => {
+  assert.equal(extension.questions.length, 228);
+  assert.equal(numeric.length, 76);
+  assert.equal(applications.length, 23);
+  assert.equal(terms.length, 66);
   assert.equal(coverage.length, 72);
   const sources = new Set(extension.sources.map(s => s.id));
   const topics = new Set(extension.topics.map(t => t.id));
@@ -65,8 +91,8 @@ test('150 questions, 10 topics, 10 applications, 40 definitions and 72 headings 
   }
   for (const t of extension.topics) {
     const questions = extension.questions.filter(q => q.topic_id === t.id);
-    assert.equal(questions.length, 15);
-    for (const kind of ['concept', 'calculation', 'scenario']) assert.equal(questions.filter(q => q.kind === kind).length, 5);
+    assert.equal(questions.length, t.question_count);
+    for (const kind of ['concept', 'calculation', 'scenario']) assert.equal(questions.filter(q => q.kind === kind).length, t.question_count / 3);
     assert.ok(t.prerequisites.every(id => topics.has(id)));
   }
   for (const row of [...applications, ...terms]) {
@@ -74,7 +100,7 @@ test('150 questions, 10 topics, 10 applications, 40 definitions and 72 headings 
     assert.ok(row.source_ids.every(id => sources.has(id)));
   }
   for (const a of applications) {
-    assert.equal(a.question_ids.length, 15);
+    assert.equal(a.question_ids.length, extension.topics.find(t => t.id === a.topic_id).question_count);
     assert.ok(a.question_ids.every(id => questionMap.get(id).topic_id === a.topic_id));
     assert.ok(a.assumptions.length && a.limitations.length && a.oral_check.rubric.length);
   }
@@ -83,11 +109,11 @@ test('150 questions, 10 topics, 10 applications, 40 definitions and 72 headings 
   }
 });
 
-test('10 thematic tickets cover exactly 150 questions once; routes have no broken links', () => {
-  assert.equal(tickets.length, 10);
-  assert.equal(routes.length, 10);
+test('23 thematic tickets cover exactly 228 questions once; routes have no broken links', () => {
+  assert.equal(tickets.length, 23);
+  assert.equal(routes.length, 23);
   const ids = tickets.flatMap(t => t.question_ids);
-  assert.ok(tickets.every(t => t.question_ids.length === 15));
+  assert.ok(tickets.every(t => [6,15].includes(t.question_ids.length)));
   assert.deepEqual(new Set(ids), new Set(extension.questions.map(q => q.id)));
   assert.equal(ids.length, new Set(ids).size);
   for (const route of routes) for (const step of route.steps) {

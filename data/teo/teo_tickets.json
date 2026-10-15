@@ -1,7 +1,7 @@
 {
-  "version": "1.2.0",
-  "bank_version": "1.2.0",
-  "description": "10 тематических билетов по 15 заданий. В сумме охватывают все 150 новых вопросов по одному разу. Это не дополнительные вопросы.",
+  "version": "1.3.0",
+  "bank_version": "1.3.0",
+  "description": "23 тематических билета: 10 по 15 вопросов и 13 по 6. Понимание, расчёт и инженерная ситуация.",
   "default_settings": {
     "passing_score": null,
     "time_limit_seconds": null,
@@ -227,6 +227,175 @@
         "TEO-148",
         "TEO-149",
         "TEO-150"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-11",
+      "title": "Э01. Проводники, диэлектрики, поле и ток",
+      "topic_id": "teo_fields",
+      "question_ids": [
+        "TEO-151",
+        "TEO-152",
+        "TEO-153",
+        "TEO-154",
+        "TEO-155",
+        "TEO-156"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-12",
+      "title": "Э02. Переходные процессы в RC- и RL-цепях",
+      "topic_id": "teo_transients",
+      "question_ids": [
+        "TEO-157",
+        "TEO-158",
+        "TEO-159",
+        "TEO-160",
+        "TEO-161",
+        "TEO-162"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-13",
+      "title": "Э03. Электрофизические свойства полупроводников",
+      "topic_id": "teo_semiconductors",
+      "question_ids": [
+        "TEO-163",
+        "TEO-164",
+        "TEO-165",
+        "TEO-166",
+        "TEO-167",
+        "TEO-168"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-14",
+      "title": "Э04. Полупроводниковые диоды",
+      "topic_id": "teo_diodes",
+      "question_ids": [
+        "TEO-169",
+        "TEO-170",
+        "TEO-171",
+        "TEO-172",
+        "TEO-173",
+        "TEO-174"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-15",
+      "title": "Э05. Биполярные и полевые транзисторы",
+      "topic_id": "teo_transistors",
+      "question_ids": [
+        "TEO-175",
+        "TEO-176",
+        "TEO-177",
+        "TEO-178",
+        "TEO-179",
+        "TEO-180"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-16",
+      "title": "Э06. Тиристоры и оптоэлектронные приборы",
+      "topic_id": "teo_thyristors_opto",
+      "question_ids": [
+        "TEO-181",
+        "TEO-182",
+        "TEO-183",
+        "TEO-184",
+        "TEO-185",
+        "TEO-186"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-17",
+      "title": "Э07. Интегральные схемы: типы и ограничения",
+      "topic_id": "teo_integrated",
+      "question_ids": [
+        "TEO-187",
+        "TEO-188",
+        "TEO-189",
+        "TEO-190",
+        "TEO-191",
+        "TEO-192"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-18",
+      "title": "Э08. Усилители напряжения и тока",
+      "topic_id": "teo_amplifiers",
+      "question_ids": [
+        "TEO-193",
+        "TEO-194",
+        "TEO-195",
+        "TEO-196",
+        "TEO-197",
+        "TEO-198"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-19",
+      "title": "Э09. Операционные усилители и обратная связь",
+      "topic_id": "teo_opamps",
+      "question_ids": [
+        "TEO-199",
+        "TEO-200",
+        "TEO-201",
+        "TEO-202",
+        "TEO-203",
+        "TEO-204"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-20",
+      "title": "Э10. Специальные усилители и генераторы",
+      "topic_id": "teo_special_oscillators",
+      "question_ids": [
+        "TEO-205",
+        "TEO-206",
+        "TEO-207",
+        "TEO-208",
+        "TEO-209",
+        "TEO-210"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-21",
+      "title": "Э11. Электронные ключи и формирователи импульсов",
+      "topic_id": "teo_switches",
+      "question_ids": [
+        "TEO-211",
+        "TEO-212",
+        "TEO-213",
+        "TEO-214",
+        "TEO-215",
+        "TEO-216"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-22",
+      "title": "Э12. Цифровые устройства и логические уровни",
+      "topic_id": "teo_digital",
+      "question_ids": [
+        "TEO-217",
+        "TEO-218",
+        "TEO-219",
+        "TEO-220",
+        "TEO-221",
+        "TEO-222"
+      ]
+    },
+    {
+      "id": "TEO-TICKET-23",
+      "title": "Э13. Выпрямители, преобразователи и стабилизаторы",
+      "topic_id": "teo_power",
+      "question_ids": [
+        "TEO-223",
+        "TEO-224",
+        "TEO-225",
+        "TEO-226",
+        "TEO-227",
+        "TEO-228"
       ]
     }
   ]
