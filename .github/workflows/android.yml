@@ -90,6 +90,30 @@ jobs:
             !android/build/outputs/*-unsigned.apk
             android/build/outputs/*.apk.sha256
           if-no-files-found: error
+      - name: Prepare offline signing tools for release branches
+        if: env.HAS_SIGNING_KEY != 'true' && startsWith(github.head_ref || github.ref_name, 'release/')
+        run: |
+          set -eu
+          tools="$ANDROID_SDK_ROOT/build-tools/$(python3 -c 'import json; print(json.load(open("android/version.json"))["buildTools"])')"
+          dest="$RUNNER_TEMP/robotics-offline-signing"
+          mkdir -p "$dest/tools/lib"
+          cp "$tools/aapt2" "$tools/zipalign" "$dest/tools/"
+          cp "$tools/lib/apksigner.jar" "$dest/tools/lib/"
+          cp -a "$tools/lib64" "$dest/tools/lib64"
+          for name in NOTICE.txt source.properties; do
+            if [ -f "$tools/$name" ]; then cp "$tools/$name" "$dest/tools/"; fi
+          done
+          git archive --format=tar.gz --output="$dest/source.tar.gz" HEAD
+          git rev-parse HEAD > "$dest/source-commit.txt"
+          sha256sum android/build/outputs/*-unsigned.apk > "$dest/unsigned-apk.sha256"
+      - name: Upload offline signing tools without private keys
+        if: env.HAS_SIGNING_KEY != 'true' && startsWith(github.head_ref || github.ref_name, 'release/')
+        uses: actions/upload-artifact@v4
+        with:
+          name: robotics-offline-signing
+          path: ${{ runner.temp }}/robotics-offline-signing/
+          if-no-files-found: error
+          retention-days: 7
       - name: Remove temporary key
         if: always() && env.HAS_SIGNING_KEY == 'true'
         run: |
