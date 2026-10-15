@@ -69,4 +69,26 @@ export function createWorkshopUI({main,announce,onStorageError}) {
   main.addEventListener('click',event=>{const t=event.target.closest('[data-ws-action]');if(!t||t.disabled||!active)return;const action=t.dataset.wsAction;
     if(action==='zoom'){const large=main.querySelector('#ws-scene').classList.toggle('ws-zoom');t.setAttribute('aria-pressed',String(large));t.textContent=large?'Показать всю ячейку':'Увеличить схему';return;}
     if(action==='run'){start();return;}
-    if(action==='pause'){if(timer!==null)clearInterval(timer);timer=null;main.querySelector('[data-
+    if(action==='pause'){if(timer!==null)clearInterval(timer);timer=null;main.querySelector('[data-ws-action="run"]').disabled=false;return;}
+    if(action==='step'){if(timer!==null)clearInterval(timer);timer=null;prepare();main.querySelector('[data-ws-action="run"]').disabled=false;advance();return;}
+    if(action==='lab-reset'){stop();state.lab.parameters={...defaults};persist();paint();return;}
+    const s=active.scenario,e=entry();if(!s)return;
+    if(action==='probe'&&e.baselineRun){if(!e.tests.includes(t.dataset.id))e.tests.push(t.dataset.id);selectedProbe=t.dataset.id;persist();t.setAttribute('aria-pressed','true');showMeasurement(selectedProbe);showAssessment(false);}
+    if(action==='repair'&&e.baselineRun){const id=main.querySelector('#ws-repair').value,fix=repairs.find(x=>x.id===id);if(!fix){main.querySelector('#ws-result').textContent='Сначала выберите исправление.';return;}if(e.repairs.length>=20){main.querySelector('#ws-result').textContent='Достигнут предел 20 изменений. Начните этот сценарий заново.';return;}stop();e.repairs.push(id);persist();feedback=fix.note+' Запустите повторный прогон.';paint();}
+    if(action==='assess')showAssessment(true);
+    if(action==='hint'){e.hint=true;persist();paint();}
+    if(action==='case-reset'){stop();state.cases[s.id]=freshCase();selectedProbe=null;feedback='';persist();paint();}
+  });
+  main.addEventListener('input',event=>{if(!active)return;const t=event.target;
+    if(t.id==='ws-prediction'){state.lab.prediction=t.value.slice(0,2000);persist();return;}
+    if(t.id==='ws-notes'){entry().notes=t.value.slice(0,2000);persist();return;}
+    if(t.dataset.wsParam&&controls.some(c=>c.key===t.dataset.wsParam)){stop();state.lab.parameters=normalizeParameters({...state.lab.parameters,[t.dataset.wsParam]:Number(t.value)});persist();const c=controls.find(c=>c.key===t.dataset.wsParam);main.querySelector(`#ws-value-${c.key}`).textContent=`${n(state.lab.parameters[c.key])} ${c.unit}`;invalidateLab();}
+  });
+  function invalidateLab(){main.querySelector('#ws-result').className='ws-result';main.querySelector('#ws-result').textContent='Параметры изменены. Запустите новый цикл для проверки.';main.querySelector('#ws-metrics').innerHTML='';main.querySelector('#ws-events').innerHTML='<p class="note">Ожидается новый прогон.</p>';main.querySelector('#ws-scene').innerHTML=scene(simulateCell(parameters()));main.querySelector('#ws-stage').textContent='Новая конфигурация';}
+  main.addEventListener('change',event=>{if(!active)return;const t=event.target;
+    if(t.id==='ws-tracking'||t.id==='ws-input'){stop();state.lab.parameters=normalizeParameters({...state.lab.parameters,[t.id==='ws-tracking'?'tracking':'input']:t.id==='ws-tracking'?t.checked:t.value});persist();invalidateLab();}
+    if(t.id==='ws-hypothesis'){entry().hypothesis=t.value;persist();showAssessment(false);}
+  });
+  window.addEventListener('pagehide',stop);
+  return {list,lab:()=>open(),exercise:open,stop,report(id){const s=scenarios.find(x=>x.id===id);return s?{id:s.id,question:s.brief,revision:1,type:'workshop',topic_id:'diagnostics_integration'}:null;}};
+}
