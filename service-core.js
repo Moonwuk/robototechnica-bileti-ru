@@ -1,10 +1,12 @@
-import { serviceCases } from './service-data.js?v=1.8.0';
-import { expression } from './circuits-core.js?v=1.8.0';
+import { serviceCases } from './service-data.js?v=1.9.0';
+import { expression } from './circuits-core.js?v=1.9.0';
+import { simulateIndustry } from './industry-core.js?v=1.9.0';
 export const SERVICE_KEY='robototehnika-bileti-ru:service:v1';
 export function normalizeService(s,raw={}) { const p={...s.defaults};for(const [k,,min,max,step] of s.controls){const v=Number(raw[k]);if(raw[k]!==undefined&&Number.isFinite(v))p[k]=Math.min(max,Math.max(min,Math.round(v/step)*step));}return p; }
 const yes=x=>x?'Да':'Нет';
 export function simulateService(s,raw={}) {
  const p=normalizeService(s,raw),extra=raw,rows=[];let ok=false,trace=[];
+ const industry=simulateIndustry(s.kind,p);if(industry)return industry;
  switch(s.kind){
  case 'servo':{const actual=p.enabled&&p.feedback?p.target:0;ok=!!p.enabled&&!!p.feedback;rows.push(['Связь / команда принята','Да / да'],['Рабочее состояние',yes(p.enabled)],['Обратная связь',yes(p.feedback)],['Задание / перемещение',`${p.target} / ${actual} мм`]);break;}
  case 'scale':{const scale=p.actual*p.gear/p.pitch,configured=p.configured*p.gear/p.pitch,counts=p.target*configured,actual=counts/scale;ok=Math.abs(actual-p.target)<1e-6;rows.push(['Энкодер: реальный / настроенный',`${p.actual} / ${p.configured} отсчётов/оборот`],['Передача / ход винта',`${p.gear} / ${p.pitch} мм/оборот`],['Выданные отсчёты',counts],['Экран / линейка',`${p.target} / ${actual} мм`]);break;}

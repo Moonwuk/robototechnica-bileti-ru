@@ -350,6 +350,188 @@
       "expected": 6.366197723675814,
       "absolute_tolerance": 0.01,
       "unit": "В"
+    },
+    {
+      "question_id": "TEO-153",
+      "expression": "24/.002",
+      "expected": 12000.0,
+      "absolute_tolerance": 1,
+      "unit": "В/м"
+    },
+    {
+      "question_id": "TEO-154",
+      "expression": ".012/4*1000",
+      "expected": 3.0,
+      "absolute_tolerance": 0.01,
+      "unit": "мА"
+    },
+    {
+      "question_id": "TEO-159",
+      "expression": "10*(1-exp(-.1/(1000*.0001)))",
+      "expected": 6.321205588285577,
+      "absolute_tolerance": 0.01,
+      "unit": "В"
+    },
+    {
+      "question_id": "TEO-160",
+      "expression": "20/10*(1-exp(-.02*10/.2))",
+      "expected": 1.2642411176571153,
+      "absolute_tolerance": 0.01,
+      "unit": "А"
+    },
+    {
+      "question_id": "TEO-165",
+      "expression": ".02*.005/.000002",
+      "expected": 50.00000000000001,
+      "absolute_tolerance": 0.01,
+      "unit": "Ом"
+    },
+    {
+      "question_id": "TEO-166",
+      "expression": ".25*100",
+      "expected": 25.0,
+      "absolute_tolerance": 0.01,
+      "unit": "°C"
+    },
+    {
+      "question_id": "TEO-171",
+      "expression": "(5-2)/.01",
+      "expected": 300.0,
+      "absolute_tolerance": 0.01,
+      "unit": "Ом"
+    },
+    {
+      "question_id": "TEO-172",
+      "expression": ".8*.6*1000",
+      "expected": 480.0,
+      "absolute_tolerance": 0.01,
+      "unit": "мВт"
+    },
+    {
+      "question_id": "TEO-177",
+      "expression": "80*.25",
+      "expected": 20.0,
+      "absolute_tolerance": 0.01,
+      "unit": "мА"
+    },
+    {
+      "question_id": "TEO-178",
+      "expression": "2**2*.05",
+      "expected": 0.2,
+      "absolute_tolerance": 0.01,
+      "unit": "Вт"
+    },
+    {
+      "question_id": "TEO-183",
+      "expression": "5*.5",
+      "expected": 2.5,
+      "absolute_tolerance": 0.01,
+      "unit": "мА"
+    },
+    {
+      "question_id": "TEO-184",
+      "expression": "(12-1.2)/.006",
+      "expected": 1800.0,
+      "absolute_tolerance": 1,
+      "unit": "Ом"
+    },
+    {
+      "question_id": "TEO-189",
+      "expression": "3.3/4096*1000",
+      "expected": 0.8056640625,
+      "absolute_tolerance": 0.001,
+      "unit": "мВ"
+    },
+    {
+      "question_id": "TEO-190",
+      "expression": "3.3*.04*1000",
+      "expected": 132.0,
+      "absolute_tolerance": 0.01,
+      "unit": "мВт"
+    },
+    {
+      "question_id": "TEO-195",
+      "expression": "50*.02",
+      "expected": 1.0,
+      "absolute_tolerance": 0.01,
+      "unit": "В"
+    },
+    {
+      "question_id": "TEO-196",
+      "expression": "1/(2*pi*10000*.000001)",
+      "expected": 15.915494309189533,
+      "absolute_tolerance": 0.01,
+      "unit": "Гц"
+    },
+    {
+      "question_id": "TEO-201",
+      "expression": "(1+9000/1000)*.2",
+      "expected": 2.0,
+      "absolute_tolerance": 0.01,
+      "unit": "В"
+    },
+    {
+      "question_id": "TEO-202",
+      "expression": "-40000/10000*.3",
+      "expected": -1.2,
+      "absolute_tolerance": 0.01,
+      "unit": "В"
+    },
+    {
+      "question_id": "TEO-207",
+      "expression": "100*(2.004-2)",
+      "expected": 0.40000000000000036,
+      "absolute_tolerance": 0.01,
+      "unit": "В"
+    },
+    {
+      "question_id": "TEO-208",
+      "expression": "1.44/((1000+2*10000)*.00000001)",
+      "expected": 6857.142857142857,
+      "absolute_tolerance": 1,
+      "unit": "Гц"
+    },
+    {
+      "question_id": "TEO-213",
+      "expression": "3-2",
+      "expected": 1.0,
+      "absolute_tolerance": 0.01,
+      "unit": "В"
+    },
+    {
+      "question_id": "TEO-214",
+      "expression": ".000000020/.1*1e9",
+      "expected": 200.0,
+      "absolute_tolerance": 0.1,
+      "unit": "нс"
+    },
+    {
+      "question_id": "TEO-219",
+      "expression": "4096/4000",
+      "expected": 1.024,
+      "absolute_tolerance": 1e-05,
+      "unit": "с"
+    },
+    {
+      "question_id": "TEO-220",
+      "expression": "2.9-2",
+      "expected": 0.8999999999999999,
+      "absolute_tolerance": 0.01,
+      "unit": "В"
+    },
+    {
+      "question_id": "TEO-225",
+      "expression": "5/24",
+      "expected": 0.20833333333333334,
+      "absolute_tolerance": 0.0001,
+      "unit": "доля"
+    },
+    {
+      "question_id": "TEO-226",
+      "expression": "(12-5)*.3",
+      "expected": 2.1,
+      "absolute_tolerance": 0.01,
+      "unit": "Вт"
     }
   ],
   "application_checks": [
@@ -560,7 +742,245 @@
       "expected": 0.44721359549995787,
       "unit": "Ом",
       "absolute_tolerance": 1e-08
+    },
+    {
+      "guide_id": "TEO-APP-11",
+      "expression": "3/1",
+      "expected": 3
+    },
+    {
+      "guide_id": "TEO-APP-12",
+      "expression": "10000*.000001",
+      "expected": 0.01
+    },
+    {
+      "guide_id": "TEO-APP-13",
+      "expression": ".1*80",
+      "expected": 8
+    },
+    {
+      "guide_id": "TEO-APP-14",
+      "expression": "3*.01",
+      "expected": 0.03
+    },
+    {
+      "guide_id": "TEO-APP-15",
+      "expression": "1.5**2*.08",
+      "expected": 0.18
+    },
+    {
+      "guide_id": "TEO-APP-16",
+      "expression": "4*.5",
+      "expected": 2
+    },
+    {
+      "guide_id": "TEO-APP-17",
+      "expression": "5/1024",
+      "expected": 0.0048828125
+    },
+    {
+      "guide_id": "TEO-APP-17",
+      "expression": "5/1024/.1",
+      "expected": 0.048828125
+    },
+    {
+      "guide_id": "TEO-APP-18",
+      "expression": ".01*100",
+      "expected": 1
+    },
+    {
+      "guide_id": "TEO-APP-19",
+      "expression": "1/(2*pi*.001)",
+      "expected": 159.15494309189532
+    },
+    {
+      "guide_id": "TEO-APP-19",
+      "expression": "2/sqrt(2)",
+      "expected": 1.4142135623730951
+    },
+    {
+      "guide_id": "TEO-APP-20",
+      "expression": "1+200*.002",
+      "expected": 1.4
+    },
+    {
+      "guide_id": "TEO-APP-21",
+      "expression": "3-2",
+      "expected": 1
+    },
+    {
+      "guide_id": "TEO-APP-22",
+      "expression": "4-250+256",
+      "expected": 10
+    },
+    {
+      "guide_id": "TEO-APP-23",
+      "expression": "(12-5)*.3",
+      "expected": 2.1
+    },
+    {
+      "guide_id": "TEO-APP-23",
+      "expression": "1.5/.9-1.5",
+      "expected": 0.16666666666666652
     }
   ],
-  "note": "Числовые выражения нужны офлайн-валидатору; не передавайте их в eval браузера. Проверка арифметики не доказывает полноту физической модели."
+  "note": "Числовые выражения нужны офлайн-валидатору; не передавайте их в eval браузера. Проверка арифметики не доказывает полноту физической модели.",
+  "step_checks": [
+    {
+      "question_id": "TEO-153",
+      "step_id": "step1",
+      "expression": ".002",
+      "expected": 0.002
+    },
+    {
+      "question_id": "TEO-154",
+      "step_id": "step1",
+      "expression": ".012",
+      "expected": 0.012
+    },
+    {
+      "question_id": "TEO-159",
+      "step_id": "step1",
+      "expression": "1000*.0001",
+      "expected": 0.1
+    },
+    {
+      "question_id": "TEO-160",
+      "step_id": "step1",
+      "expression": "20/10",
+      "expected": 2.0
+    },
+    {
+      "question_id": "TEO-165",
+      "step_id": "step1",
+      "expression": ".000002",
+      "expected": 2e-06
+    },
+    {
+      "question_id": "TEO-166",
+      "step_id": "step1",
+      "expression": ".25",
+      "expected": 0.25
+    },
+    {
+      "question_id": "TEO-171",
+      "step_id": "step1",
+      "expression": "5-2",
+      "expected": 3.0
+    },
+    {
+      "question_id": "TEO-172",
+      "step_id": "step1",
+      "expression": ".8",
+      "expected": 0.8
+    },
+    {
+      "question_id": "TEO-177",
+      "step_id": "step1",
+      "expression": ".00025",
+      "expected": 0.00025
+    },
+    {
+      "question_id": "TEO-178",
+      "step_id": "step1",
+      "expression": "2**2",
+      "expected": 4.0
+    },
+    {
+      "question_id": "TEO-183",
+      "step_id": "step1",
+      "expression": ".5",
+      "expected": 0.5
+    },
+    {
+      "question_id": "TEO-184",
+      "step_id": "step1",
+      "expression": ".006",
+      "expected": 0.006
+    },
+    {
+      "question_id": "TEO-189",
+      "step_id": "step1",
+      "expression": "2**12",
+      "expected": 4096.0
+    },
+    {
+      "question_id": "TEO-190",
+      "step_id": "step1",
+      "expression": ".04",
+      "expected": 0.04
+    },
+    {
+      "question_id": "TEO-195",
+      "step_id": "step1",
+      "expression": ".02",
+      "expected": 0.02
+    },
+    {
+      "question_id": "TEO-196",
+      "step_id": "step1",
+      "expression": "10000*.000001",
+      "expected": 0.01
+    },
+    {
+      "question_id": "TEO-201",
+      "step_id": "step1",
+      "expression": "1+9000/1000",
+      "expected": 10.0
+    },
+    {
+      "question_id": "TEO-202",
+      "step_id": "step1",
+      "expression": "40000/10000",
+      "expected": 4.0
+    },
+    {
+      "question_id": "TEO-207",
+      "step_id": "step1",
+      "expression": "2.004-2",
+      "expected": 0.0040000000000000036
+    },
+    {
+      "question_id": "TEO-208",
+      "step_id": "step1",
+      "expression": ".00000001",
+      "expected": 1e-08
+    },
+    {
+      "question_id": "TEO-213",
+      "step_id": "step1",
+      "expression": "(3+2)/2",
+      "expected": 2.5
+    },
+    {
+      "question_id": "TEO-214",
+      "step_id": "step1",
+      "expression": ".000000020",
+      "expected": 2e-08
+    },
+    {
+      "question_id": "TEO-219",
+      "step_id": "step1",
+      "expression": "2**12",
+      "expected": 4096.0
+    },
+    {
+      "question_id": "TEO-220",
+      "step_id": "step1",
+      "expression": "(2.9-2)*1000",
+      "expected": 899.9999999999999
+    },
+    {
+      "question_id": "TEO-225",
+      "step_id": "step1",
+      "expression": "24/5",
+      "expected": 4.8
+    },
+    {
+      "question_id": "TEO-226",
+      "step_id": "step1",
+      "expression": "12-5",
+      "expected": 7.0
+    }
+  ]
 }

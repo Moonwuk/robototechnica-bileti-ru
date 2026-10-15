@@ -35,8 +35,9 @@ bank = json.loads((ROOT / 'data/teo/question_bank.json').read_text())
 checks = json.loads((ROOT / 'tests/fixtures/teo-numeric-checks.json').read_text())
 questions = {q['id']: q for q in bank['questions']}
 applications = {a['id'] for a in json.loads((ROOT / 'data/teo/applications.json').read_text())['applications']}
-assert len(checks['question_checks']) == 50
-assert len(checks['application_checks']) == 26
+assert len(checks['question_checks']) == 76
+assert len(checks['application_checks']) == 42
+assert len(checks['step_checks']) == 26
 assert {c['question_id'] for c in checks['question_checks']} == {q['id'] for q in bank['questions'] if q['kind'] == 'calculation'}
 for c in checks['question_checks'] + checks['application_checks']:
     actual = arithmetic(c['expression'])
@@ -47,4 +48,9 @@ for c in checks['question_checks'] + checks['application_checks']:
             assert c[source] == answer[field], (c['question_id'], field)
     else:
         assert c['guide_id'] in applications
-print('TEO: 50 numeric grading records and 26 application expressions passed. Physical models still require subject-matter review.')
+for c in checks['step_checks']:
+    step = next(s for s in questions[c['question_id']]['numeric_steps'] if s['id'] == c['step_id'])
+    assert math.isclose(arithmetic(c['expression']), c['expected'], rel_tol=1e-9, abs_tol=1e-12), c
+    assert step['value'] == c['expected'], c
+    assert step['absolute_tolerance'] < abs(step['value']) / 10, c
+print('TEO: 76 numeric answers, 26 intermediate steps and 42 application expressions passed.')

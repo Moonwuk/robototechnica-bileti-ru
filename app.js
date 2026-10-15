@@ -1,14 +1,14 @@
-import { mergeTeoBank } from './teo-core.js?v=1.8.0';
-import { createTeoUI } from './teo-ui.js?v=1.8.0';
-import { createServiceUI } from './service-ui.js?v=1.8.0';
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.8.0';
-import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.8.0';
-import { createPracticeUI } from './practice-ui.js?v=1.8.0';
+import { mergeTeoBank } from './teo-core.js?v=1.9.0';
+import { createTeoUI } from './teo-ui.js?v=1.9.0';
+import { createServiceUI } from './service-ui.js?v=1.9.0';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.9.0';
+import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.9.0';
+import { createPracticeUI } from './practice-ui.js?v=1.9.0';
 
-import { createWorkshopUI } from './workshop-ui.js?v=1.8.0';
-import { createReasoningUI } from './reasoning-ui.js?v=1.8.0';
+import { createWorkshopUI } from './workshop-ui.js?v=1.9.0';
+import { createReasoningUI } from './reasoning-ui.js?v=1.9.0';
 
-const ASSET_VERSION = '1.8.0';
+const ASSET_VERSION = '1.9.0';
 let circuitUI, practiceUI, practiceData, workshopUI, reasoningUI, serviceUI, teoUI, teoData;
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
@@ -133,7 +133,7 @@ function firstSteps() {
   main.innerHTML = heading('Учитесь небольшими шагами', 'Пять вопросов за подход. Разберитесь в одном понятии и сразу проверьте себя.', 'С чего начать') + resumeBanner() +
     `<section class="start-card" aria-label="Следующая цепочка"><div><p class="eyebrow">${completed === ordered.length ? 'Можно повторить' : 'Ваш следующий шаг'}</p><h2>${E(next.title)}</h2><p>Короткий словарь · 5 вопросов · объяснение своими словами</p></div>${button(completed ? 'Продолжить обучение' : 'Начать с основ', 'open-path', next.id)}</section>
     <div class="stats-strip"><div class="stat-inline"><strong>${bank.questions.length}</strong><span>вопросов в банке</span></div><div class="stat-inline"><strong>${bank.topics.length}</strong><span>учебных тем</span></div><div class="stat-inline"><strong>${completed} / ${paths.length}</strong><span>цепочек пройдено</span></div></div>
-    <section class="plain-panel calc-promo"><div><h2>Основы электротехники: от теории к применению</h2><p class="note">10 тем, 150 заданий, 50 расчётов с вводом числа и 10 подробных разборов.</p></div><a class="button secondary" href="#teo">Открыть электротехнику</a></section>
+    <section class="plain-panel calc-promo"><div><h2>Основы электротехники: от теории к применению</h2><p class="note">Маршрут по 19 темам: 23 модуля, 228 заданий, 76 расчётов с вводом числа и 23 разбора применения.</p></div><a class="button secondary" href="#teo">Открыть электротехнику</a></section>
     <section class="plain-panel calc-promo"><div><h2>Кирхгоф — с расчётами по шагам</h2><p class="note">12 задач со схемами, вводом уравнений и проверкой промежуточных результатов.</p></div><a class="button secondary" href="#circuits">Открыть расчёты</a></section>
     <section class="plain-panel calc-promo"><div><h2>Инженерные собеседования: примените знания</h2><p class="note">12 прикладных блоков, пять профилей подготовки и 20 задач с полем решения.</p></div><a class="button secondary" href="#practice">Открыть практику</a></section><section class="plain-panel engineering-intro"><p class="eyebrow">Дальше — инженерная практика</p><h2>От модели к работающему роботу</h2><p class="note">60 новых вопросов: расчёты, выбор решений и проверка ограничений. Начните с математики и координат, затем переходите к манипуляторам, датчикам и движению.</p><div class="engineering-links">${bank.topics.filter(t => t.track_id === 'engineering').map(t => `<a class="button secondary" href="#topic/${E(t.id)}">${E(t.name)}</a>`).join('')}</div></section><div class="section-title"><h2>От электрической цепи к роботу</h2><span>Рекомендуемый порядок</span></div><div class="card-grid">${bank.topics.filter(t => paths.some(p => p.topic_id === t.id)).map((t, i) => {
       const ps = paths.filter(p => p.topic_id === t.id);
@@ -160,7 +160,7 @@ function ticketsPage() {
   const teoTickets = mixedTickets.filter(t => t.category === 'teo');
   main.innerHTML = heading('Билеты для практики', 'Начните с вводного билета по знакомой теме. Смешанные билеты пригодятся, когда освоите основы.', 'По одному подходу') + resumeBanner() +
     `<div class="section-title"><h2>Вводные билеты</h2><span>${beginnerTickets.length} билетов по 10 вопросов</span></div><div class="ticket-grid">${beginnerTickets.map((t, i) => ticketCard(t, true, i)).join('')}</div>
-    <div class="section-title"><h2>Смешанные билеты</h2><span>${foundation.length} билетов по 20 вопросов</span></div><div class="filters"><label for="ticket-mode">Как решать</label><select class="field" id="ticket-mode"><option value="learn"${ticketMode === 'learn' ? ' selected' : ''}>Обучение — объяснения сразу</option><option value="exam"${ticketMode === 'exam' ? ' selected' : ''}>Самопроверка — ответы в конце</option></select></div><div class="ticket-grid">${foundation.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Инженерная практика</h2><span>${engineering.length} билета по 20 вопросов</span></div><p class="note">Математика, координаты, манипуляторы, оценка состояния, зрение и планирование. Дополнительно — задачи по механике, управлению, ПО и испытаниям.</p><div class="ticket-grid">${engineering.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Прикладные собеседования</h2><span>Два билета по 20 вопросов и один на 12</span></div><p class="note">52 вопроса по исследованию вакансий и инженерных интервью. Практические задачи и профильные маршруты — в разделе «Практика».</p><div class="ticket-grid">${interview.map((t, i) => ticketCard(t, false, i)).join('')}</div><p class="note">В смешанных билетах цель самопроверки — не меньше 90% правильных ответов: 18 из 20 или 11 из 12. Это ориентир для учёбы. Время не ограничено.</p><div class="section-title"><h2>Основы электротехники</h2><span>${teoTickets.length} билетов по 15 вопросов</span></div><p class="note">По темам учебного оглавления: понимание, расчёты и инженерные ситуации. Без проходного балла. Режим выбирается выше.</p><div class="ticket-grid">${teoTickets.map((t, i) => ticketCard(t, false, i)).join('')}</div>`;
+    <div class="section-title"><h2>Смешанные билеты</h2><span>${foundation.length} билетов по 20 вопросов</span></div><div class="filters"><label for="ticket-mode">Как решать</label><select class="field" id="ticket-mode"><option value="learn"${ticketMode === 'learn' ? ' selected' : ''}>Обучение — объяснения сразу</option><option value="exam"${ticketMode === 'exam' ? ' selected' : ''}>Самопроверка — ответы в конце</option></select></div><div class="ticket-grid">${foundation.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Инженерная практика</h2><span>${engineering.length} билета по 20 вопросов</span></div><p class="note">Математика, координаты, манипуляторы, оценка состояния, зрение и планирование. Дополнительно — задачи по механике, управлению, ПО и испытаниям.</p><div class="ticket-grid">${engineering.map((t, i) => ticketCard(t, false, i)).join('')}</div><div class="section-title"><h2>Прикладные собеседования</h2><span>Два билета по 20 вопросов и один на 12</span></div><p class="note">52 вопроса по исследованию вакансий и инженерных интервью. Практические задачи и профильные маршруты — в разделе «Практика».</p><div class="ticket-grid">${interview.map((t, i) => ticketCard(t, false, i)).join('')}</div><p class="note">В смешанных билетах цель самопроверки — не меньше 90% правильных ответов: 18 из 20 или 11 из 12. Это ориентир для учёбы. Время не ограничено.</p><div class="section-title"><h2>Основы электротехники</h2><span>${teoTickets.length} билета по 6–15 вопросов</span></div><p class="note">По темам учебного оглавления: понимание, расчёты и инженерные ситуации. Без проходного балла. Режим выбирается выше.</p><div class="ticket-grid">${teoTickets.map((t, i) => ticketCard(t, false, i)).join('')}</div>`;
 }
 function topicsPage() {
   main.innerHTML = heading('Тренировка по темам', 'Краткая теория, полезные формулы и вопросы выбранного уровня.', 'От основ к инженерным задачам') + resumeBanner() + `<div class="card-grid">${bank.topics.map((t, i) => {
@@ -321,7 +321,7 @@ function render() {
     case 'teo-calc': teoUI.calculation(id); break;
     case 'teo-application': teoUI.application(id); break;
     case 'teo-glossary': teoUI.dictionary(); break;
-    case 'circuits': circuitUI.list(); main.querySelector('.page-heading')?.insertAdjacentHTML('afterend', `<section class="plain-panel"><h2>Ещё 50 расчётов по электротехнике</h2><p>Постоянный и переменный ток, фильтры, трёхфазные и магнитные цепи. Ввод числа и разбор решения.</p><a class="button secondary" href="#teo">Открыть учебные модули</a></section>`); break;
+    case 'circuits': circuitUI.list(); main.querySelector('.page-heading')?.insertAdjacentHTML('afterend', `<section class="plain-panel"><h2>76 расчётов по электротехнике</h2><p>От законов цепей до транзисторов и питания роботов. Ввод числа, проверка промежуточных шагов и разбор решения.</p><a class="button secondary" href="#teo">Открыть учебные модули</a></section>`); break;
     case 'workshop': workshopUI.list(); break;
     case 'workshop-lab': workshopUI.lab(); break;
     case 'workshop-case': workshopUI.exercise(id); break;

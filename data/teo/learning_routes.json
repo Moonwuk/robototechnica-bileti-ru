@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "recommended_sequence": [
     "teo_elements",
     "teo_dc_methods",
@@ -10,7 +10,20 @@
     "teo_threephase",
     "teo_nonlinear_dc",
     "teo_magnetics",
-    "teo_nonlinear_ac"
+    "teo_nonlinear_ac",
+    "teo_fields",
+    "teo_transients",
+    "teo_semiconductors",
+    "teo_diodes",
+    "teo_transistors",
+    "teo_thyristors_opto",
+    "teo_integrated",
+    "teo_amplifiers",
+    "teo_opamps",
+    "teo_special_oscillators",
+    "teo_switches",
+    "teo_digital",
+    "teo_power"
   ],
   "math_prerequisites": [
     "Арифметика, дроби и перевод единиц.",
@@ -579,6 +592,747 @@
           "type": "oral_self_check",
           "application_id": "TEO-APP-10"
         }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-11",
+      "section": "Э01",
+      "topic_id": "teo_fields",
+      "prerequisites": [],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_fields"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-151",
+            "TEO-152"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-153",
+            "TEO-154"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-155",
+            "TEO-156"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-11"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-11"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-12",
+      "section": "Э02",
+      "topic_id": "teo_transients",
+      "prerequisites": [
+        "teo_elements"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_transients"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-157",
+            "TEO-158"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-159",
+            "TEO-160"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-161",
+            "TEO-162"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-12"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-12"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-13",
+      "section": "Э03",
+      "topic_id": "teo_semiconductors",
+      "prerequisites": [
+        "teo_fields"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_semiconductors"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-163",
+            "TEO-164"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-165",
+            "TEO-166"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-167",
+            "TEO-168"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-13"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-13"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-14",
+      "section": "Э04",
+      "topic_id": "teo_diodes",
+      "prerequisites": [
+        "teo_semiconductors"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_diodes"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-169",
+            "TEO-170"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-171",
+            "TEO-172"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-173",
+            "TEO-174"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-14"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-14"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-15",
+      "section": "Э05",
+      "topic_id": "teo_transistors",
+      "prerequisites": [
+        "teo_diodes"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_transistors"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-175",
+            "TEO-176"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-177",
+            "TEO-178"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-179",
+            "TEO-180"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-15"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-15"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-16",
+      "section": "Э06",
+      "topic_id": "teo_thyristors_opto",
+      "prerequisites": [
+        "teo_diodes",
+        "teo_transistors"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_thyristors_opto"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-181",
+            "TEO-182"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-183",
+            "TEO-184"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-185",
+            "TEO-186"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-16"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-16"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-17",
+      "section": "Э07",
+      "topic_id": "teo_integrated",
+      "prerequisites": [
+        "teo_transistors"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_integrated"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-187",
+            "TEO-188"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-189",
+            "TEO-190"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-191",
+            "TEO-192"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-17"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-17"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-18",
+      "section": "Э08",
+      "topic_id": "teo_amplifiers",
+      "prerequisites": [
+        "teo_transistors",
+        "teo_ac"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_amplifiers"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-193",
+            "TEO-194"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-195",
+            "TEO-196"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-197",
+            "TEO-198"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-18"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-18"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-19",
+      "section": "Э09",
+      "topic_id": "teo_opamps",
+      "prerequisites": [
+        "teo_amplifiers"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_opamps"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-199",
+            "TEO-200"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-201",
+            "TEO-202"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-203",
+            "TEO-204"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-19"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-19"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-20",
+      "section": "Э10",
+      "topic_id": "teo_special_oscillators",
+      "prerequisites": [
+        "teo_opamps"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_special_oscillators"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-205",
+            "TEO-206"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-207",
+            "TEO-208"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-209",
+            "TEO-210"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-20"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-20"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-21",
+      "section": "Э11",
+      "topic_id": "teo_switches",
+      "prerequisites": [
+        "teo_transistors",
+        "teo_transients"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_switches"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-211",
+            "TEO-212"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-213",
+            "TEO-214"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-215",
+            "TEO-216"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-21"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-21"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-22",
+      "section": "Э12",
+      "topic_id": "teo_digital",
+      "prerequisites": [
+        "teo_integrated",
+        "teo_switches"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_digital"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-217",
+            "TEO-218"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-219",
+            "TEO-220"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-221",
+            "TEO-222"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-22"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-22"
+        }
+      ]
+    },
+    {
+      "id": "TEO-ROUTE-23",
+      "section": "Э13",
+      "topic_id": "teo_power",
+      "prerequisites": [
+        "teo_diodes",
+        "teo_switches",
+        "teo_transients"
+      ],
+      "steps": [
+        {
+          "type": "mini_lesson",
+          "topic_id": "teo_power"
+        },
+        {
+          "type": "question_group",
+          "purpose": "Понимание",
+          "question_ids": [
+            "TEO-223",
+            "TEO-224"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Расчёт",
+          "question_ids": [
+            "TEO-225",
+            "TEO-226"
+          ]
+        },
+        {
+          "type": "question_group",
+          "purpose": "Выбор и диагностика",
+          "question_ids": [
+            "TEO-227",
+            "TEO-228"
+          ]
+        },
+        {
+          "type": "application",
+          "application_id": "TEO-APP-23"
+        },
+        {
+          "type": "oral_self_check",
+          "application_id": "TEO-APP-23"
+        }
+      ]
+    }
+  ],
+  "course19": [
+    {
+      "number": 1,
+      "title": "Проводники и диэлектрики в электрическом поле. Электрический ток",
+      "topic_ids": [
+        "teo_fields",
+        "teo_elements"
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Простые и сложные электрические цепи постоянного тока",
+      "topic_ids": [
+        "teo_elements",
+        "teo_dc_methods"
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Магнитные цепи и электромагнитная индукция",
+      "topic_ids": [
+        "teo_magnetics",
+        "teo_coupling"
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Синусоидальный ток. Элементы и параметры цепей переменного тока",
+      "topic_ids": [
+        "teo_ac"
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Резонанс в электрических цепях",
+      "topic_ids": [
+        "teo_ac"
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Трёхфазные цепи",
+      "topic_ids": [
+        "teo_threephase"
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Переходные процессы в электрических цепях",
+      "topic_ids": [
+        "teo_transients"
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Пассивные и активные электронные цепи. Фильтры",
+      "topic_ids": [
+        "teo_twoports_filters",
+        "teo_opamps"
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Электрофизические свойства полупроводников",
+      "topic_ids": [
+        "teo_semiconductors"
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Полупроводниковые диоды",
+      "topic_ids": [
+        "teo_diodes"
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Биполярные и полевые транзисторы",
+      "topic_ids": [
+        "teo_transistors"
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Тиристоры и оптоэлектронные приборы",
+      "topic_ids": [
+        "teo_thyristors_opto"
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Интегральные схемы: основные понятия и типы",
+      "topic_ids": [
+        "teo_integrated"
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Электронные усилители, усилители переменного напряжения и тока",
+      "topic_ids": [
+        "teo_amplifiers"
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Усилители переменного тока и операционные усилители",
+      "topic_ids": [
+        "teo_opamps"
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Специальные виды усилителей и генераторы",
+      "topic_ids": [
+        "teo_special_oscillators"
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Электронные ключи и формирователи импульсов",
+      "topic_ids": [
+        "teo_switches"
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Цифровые устройства",
+      "topic_ids": [
+        "teo_digital"
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Выпрямители, преобразователи, стабилизаторы напряжения и тока",
+      "topic_ids": [
+        "teo_power"
       ]
     }
   ]

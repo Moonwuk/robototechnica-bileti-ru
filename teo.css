@@ -18,4 +18,12 @@
 .teo .text-answer { min-height: 7rem; }
 .teo .card[hidden] { display: none; }
 .teo-review { margin-top: 1rem; }
+.teo-course ol { padding-left: 1.5rem; }
+.teo-course li { padding: .8rem 0; border-bottom: 1px solid var(--border, #dce2e8); }
+.teo-course li:last-child { border-bottom: 0; }
+.teo-course li strong { line-height: 1.6; }
+.teo-course .button-row { margin-top: .6rem; }
+.teo-steps { min-width: 0; padding: 1rem; margin: 1.5rem 0; border: 1px solid var(--border, #dce2e8); border-radius: 12px; }
+.teo-steps legend { font-weight: 700; max-width: 100%; }
+.teo-steps button { margin-top: 1rem; }
 @media (min-width: 960px) { .teo-task-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

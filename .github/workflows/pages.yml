@@ -26,6 +26,8 @@ jobs:
           node --check teo-ui.js
           node --check service-core.js
           node --check service-data.js
+          node --check industry-data.js
+          node --check industry-core.js
           node --check service-ui.js
           node --check reasoning-core.js
           node --check reasoning-data.js

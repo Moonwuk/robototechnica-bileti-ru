@@ -1,4 +1,4 @@
-import { armJoints, MODEL } from './workshop-core.js?v=1.8.0';
+import { armJoints, MODEL } from './workshop-core.js?v=1.9.0';
 
 export function cycleFrames(result) {
   const home={x:430,y:310},pick={x:result.actualToolX,y:160};
