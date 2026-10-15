@@ -6,7 +6,7 @@ export function simulateIndustry(kind, p) {
     case 'throughput': {
       const phases = [['Перемещение', p.motion], ['Захват', p.grip], ['Обработка', p.process], ['Ожидание обмена', p.wait]];
       let time = 0;
-      for (const [name, duration] of phases) { trace.push([name, rounded(time), rounded(time + duration), duration]); time += duration; }
+      for (const [name, duration] of phases) { trace.push([name, rounded(time), rounded(time + duration), rounded(duration)]); time += duration; }
       const rate = 3600 / time;
       ok = rate + 1e-9 >= p.target;
       metrics = { cycle: time, rate, targetCycle: 3600 / p.target };
@@ -35,12 +35,12 @@ export function simulateIndustry(kind, p) {
         else if (event === 'done' && state === 'RUN') state = 'IDLE';
         // Reset and completion do not launch a cycle in the same scan.
         else if (state === 'IDLE' && p.enabled && start && (!p.edge || rising)) { state = 'RUN'; starts++; }
-        trace.push([t,event,start,state,starts]); previous = start;
+        trace.push([t,{scan:'Опрос',done:'Завершение',fault:'Авария',reset:'Сброс'}[event],start,state,starts]); previous = start;
       }
       ok = starts === 2 && trace[4][4] === 1 && state === 'RUN';
       metrics = { starts, afterReset: trace[4][4] };
       rows = [['Запусков / ожидается', `${starts} / 2`], ['Запусков до отпускания Start / ожидается', `${trace[4][4]} / 1`], ['Последний новый фронт принят', state === 'RUN' && trace[6][4] > trace[5][4] ? 'Да' : 'Нет']];
-      columns = ['t, мс','Событие','Start','Состояние','Запусков']; caption = 'Сканирование: удержание Start, авария, сброс, отпускание и новый запуск'; break;
+      columns = ['t, мс','Событие','Start','Состояние','Запусков']; caption = 'Значимые такты, период опроса 10 мс. IDLE — ожидание, RUN — работа, FAULT — авария'; break;
     }
     case 'navigation': {
       const odom = p.distance * p.scale, lidar = p.distance, map = odom + p.frameOffset, residual = map - lidar;
