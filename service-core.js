@@ -1,6 +1,6 @@
-import { serviceCases } from './service-data.js?v=1.9.0';
-import { expression } from './circuits-core.js?v=1.9.0';
-import { simulateIndustry } from './industry-core.js?v=1.9.0';
+import { serviceCases } from './service-data.js?v=1.9.2';
+import { expression } from './circuits-core.js?v=1.9.2';
+import { simulateIndustry } from './industry-core.js?v=1.9.2';
 export const SERVICE_KEY='robototehnika-bileti-ru:service:v1';
 export function normalizeService(s,raw={}) { const p={...s.defaults};for(const [k,,min,max,step] of s.controls){const v=Number(raw[k]);if(raw[k]!==undefined&&Number.isFinite(v))p[k]=Math.min(max,Math.max(min,Math.round(v/step)*step));}return p; }
 const yes=x=>x?'Да':'Нет';

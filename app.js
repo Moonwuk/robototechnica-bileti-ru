@@ -1,14 +1,14 @@
-import { mergeTeoBank } from './teo-core.js?v=1.9.1';
-import { createTeoUI } from './teo-ui.js?v=1.9.1';
-import { createServiceUI } from './service-ui.js?v=1.9.1';
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.9.1';
-import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.9.1';
-import { createPracticeUI } from './practice-ui.js?v=1.9.1';
+import { mergeTeoBank } from './teo-core.js?v=1.9.2';
+import { createTeoUI } from './teo-ui.js?v=1.9.2';
+import { createServiceUI } from './service-ui.js?v=1.9.2';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.9.2';
+import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.9.2';
+import { createPracticeUI } from './practice-ui.js?v=1.9.2';
 
-import { createWorkshopUI } from './workshop-ui.js?v=1.9.1';
-import { createReasoningUI } from './reasoning-ui.js?v=1.9.1';
+import { createWorkshopUI } from './workshop-ui.js?v=1.9.2';
+import { createReasoningUI } from './reasoning-ui.js?v=1.9.2';
 
-const ASSET_VERSION = '1.9.1';
+const ASSET_VERSION = '1.9.2';
 let circuitUI, practiceUI, practiceData, workshopUI, reasoningUI, serviceUI, teoUI, teoData;
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
