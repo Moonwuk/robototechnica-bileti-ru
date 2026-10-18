@@ -32,14 +32,30 @@ const DAY = 86400000;
 export function freshProgress() {
   return { version: 1, questions: {}, sessions: [], completed: {}, active: null };
 }
+const record = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+const count = value => Number.isSafeInteger(value) && value >= 0;
+const timestamp = value => typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 8640000000000000;
 export function readProgress(storage) {
   try {
     const raw = storage.getItem(STORAGE_KEY);
     if (!raw) return { progress: freshProgress(), error: false };
+    if (raw.length > 2000000) throw new Error('Oversized progress');
     const value = JSON.parse(raw);
-    if (value.version !== 1 || !value.questions || typeof value.questions !== 'object' || Array.isArray(value.questions) || !Array.isArray(value.sessions)) throw new Error('Invalid progress');
-    if (!value.completed || typeof value.completed !== 'object' || Array.isArray(value.completed)) value.completed = {};
-    return { progress: value, error: false };
+    if (!record(value) || value.version !== 1 || !record(value.questions) || !Array.isArray(value.sessions)) throw new Error('Invalid progress');
+    let error = false;
+    const keep = predicate => entry => { const valid = predicate(entry); if (!valid) error = true; return valid; };
+    // Recover valid rows independently: a single corrupt row must not break startup.
+    const questions = Object.fromEntries(Object.entries(value.questions).filter(keep(([, row]) =>
+      record(row) && count(row.attempts) && count(row.correct) && row.correct <= row.attempts && count(row.streak) &&
+      row.streak <= row.attempts && typeof row.lastCorrect === 'boolean' && typeof row.lastHinted === 'boolean' &&
+      typeof row.needsReview === 'boolean' && timestamp(row.lastAt) && timestamp(row.reviewAt))));
+    const sessions = value.sessions.filter(keep(row => record(row) && typeof row.id === 'string' &&
+      typeof row.title === 'string' && ['learn', 'exam'].includes(row.mode) && count(row.correct) &&
+      count(row.total) && row.total > 0 && row.correct <= row.total && timestamp(row.finishedAt))).slice(0, 100);
+    const completed = Object.fromEntries(Object.entries(record(value.completed) ? value.completed : {}).filter(keep(([, at]) => timestamp(at))));
+    const active = record(value.active) ? value.active : null;
+    if (value.active != null && !active) error = true;
+    return { progress: { version: 1, questions, sessions, completed, active }, error };
   } catch {
     return { progress: freshProgress(), error: true };
   }
@@ -97,11 +113,23 @@ export function finishSession(progress, session, questionMap, now = Date.now()) 
   return score;
 }
 export function validateActive(active, questionMap) {
-  return Boolean(active && typeof active.title === 'string' && ['learn', 'exam'].includes(active.mode) && Array.isArray(active.questionIds) && active.questionIds.length && Number.isInteger(active.index) && active.index >= 0 && active.index < active.questionIds.length && active.answers && typeof active.answers === 'object' && active.hints && typeof active.hints === 'object' && active.optionOrders && active.questionIds.every(id => {
-    const q = questionMap.get(id);
-    const order = active.optionOrders[id];
-    return q && Array.isArray(order) && order.length === q.options.length && new Set(order).size === q.options.length && order.every(o => q.options.some(p => p.id === o)) && (!Object.hasOwn(active.answers, id) || q.options.some(o => o.id === active.answers[id]));
-  }));
+  if (!record(active) || typeof active.id !== 'string' || typeof active.title !== 'string' ||
+      !['learn', 'exam'].includes(active.mode) || !Array.isArray(active.questionIds) ||
+      !active.questionIds.length || active.questionIds.length > questionMap.size ||
+      new Set(active.questionIds).size !== active.questionIds.length ||
+      !Number.isInteger(active.index) || active.index < 0 || active.index >= active.questionIds.length ||
+      !record(active.answers) || !record(active.hints) || !record(active.optionOrders) ||
+      !timestamp(active.startedAt) || !(active.finishedAt === null || timestamp(active.finishedAt)) ||
+      typeof active.recorded !== 'boolean' || typeof active.draft !== 'string') return false;
+  if (Object.keys(active.answers).some(id => !active.questionIds.includes(id)) ||
+      Object.entries(active.hints).some(([id, used]) => !active.questionIds.includes(id) || typeof used !== 'boolean')) return false;
+  if (active.finishedAt !== null && (!active.recorded || active.questionIds.some(id => !Object.hasOwn(active.answers, id)))) return false;
+  return active.questionIds.every(id => {
+    const q = questionMap.get(id), order = active.optionOrders[id];
+    return q && Array.isArray(order) && order.length === q.options.length && new Set(order).size === q.options.length &&
+      order.every(o => q.options.some(p => p.id === o)) &&
+      (!Object.hasOwn(active.answers, id) || q.options.some(o => o.id === active.answers[id]));
+  });
 }
 export function summarize(progress, questionMap, now = Date.now()) {
   const rows = Object.entries(progress.questions).filter(([id]) => questionMap.has(id));

@@ -1,4 +1,4 @@
-import { TEO_STORAGE_KEY, TEO_DRAFT_LIMIT, freshTeoTask, readTeoProgress, submitTeoNumber, teoTaskStatus, checkTeoNumber } from './teo-core.js?v=1.9.0';
+import { TEO_STORAGE_KEY, TEO_DRAFT_LIMIT, freshTeoTask, readTeoProgress, submitTeoNumber, teoTaskStatus, checkTeoNumber } from './teo-core.js?v=1.9.2';
 
 const E = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const link = (text, route, type = 'secondary') => `<a class="button ${type}" href="#${E(route)}">${E(text)}</a>`;

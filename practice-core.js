@@ -1,13 +1,12 @@
-import { expression, formatNumber } from './circuits-core.js?v=1.9.0';
+import { expression, formatNumber, quantity } from './circuits-core.js?v=1.9.2';
 
 export const PRACTICE_STORAGE_KEY = 'robototehnika-bileti-ru:practice:v1';
 export const DRAFT_LIMIT = 12000;
 const unitAliases = {
   rpm: [['об/мин', 1], ['rpm', 1]], tick: [['тиков', 1], ['tick', 1]],
   us: [['мкс', 1], ['us', 1], ['мс', 1000], ['ms', 1000], ['с', 1e6], ['s', 1e6]],
-  ohm: [['Ом', 1], ['ohm', 1], ['кОм', 1000]], A: [['А', 1], ['A', 1], ['мА', .001], ['mA', .001]],
   W: [['Вт', 1], ['W', 1]], N: [['Н', 1], ['N', 1]],
-  'N*m': [['Н·м', 1], ['Н*м', 1], ['N*m', 1], ['N·m', 1]], V: [['В', 1], ['V', 1], ['мВ', .001]],
+  'N*m': [['Н·м', 1], ['Н*м', 1], ['N*m', 1], ['N·m', 1]],
   m: [['м', 1], ['m', 1], ['см', .01], ['cm', .01], ['мм', .001], ['mm', .001]],
   'm/s': [['м/с', 1], ['m/s', 1], ['см/с', .01], ['км/ч', 1 / 3.6]],
   'rad/s': [['рад/с', 1], ['rad/s', 1]], 'm^2': [['м²', 1], ['m²', 1], ['м^2', 1], ['m^2', 1]],
@@ -16,10 +15,11 @@ const unitAliases = {
 };
 export function practiceQuantity(input, unit) {
   if (typeof input !== 'string' || input.length > 160) throw new Error('Допустимо до 160 символов.');
+  if (['A', 'V', 'ohm'].includes(unit)) return quantity(input, unit === 'ohm' ? 'Ω' : unit);
   let source = input.trim(), scale = 1;
   const aliases = [...(unitAliases[unit] || [])].sort((a, b) => b[0].length - a[0].length);
   for (const [suffix, multiplier] of aliases) {
-    const matches = ['B', 'B/s'].includes(suffix) ? source.endsWith(suffix) : source.toLowerCase().endsWith(suffix.toLowerCase());
+    const matches = source.endsWith(suffix);
     if (matches) {
       source = source.slice(0, -suffix.length).trim(); scale = multiplier; break;
     }

@@ -91,17 +91,20 @@ export function equivalentEquations(a, b, variables) {
   const sign = Math.sign(first[pivot] * second[pivot]);
   return sign !== 0 && first.every((n, i) => Math.abs(n / norm - sign * second[i] / referenceNorm) < 1e-8);
 }
-const units = {
-  A: { a: 1, 'а': 1, ma: .001, 'ма': .001, ua: 1e-6, 'мка': 1e-6, 'µa': 1e-6, 'μa': 1e-6 },
-  V: { v: 1, 'в': 1, mv: .001, 'мв': .001, kv: 1000, 'кв': 1000 },
-  'Ω': { 'ω': 1, ohm: 1, 'ом': 1, 'kω': 1000, kohm: 1000, 'ком': 1000 }
-};
+// Prefix case carries physical scale: m is milli, M is mega.
+const siPrefixes = [['', 1], ['m', 1e-3], ['м', 1e-3], ['M', 1e6], ['М', 1e6],
+  ['k', 1e3], ['к', 1e3], ['u', 1e-6], ['µ', 1e-6], ['μ', 1e-6], ['мк', 1e-6],
+  ['n', 1e-9], ['н', 1e-9]];
+const unitNames = { A: ['A', 'a', 'А', 'а'], V: ['V', 'v', 'В', 'в'],
+  'Ω': ['Ω', 'ω', 'ohm', 'Ohm', 'OHM', 'Ом', 'ом', 'ОМ'] };
+const units = Object.fromEntries(Object.entries(unitNames).map(([unit, names]) =>
+  [unit, Object.fromEntries(siPrefixes.flatMap(([prefix, scale]) => names.map(name => [prefix + name, scale])))]));
 export function quantity(text, unit = '') {
   if (typeof text !== 'string' || text.length > INPUT_LIMIT) fail('Допустимо до 160 символов.');
   const suffix = text.trim().match(/([a-zа-яωµμ]+)$/i);
   let multiplier = 1, source = text;
   if (suffix) {
-    const symbol = suffix[1].toLowerCase();
+    const symbol = suffix[1];
     if (!units[unit] || !Object.hasOwn(units[unit], symbol)) fail(`Укажите величину в ${unit || 'числах без единиц'}: проверьте единицы измерения.`);
     multiplier = units[unit][symbol];
     source = text.trim().slice(0, -suffix[1].length);

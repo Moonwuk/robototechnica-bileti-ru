@@ -1,6 +1,6 @@
-import { defaults, controls, scenarios, probes, repairs, hypotheses, workshopSources } from './workshop-data.js?v=1.9.0';
-import { WORKSHOP_KEY, normalizeParameters, simulateCell, initialParameters, caseParameters, freshCase, assessCase, readWorkshop, measurements } from './workshop-core.js?v=1.9.0';
-import { scene, cycleFrames, vacuumChart } from './workshop-scene.js?v=1.9.0';
+import { defaults, controls, scenarios, probes, repairs, hypotheses, workshopSources } from './workshop-data.js?v=1.9.2';
+import { WORKSHOP_KEY, normalizeParameters, simulateCell, initialParameters, caseParameters, freshCase, assessCase, readWorkshop, measurements } from './workshop-core.js?v=1.9.2';
+import { scene, cycleFrames, vacuumChart } from './workshop-scene.js?v=1.9.2';
 
 const E=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n=value=>new Intl.NumberFormat('ru',{maximumFractionDigits:1}).format(value);

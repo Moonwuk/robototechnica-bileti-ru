@@ -1,5 +1,5 @@
 // Авторские учебные модели, не конфигурации реального оборудования.
-import { industryCases, industrySources } from './industry-data.js?v=1.9.0';
+import { industryCases, industrySources } from './industry-data.js?v=1.9.2';
 const probe=(id,title,patch={})=>({id,title,patch});
 const fix=(id,title,patch)=>({id,title,patch});
 export const serviceCases=[

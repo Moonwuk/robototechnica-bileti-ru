@@ -109,3 +109,19 @@ test('Web packager includes practice modules and data', async () => {
   for (const text of texts) for (const name of ['practice-core.js','practice-ui.js']) assert.ok(text.includes(name));
   assert.ok(texts[0].includes("'data'"));
 });
+
+test('practice uses the same case-sensitive electrical units and never treats mega as milli', () => {
+  for(const [unit,milli,mega] of [['A','мА','МА'],['A','mA','MA'],['V','мВ','МВ'],['V','mV','MV'],['ohm','мОм','МОм']]) {
+    assert.equal(practiceQuantity('30 '+milli,unit),.03);
+    assert.equal(practiceQuantity('30 '+mega,unit),3e7);
+    const check={value:.03,unit,display_unit:unit,absolute_tolerance:1e-6,relative_tolerance:.001,hint:'Проверьте масштаб.'};
+    assert.equal(checkNumericAnswer(check,'30 '+milli).ok,true);
+    assert.equal(checkNumericAnswer(check,'30 '+mega).ok,false);
+  }
+  for(const [input,unit] of [['1 Mm','m'],['1 MM','m'],['1 MS','s'],['8 мбит/с','Mbit/s'],['8 mbit/s','Mbit/s'],['8 b','B']]) assert.throws(()=>practiceQuantity(input,unit),input);
+  assert.equal(practiceQuantity('8 Мбит/с','Mbit/s'),8);
+  assert.equal(practiceQuantity('8 Mbit/s','Mbit/s'),8);
+  assert.equal(practiceQuantity('8 B','B'),8);
+  assert.equal(practiceQuantity('1 mm','m'),.001);
+  assert.equal(practiceQuantity('1 ms','s'),.001);
+});

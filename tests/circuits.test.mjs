@@ -121,3 +121,20 @@ test('web packaging includes every circuit module', () => {
     for(const manifest of [web]) assert.ok(manifest.includes(name),name);
   }
 });
+
+test('SI prefix case distinguishes milli, mega, kilo and micro for current, voltage and resistance', () => {
+  for (const [unit, milli, mega, micro] of [
+    ['A', ['mA','мА'], ['MA','МА'], ['µA','μA','uA','мкА']],
+    ['V', ['mV','мВ'], ['MV','МВ'], ['µV','μV','uV','мкВ']],
+    ['Ω', ['mΩ','мОм'], ['MΩ','МОм'], ['µΩ','μΩ','uΩ','мкОм']]
+  ]) {
+    for (const suffix of milli) near(quantity('30 '+suffix,unit),.03);
+    for (const suffix of mega) assert.equal(quantity('30 '+suffix,unit),3e7);
+    for (const suffix of micro) near(quantity('30 '+suffix,unit),.00003);
+  }
+  const p=circuitProblems.find(p=>p.id==='kvl-02'),step=p.steps.find(s=>s.id==='i');
+  assert.equal(checkStep(p,step,{i:'30 мА'}).ok,true);
+  for(const input of ['30 МА','30 MA','30 mV','30 МВ']) assert.equal(checkStep(p,step,{i:input}).ok,false,input);
+  assert.equal(quantity('2 МОм','Ω'),2000000);
+  assert.equal(quantity('2 мОм','Ω'),.002);
+});

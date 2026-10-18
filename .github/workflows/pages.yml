@@ -61,6 +61,8 @@ jobs:
         run: node scripts/check-reasoning-ui.cjs
       - name: Check service diagnostic scenarios
         run: node scripts/check-service-ui.cjs
+      - name: Check full release flows and recovery
+        run: node scripts/check-release-ui.cjs
       - name: Upload browser screenshots
         if: always()
         uses: actions/upload-artifact@v4

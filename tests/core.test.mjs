@@ -94,3 +94,38 @@ test('suggestions work before data loads and long drafts are never silently trun
   assert.throws(() => buildIssueDraft({ kind: 'error' }), /Question required/);
   assert.throws(() => buildIssueDraft({ kind: 'other' }), /Unknown feedback kind/);
 });
+
+test('one corrupt progress row or history entry cannot block valid saved answers', () => {
+  const p=freshProgress(),s=createSession({questions:[q],title:'Сохраняем исправное'});
+  submitAnswer(p,s,q,q.correct_option_id,1000);finishSession(p,s,questionMap,2000);
+  p.questions.BROKEN=null;p.questions.BAD={attempts:-1};p.sessions.push(null,{title:'bad date',finishedAt:'not a date'});
+  const saved=readProgress({getItem:()=>JSON.stringify(p)});
+  assert.equal(saved.error,true);
+  assert.equal(saved.progress.questions[q.id].attempts,1);
+  assert.deepEqual(Object.keys(saved.progress.questions),[q.id]);
+  assert.equal(saved.progress.sessions.length,1);
+  assert.doesNotThrow(()=>summarize(saved.progress,questionMap));
+  assert.equal(summarize(saved.progress,questionMap).correct,1);
+});
+test('malformed or half-written active sessions are rejected without losing completed history', () => {
+  const s=createSession({questions:bank.questions.slice(0,2),title:'Живой подход'});
+  assert.equal(validateActive(s,questionMap),true);
+  for(const mutation of [
+    x=>delete x.finishedAt,x=>delete x.id,x=>x.answers=[],x=>x.hints=[],x=>x.draft=null,
+    x=>x.questionIds.push(x.questionIds[0]),x=>x.answers.UNKNOWN='a',x=>x.hints[x.questionIds[0]]='false',
+    x=>{x.finishedAt=100;x.recorded=true;}
+  ]) {const bad=structuredClone(s);mutation(bad);assert.equal(validateActive(bad,questionMap),false);}
+});
+test('all questions in the merged bank retain correct score and exactly one history entry', async () => {
+  const {mergeTeoBank}=await import('../teo-core.js');
+  const extra=JSON.parse(await readFile(new URL('../data/teo/question_bank.json',import.meta.url),'utf8'));
+  const merged=mergeTeoBank(bank,extra),map=new Map(merged.questions.map(q=>[q.id,q]));
+  for(const q of merged.questions) {
+    for(const mode of ['learn','exam']) {
+      const p=freshProgress(),s=createSession({questions:[q],title:q.id,mode});
+      submitAnswer(p,s,q,q.correct_option_id,1);assert.equal(finishSession(p,s,map,2),1);finishSession(p,s,map,3);
+      assert.equal(p.questions[q.id].attempts,1);assert.equal(p.sessions.length,1);
+      p.active=s;assert.equal(validateActive(readProgress({getItem:()=>JSON.stringify(p)}).progress.active,map),true);
+    }
+  }
+});

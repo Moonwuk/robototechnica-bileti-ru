@@ -1,4 +1,4 @@
-import { mobileDefaults, conveyorDefaults, mobileControls, conveyorControls, experiments, causes, fixes, reasoningCases } from './reasoning-data.js?v=1.9.0';
+import { mobileDefaults, conveyorDefaults, mobileControls, conveyorControls, experiments, causes, fixes, reasoningCases } from './reasoning-data.js?v=1.9.2';
 
 export const REASONING_KEY = 'robototehnika-bileti-ru:reasoning:v1';
 const obj=x=>x&&typeof x==='object'&&!Array.isArray(x);
