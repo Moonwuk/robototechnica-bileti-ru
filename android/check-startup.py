@@ -32,13 +32,19 @@ def wait_for(text, timeout=40):
     raise AssertionError('Expected Android screen: ' + text)
 
 def tap(label):
-    root = ET.fromstring(hierarchy())
-    for node in root.iter('node'):
-        if label in (node.get('text', '') + node.get('content-desc', '')):
-            numbers = list(map(int, re.findall(r'\d+', node.get('bounds', ''))))
-            if len(numbers) == 4 and numbers[2] > numbers[0] and numbers[3] > numbers[1]:
-                adb('shell', 'input', 'tap', str((numbers[0] + numbers[2]) // 2), str((numbers[1] + numbers[3]) // 2))
-                return
+    size = list(map(int, re.findall(r'\d+', adb('shell', 'wm', 'size'))))[-2:]
+    width, height = size
+    for attempt in range(5):
+        root = ET.fromstring(hierarchy())
+        for node in root.iter('node'):
+            if label in (node.get('text', '') + node.get('content-desc', '')):
+                numbers = list(map(int, re.findall(r'\d+', node.get('bounds', ''))))
+                if len(numbers) == 4 and numbers[2] > numbers[0] and numbers[3] > numbers[1]:
+                    adb('shell', 'input', 'tap', str((numbers[0] + numbers[2]) // 2), str((numbers[1] + numbers[3]) // 2))
+                    return
+        adb('shell', 'input', 'swipe', str(width // 2), str(int(height * .82)),
+            str(width // 2), str(int(height * .4)), '300')
+        time.sleep(.3)
     raise AssertionError('Button not visible: ' + label)
 
 try:

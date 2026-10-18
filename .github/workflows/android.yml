@@ -73,6 +73,23 @@ jobs:
       - name: Build signed release
         if: env.HAS_SIGNING_KEY == 'true'
         run: bash android/build.sh
+      - name: Upload unsigned review artifact
+        if: env.HAS_SIGNING_KEY != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: robotics-tickets-unsigned
+          path: android/build/outputs/*-unsigned.apk
+          if-no-files-found: error
+      - name: Upload release artifact
+        if: env.HAS_SIGNING_KEY == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: robotics-tickets-release
+          path: |
+            android/build/outputs/*.apk
+            !android/build/outputs/*-unsigned.apk
+            android/build/outputs/*.apk.sha256
+          if-no-files-found: error
       - name: Prepare APK for emulator
         run: |
           keytool -genkeypair -noprompt -keystore "$RUNNER_TEMP/smoke.jks" -storepass android -keypass android -alias smoke -keyalg RSA -keysize 2048 -validity 2 -dname "CN=CI startup test"
@@ -98,23 +115,6 @@ jobs:
           name: android-startup-evidence
           path: test-results/android/
           if-no-files-found: ignore
-      - name: Upload unsigned review artifact
-        if: env.HAS_SIGNING_KEY != 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: robotics-tickets-unsigned
-          path: android/build/outputs/*-unsigned.apk
-          if-no-files-found: error
-      - name: Upload release artifact
-        if: env.HAS_SIGNING_KEY == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: robotics-tickets-release
-          path: |
-            android/build/outputs/*.apk
-            !android/build/outputs/*-unsigned.apk
-            android/build/outputs/*.apk.sha256
-          if-no-files-found: error
       - name: Remove temporary key
         if: always() && env.HAS_SIGNING_KEY == 'true'
         run: |
