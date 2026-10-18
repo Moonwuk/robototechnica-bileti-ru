@@ -36,12 +36,20 @@ def wait(text,seconds=40):
         time.sleep(.5)
     raise AssertionError('Missing Android text: '+text)
 
-def tap(label):
+def tap(label, field=False):
     width,height=map(int,re.findall(r'\d+',adb('shell','wm','size'))[-2:])
     norm=lambda s:' '.join(s.split())
     for attempt in range(9):
-        for node in ET.fromstring(screen()).iter('node'):
+        tree=ET.fromstring(screen())
+        parents={child:parent for parent in tree.iter() for child in parent}
+        for node in tree.iter('node'):
             if not any(norm(node.get(key,''))==norm(label) for key in ['text','content-desc']):continue
+            if field:
+                # Android's hierarchy omits the HTML name for empty EditText nodes.
+                # The associated submit button identifies the enclosing step exactly.
+                inputs=[n for n in parents[node].iter('node') if n.get('class')=='android.widget.EditText']
+                if len(inputs)!=1:raise AssertionError('Ambiguous calculation field for '+label)
+                node=inputs[0]
             bounds=list(map(int,re.findall(r'\d+',node.get('bounds',''))))
             if len(bounds)==4 and bounds[2]>bounds[0] and bounds[3]-bounds[1]>=35:
                 adb('shell','input','tap',(bounds[0]+bounds[2])//2,(bounds[1]+bounds[3])//2)
@@ -79,7 +87,7 @@ def check_quiz_restored():
     start();wait('Продолжить:');tap('Продолжить');wait('Вопрос 1 из 5');wait('Правильный ответ')
 
 def type_field(label,value):
-    tap(label)
+    tap(label, field=True)
     adb('shell','input','keyevent','123',*['67']*20)
     adb('shell','input','text',value.replace(' ','%s'))
     time.sleep(.5)
@@ -108,11 +116,11 @@ try:
     step=next(s for s in fixture['steps'] if s['id']=='i')
     label=step['label']+', '+step['unit']
     button='Проверить шаг '+str(fixture['steps'].index(step)+1)
-    open_circuit(fixture['title']);type_field(label,'30 MA');tap(button);wait('Верно: 0,03')
+    open_circuit(fixture['title']);type_field(button,'30 MA');tap(button);wait('Верно: 0,03')
     stop();install(a.new_apk);start();wait('Учитесь небольшими шагами')
     open_circuit(fixture['title']);wait('30 MA');wait('Проверьте:')
     assert 'Верно: 0,03' not in screen(),'Mega-amperes still accepted as milli-amperes'
-    type_field(label,'30 mA');tap(button);wait('Верно: 0,03')
+    type_field(button,'30 mA');tap(button);wait('Верно: 0,03')
     adb('shell','settings','put','system','accelerometer_rotation','0')
     adb('shell','settings','put','system','user_rotation','1');time.sleep(1)
     wait('30 mA');wait('Верно: 0,03')
