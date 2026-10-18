@@ -15,8 +15,14 @@ def adb(*args,check=True):
     return subprocess.run(['adb',*map(str,args)],check=check,capture_output=True,text=True).stdout
 
 def screen():
-    adb('shell','uiautomator','dump','/sdcard/upgrade-window.xml')
-    xml=adb('shell','cat','/sdcard/upgrade-window.xml')
+    adb('shell','rm','-f','/sdcard/upgrade-window.xml')
+    adb('shell','uiautomator','dump','/sdcard/upgrade-window.xml',check=False)
+    xml=adb('shell','cat','/sdcard/upgrade-window.xml',check=False)
+    # Reinstallation briefly detaches accessibility even after Activity.start returns.
+    if not xml.lstrip().startswith('<?xml'):
+        return '<hierarchy />'
+    try: ET.fromstring(xml)
+    except ET.ParseError: return '<hierarchy />'
     (OUT/'window.xml').write_text(xml)
     return xml
 
