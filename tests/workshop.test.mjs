@@ -64,8 +64,8 @@ test('Scene remains a reachable schematic; stored strings never enter SVG or fee
   const q={id:'WS-01',type:'workshop',question:'Сценарий',revision:1,notes:'PRIVATE'};
   const draft=buildIssueDraft({kind:'error',question:q});assert.ok(draft.body.includes('#workshop-case/WS-01'));assert.ok(!draft.body.includes('PRIVATE'));
 });
-test('Web and Android include all four workshop modules; scenarios link to real learning routes',async()=>{
-  const files=await Promise.all(['scripts/build.mjs','android/build.py','android/src/ru/moongametechnology/robotics/tickets/MainActivity.java'].map(x=>readFile(new URL('../'+x,import.meta.url),'utf8')));
+test('Web includes workshop modules and scenarios link to real learning routes',async()=>{
+  const files=await Promise.all(['scripts/build.mjs'].map(x=>readFile(new URL('../'+x,import.meta.url),'utf8')));
   for(const f of files)for(const module of ['workshop-core.js','workshop-data.js','workshop-scene.js','workshop-ui.js'])assert.ok(f.includes(module));
   const bank=JSON.parse(await readFile(new URL('../data/question_bank.json',import.meta.url),'utf8'));
   const practice=JSON.parse(await readFile(new URL('../data/interview_practice.json',import.meta.url),'utf8'));

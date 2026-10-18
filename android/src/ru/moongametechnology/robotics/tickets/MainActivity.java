@@ -21,10 +21,11 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 import android.window.OnBackInvokedDispatcher;
 import java.io.ByteArrayInputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,29 +37,32 @@ public final class MainActivity extends Activity {
     private static final String HOST = "appassets.androidplatform.net";
     private static final String HOME = "https://" + HOST + "/assets/index.html";
     private static final String ABOUT = "https://" + HOST + "/assets/privacy.html";
-    private static final Set<String> ASSETS = new HashSet<>(Arrays.asList(
-        "index.html", "privacy.html", "style.css", "app.js", "core.js", "android-adapter.js",
-        "teo-core.js", "teo-ui.js", "teo.css",
-        "data/teo/question_bank.json", "data/teo/applications.json", "data/teo/glossary.json",
-        "data/teo/teo_tickets.json", "data/teo/learning_routes.json",
-        "circuits-core.js", "circuits-data.js", "circuits-ui.js", "practice-core.js", "practice-ui.js",
-        "data/interview_practice.json",
-        "workshop-core.js", "workshop-data.js", "workshop-scene.js", "workshop-ui.js", "industry-core.js", "industry-data.js", "service-core.js", "service-data.js", "service-ui.js", "reasoning-core.js", "reasoning-data.js", "reasoning-scene.js", "reasoning-ui.js",
-        "data/question_bank.json", "data/interview_paths.json", "data/beginner_tickets.json",
-        "data/tickets.json", "data/study_plan.json"
-    ));
+    // Built from the files actually packaged in this APK; never maintained by hand.
+    private final Set<String> siteAssets = new HashSet<>();
     private WebView webView;
 
     @Override public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+        try (BufferedReader manifest = new BufferedReader(new InputStreamReader(
+                getAssets().open("site-assets.txt"), StandardCharsets.UTF_8))) {
+            String name;
+            while ((name = manifest.readLine()) != null) siteAssets.add(name);
+        } catch (IOException missingAssets) {
+            new AlertDialog.Builder(this)
+                .setTitle("Не удалось открыть тренажёр")
+                .setMessage("Файлы приложения повреждены. Установите обновление. Сохранённый прогресс останется на устройстве.")
+                .setPositiveButton("Закрыть", (dialog, which) -> finish())
+                .setOnCancelListener(dialog -> finish()).show();
+            return;
+        }
         PackageInfo provider = WebView.getCurrentWebViewPackage();
         if (provider != null) {
             try {
                 int major = Integer.parseInt(provider.versionName.split("\\.")[0]);
-                if (major < 80) {
+                if (major < 92) {
                     new AlertDialog.Builder(this)
                         .setTitle("Обновите компонент Android")
-                        .setMessage("Для тренажёра нужен Android System WebView версии 80 или новее. Обновите его через магазин приложений, затем откройте тренажёр.")
+                        .setMessage("Для тренажёра нужен Android System WebView версии 92 или новее. Обновите его через магазин приложений, затем откройте тренажёр.")
                         .setPositiveButton("Понятно", (dialog, which) -> finish())
                         .setOnCancelListener(dialog -> finish()).show();
                     return;
@@ -131,7 +135,7 @@ public final class MainActivity extends Activity {
             String path = uri.getPath();
             if (path == null || !path.startsWith("/assets/")) return error(404);
             String name = path.substring("/assets/".length());
-            if (!ASSETS.contains(name)) return error(404);
+            if (!siteAssets.contains(name)) return error(404);
             try {
                 InputStream data = getAssets().open("site/" + name);
                 Map<String, String> headers = new HashMap<>();

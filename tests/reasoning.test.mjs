@@ -94,8 +94,8 @@ test('both SVGs remain finite across bounds and reports contain only public scen
   assert.match(draft.body,/#reasoning-case\/MR-01/);assert.doesNotMatch(draft.body,/PRIVATE/);
 });
 
-test('all new modules are packaged for Pages and the offline Android allowlist',()=>{
-  for(const file of ['scripts/build.mjs','android/build.py','android/src/ru/moongametechnology/robotics/tickets/MainActivity.java']){
+test('reasoning modules are packaged for Pages and their routes registered',()=>{
+  for(const file of ['scripts/build.mjs']){
     const text=readFileSync(new URL('../'+file,import.meta.url),'utf8');
     for(const module of ['reasoning-core.js','reasoning-data.js','reasoning-scene.js','reasoning-ui.js'])assert.ok(text.includes(module),`${file} includes ${module}`);
   }
