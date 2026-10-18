@@ -10,19 +10,29 @@ import xml.etree.ElementTree as ET
 
 PACKAGE='ru.moongametechnology.robotics.tickets'
 OUT=Path('test-results/android-upgrade');OUT.mkdir(parents=True,exist_ok=True)
+launcher_dialog_closed=False
 
 def adb(*args,check=True):
     return subprocess.run(['adb',*map(str,args)],check=check,capture_output=True,text=True).stdout
 
 def screen():
+    global launcher_dialog_closed
     adb('shell','rm','-f','/sdcard/upgrade-window.xml')
     adb('shell','uiautomator','dump','/sdcard/upgrade-window.xml',check=False)
     xml=adb('shell','cat','/sdcard/upgrade-window.xml',check=False)
     # Reinstallation briefly detaches accessibility even after Activity.start returns.
     if not xml.lstrip().startswith('<?xml'):
         return '<hierarchy />'
-    try: ET.fromstring(xml)
+    try: tree=ET.fromstring(xml)
     except ET.ParseError: return '<hierarchy />'
+    if any(n.get('text')=="Pixel Launcher isn't responding" for n in tree.iter('node')):
+        if launcher_dialog_closed:raise AssertionError('Repeated system launcher ANR')
+        close=next(n for n in tree.iter('node') if n.get('text')=='Close app')
+        x1,y1,x2,y2=map(int,re.findall(r'\d+',close.get('bounds')))
+        adb('shell','input','tap',(x1+x2)//2,(y1+y2)//2)
+        launcher_dialog_closed=True
+        print('Dismissed the emulator launcher ANR; application ANRs are not dismissed.',flush=True)
+        return '<hierarchy />'
     (OUT/'window.xml').write_text(xml)
     return xml
 

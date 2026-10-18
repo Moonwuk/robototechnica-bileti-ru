@@ -10,13 +10,28 @@ import xml.etree.ElementTree as ET
 PACKAGE = 'ru.moongametechnology.robotics.tickets'
 OUTPUT = Path('test-results/android')
 OUTPUT.mkdir(parents=True, exist_ok=True)
+launcher_dialog_closed = False
 
 def adb(*args, check=True):
     return subprocess.run(['adb', *args], check=check, capture_output=True, text=True).stdout
 
 def hierarchy():
-    adb('shell', 'uiautomator', 'dump', '/sdcard/robotics-window.xml')
-    text = adb('shell', 'cat', '/sdcard/robotics-window.xml')
+    global launcher_dialog_closed
+    adb('shell', 'rm', '-f', '/sdcard/robotics-window.xml')
+    adb('shell', 'uiautomator', 'dump', '/sdcard/robotics-window.xml', check=False)
+    text = adb('shell', 'cat', '/sdcard/robotics-window.xml', check=False)
+    if not text.lstrip().startswith('<?xml'):
+        return '<hierarchy />'
+    try: tree = ET.fromstring(text)
+    except ET.ParseError: return '<hierarchy />'
+    if any(n.get('text') == "Pixel Launcher isn't responding" for n in tree.iter('node')):
+        if launcher_dialog_closed: raise AssertionError('Repeated system launcher ANR')
+        close = next(n for n in tree.iter('node') if n.get('text') == 'Close app')
+        x1,y1,x2,y2 = map(int,re.findall(r'\d+',close.get('bounds')))
+        adb('shell','input','tap',str((x1+x2)//2),str((y1+y2)//2))
+        launcher_dialog_closed = True
+        print('Dismissed the emulator launcher ANR; application ANRs are not dismissed.',flush=True)
+        return '<hierarchy />'
     (OUTPUT / 'window.xml').write_text(text)
     return text
 
