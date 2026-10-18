@@ -49,7 +49,8 @@ def main():
         print("Installed:", target, flush=True)
     for name in ["aapt2", "d8", "zipalign", "apksigner"]:
         tool = root / "build-tools/35.0.0" / name
-        tool.chmod(tool.stat().st_mode | 0o100)
+        if not os.access(tool, os.X_OK):
+            tool.chmod(tool.stat().st_mode | 0o100)
     if os.environ.get("GITHUB_ENV"):
         with open(os.environ["GITHUB_ENV"], "a") as environment:
             environment.write("ANDROID_SDK_ROOT=" + str(root) + "\n")

@@ -46,7 +46,7 @@ jobs:
           python3 scripts/check-teo-numerics.py
           python3 docs/research/reference_solutions.py
       - name: Install Android build tools
-        run: python3 android/install-sdk.py --sdk-dir "$RUNNER_TEMP/robotics-sdk"
+        run: python3 android/install-sdk.py --sdk-dir "$ANDROID_HOME"
       - name: Build unsigned APK for review
         if: env.HAS_SIGNING_KEY != 'true'
         run: bash android/build.sh --unsigned
@@ -90,6 +90,31 @@ jobs:
             !android/build/outputs/*-unsigned.apk
             android/build/outputs/*.apk.sha256
           if-no-files-found: error
+      - name: Prepare APK for emulator
+        run: |
+          keytool -genkeypair -noprompt -keystore "$RUNNER_TEMP/smoke.jks" -storepass android -keypass android -alias smoke -keyalg RSA -keysize 2048 -validity 2 -dname "CN=CI startup test"
+          "$ANDROID_SDK_ROOT/build-tools/35.0.0/apksigner" sign --ks "$RUNNER_TEMP/smoke.jks" --ks-pass pass:android --key-pass pass:android --out "$RUNNER_TEMP/robotics-smoke.apk" android/build/outputs/*-unsigned.apk
+      - name: Enable Android emulator acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Launch APK offline in Android WebView
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          target: google_apis
+          profile: pixel_2
+          disable-animations: true
+          script: python3 android/check-startup.py "$RUNNER_TEMP/robotics-smoke.apk"
+      - name: Upload Android startup evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-startup-evidence
+          path: test-results/android/
+          if-no-files-found: ignore
       - name: Remove temporary key
         if: always() && env.HAS_SIGNING_KEY == 'true'
         run: |

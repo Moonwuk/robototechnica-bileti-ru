@@ -1,14 +1,14 @@
-import { mergeTeoBank } from './teo-core.js?v=1.9.0';
-import { createTeoUI } from './teo-ui.js?v=1.9.0';
-import { createServiceUI } from './service-ui.js?v=1.9.0';
-import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.9.0';
-import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.9.0';
-import { createPracticeUI } from './practice-ui.js?v=1.9.0';
+import { mergeTeoBank } from './teo-core.js?v=1.9.1';
+import { createTeoUI } from './teo-ui.js?v=1.9.1';
+import { createServiceUI } from './service-ui.js?v=1.9.1';
+import { STORAGE_KEY, freshProgress, readProgress, shuffle, createSession, submitAnswer, finishSession, sessionScore, validateActive, summarize, buildIssueDraft } from './core.js?v=1.9.1';
+import { createCircuitUI, circuitReport } from './circuits-ui.js?v=1.9.1';
+import { createPracticeUI } from './practice-ui.js?v=1.9.1';
 
-import { createWorkshopUI } from './workshop-ui.js?v=1.9.0';
-import { createReasoningUI } from './reasoning-ui.js?v=1.9.0';
+import { createWorkshopUI } from './workshop-ui.js?v=1.9.1';
+import { createReasoningUI } from './reasoning-ui.js?v=1.9.1';
 
-const ASSET_VERSION = '1.9.0';
+const ASSET_VERSION = '1.9.1';
 let circuitUI, practiceUI, practiceData, workshopUI, reasoningUI, serviceUI, teoUI, teoData;
 
 const isAndroid = window.ROBOTICS_ANDROID === true;
@@ -460,9 +460,11 @@ async function load() {
       }
     });
     render();
+    window.roboticsStartup?.ready();
     registerWebTools();
   } catch (error) {
     console.error('Не удалось загрузить банк вопросов', error);
+    window.roboticsStartup?.ready();
     main.innerHTML = heading('Не удалось загрузить вопросы', isAndroid ? 'Перезапустите приложение. Прогресс останется на устройстве. Если ошибка повторяется, сообщите разработчику.' : 'Проверьте соединение и обновите страницу. Прогресс останется в браузере.') + '<button class="button primary" id="reload">Попробовать ещё раз</button>';
     document.getElementById('reload').addEventListener('click', () => location.reload());
   }

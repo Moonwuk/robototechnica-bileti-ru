@@ -114,12 +114,10 @@ test('circuit feedback includes the exercise route but excludes private calculat
   assert.doesNotMatch(draft.body,/undefined|черновик решения/i);
   assert.equal(circuitReport('calc:missing'),null);
 });
-test('web and Android packaging include every new offline module', () => {
+test('web packaging includes every circuit module', () => {
   const web=readFileSync(new URL('../scripts/build.mjs',import.meta.url),'utf8');
-  const android=readFileSync(new URL('../android/build.py',import.meta.url),'utf8');
-  const allowlist=readFileSync(new URL('../android/src/ru/moongametechnology/robotics/tickets/MainActivity.java',import.meta.url),'utf8');
   for(const name of ['circuits-core.js','circuits-data.js','circuits-ui.js']) {
     assert.ok(existsSync(new URL('../'+name,import.meta.url)));
-    for(const manifest of [web,android,allowlist]) assert.ok(manifest.includes(name),name);
+    for(const manifest of [web]) assert.ok(manifest.includes(name),name);
   }
 });

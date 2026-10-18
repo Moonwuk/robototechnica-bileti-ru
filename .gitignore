@@ -7,3 +7,4 @@ android/.signing/
 *.keystore
 local.properties
 test-results/
+__pycache__/

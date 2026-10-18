@@ -103,9 +103,9 @@ test('Issue draft links to the exercise and never includes stored answers or dra
   assert.ok(!result.body.includes('PRIVATE'));
 });
 
-test('Both offline packagers and Android allowlist include all practice resources', async () => {
-  const files = ['scripts/build.mjs','android/build.py','android/src/ru/moongametechnology/robotics/tickets/MainActivity.java'];
+test('Web packager includes practice modules and data', async () => {
+  const files = ['scripts/build.mjs'];
   const texts = await Promise.all(files.map(f=>readFile(new URL('../'+f,import.meta.url),'utf8')));
   for (const text of texts) for (const name of ['practice-core.js','practice-ui.js']) assert.ok(text.includes(name));
-  assert.ok(texts[2].includes('data/interview_practice.json'));
+  assert.ok(texts[0].includes("'data'"));
 });

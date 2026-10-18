@@ -8,6 +8,7 @@ import os
 import shutil
 import subprocess
 import zipfile
+from site_assets import stage_site
 
 ROOT = Path(__file__).resolve().parent.parent
 ANDROID = ROOT / "android"
@@ -38,16 +39,7 @@ def main():
     for directory in [work, output, work / "assets/site", work / "classes", work / "dex", work / "gen"]:
         directory.mkdir(parents=True, exist_ok=True)
     assets = work / "assets/site"
-    for name in ["index.html", "teo-core.js", "teo-ui.js", "teo.css", "workshop-core.js", "workshop-data.js", "workshop-scene.js", "workshop-ui.js", "industry-core.js", "industry-data.js", "service-core.js", "service-data.js", "service-ui.js", "reasoning-core.js", "reasoning-data.js", "reasoning-scene.js", "reasoning-ui.js", "privacy.html", "style.css", "app.js", "core.js", "circuits-core.js", "circuits-data.js", "circuits-ui.js", "practice-core.js", "practice-ui.js", "data"]:
-        source = ROOT / name
-        if source.is_dir():
-            shutil.copytree(source, assets / name)
-        else:
-            shutil.copy2(source, assets / name)
-    shutil.copy2(ANDROID / "android-adapter.js", assets / "android-adapter.js")
-    index = (assets / "index.html").read_text()
-    index = index.replace('<script type="module"', '<script src="./android-adapter.js"></script>\n  <script type="module"', 1)
-    (assets / "index.html").write_text(index)
+    stage_site(assets)
     run(tools / "aapt2", "compile", "--dir", ANDROID / "res", "-o", work / "resources.zip")
     unsigned = output / ("robotics-tickets-" + VERSION["versionName"] + "-unsigned.apk")
     run(tools / "aapt2", "link", "-I", platform, "--manifest", ANDROID / "AndroidManifest.xml",
