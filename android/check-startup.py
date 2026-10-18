@@ -57,7 +57,7 @@ try:
     tap('Начать с основ')
     wait_for('Слова, которые пригодятся')
     tap('Начать 5 вопросов')
-    wait_for('Ответить')
+    wait_for('Вопрос 1 из 5')
     adb('shell', 'am', 'force-stop', PACKAGE)
     adb('shell', 'am', 'start', '-W', '-n', PACKAGE + '/.MainActivity')
     wait_for('Продолжить:')
